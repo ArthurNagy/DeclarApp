@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="first_keyline">16dp</dimen>
+    <dimen name="second_keyline">24dp</dimen>
+    <dimen name="third_keyline">72dp</dimen>
+
+    <dimen name="small_margin">4dp</dimen>
+    <dimen name="content_margin">8dp</dimen>
+
+    <dimen name="small_shape_radius">4dp</dimen>
+    <dimen name="medium_shape_radius">8dp</dimen>
+    <dimen name="large_shape_radius">24dp</dimen>
+</resources>

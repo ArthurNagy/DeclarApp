@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.arthurnagy.staysafe.feature.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_documentDetailFragment"
+            app:destination="@id/documentDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_typeChooserBottomSheet"
+            app:destination="@id/typeChooserBottomSheet" />
+        <action
+            android:id="@+id/action_homeFragment_to_optionsBottomSheet"
+            app:destination="@id/optionsBottomSheet" />
+    </fragment>
+    <fragment
+        android:id="@+id/newDocumentFragment"
+        android:name="com.arthurnagy.staysafe.feature.newdocument.NewDocumentFragment"
+        android:label="NewDocumentFragment"
+        tools:layout="@layout/fragment_new_document">
+        <action
+            android:id="@+id/action_newDocumentFragment_to_documentDetailFragment"
+            app:destination="@id/documentDetailFragment" />
+        <argument
+            android:name="documentType"
+            app:argType="com.arthurnagy.staysafe.feature.Type" />
+    </fragment>
+    <fragment
+        android:id="@+id/documentDetailFragment"
+        android:name="com.arthurnagy.staysafe.feature.documentdetail.DocumentDetailFragment"
+        android:label="DocumentDetailFragment"
+        tools:layout="@layout/fragment_document_detail" />
+    <dialog
+        android:id="@+id/typeChooserBottomSheet"
+        tools:layout="@layout/bottom_sheet_type"
+        android:name="com.arthurnagy.staysafe.feature.newdocument.TypeChooserBottomSheet"
+        android:label="TypeChooserBottomSheet">
+        <action
+            android:id="@+id/action_typeChooserBottomSheet_to_newDocumentFragment"
+            app:destination="@id/newDocumentFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/optionsBottomSheet"
+        android:name="com.arthurnagy.staysafe.feature.home.options.OptionsBottomSheet"
+        tools:layout="@layout/bottom_sheet_options"
+        android:label="OptionsBottomSheet" />
+</navigation>

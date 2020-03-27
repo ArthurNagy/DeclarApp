@@ -1,0 +1,1 @@
+package com.arthurnagy.staysafe.feature.util

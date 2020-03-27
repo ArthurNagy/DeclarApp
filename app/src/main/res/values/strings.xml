@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">staySafe</string>
+
+    <string name="light">Luminată</string>
+    <string name="dark">Întunecată</string>
+    <string name="system_default">Automată</string>
+
+    <string name="add">Adaugă</string>
+    <string name="forms">Formulare</string>
+    <string name="choose_type_title">Alege tipul formularului</string>
+    <string name="statement">Declarație pe propria răspundere</string>
+    <string name="certificate">Adeverință angajator</string>
+    <string name="new_form">Formular nou</string>
+    <string name="menu">Menu</string>
+    <string name="more">More</string>
+    <string name="buy_me_a_paper_roll">Cumpără-mi o hârtie igienică!</string>
+    <string name="change_theme">Schimbă tema</string>
+    <string name="view_source_code">Vizualizează codul sursă</string>
+    <string name="choose_theme">Alege tema</string>
+</resources>

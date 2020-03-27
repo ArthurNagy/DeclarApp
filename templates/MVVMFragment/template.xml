@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<template format="5" revision="1" name="Halcyon MVVM Fragment" minBuildApi="21" requireAndroidX="true"
+    description="Creates a Fragment that uses DataBinding for UI and has a ViewModel.">
+
+    <parameter id="className" name="Feature/functionality/screen name" type="string" constraints="class|nonempty|unique" default="MvvmFragment"
+        help="The name of the feature/functionality/screen that the created fragment class will represent. (NOTE: don't add *Fragment in the name)" />
+
+    <parameter id="layoutName" name="Fragment Layout Name" type="string" constraints="layout|nonempty|unique" default="mvvm_fragment"
+        suggest="fragment_${classToResource(className)}" help="The name of the layout to create" />
+
+    <parameter id="viewModelName" name="ViewModel Name" type="string" constraints="class|nonempty|unique" default="MvvmViewModel"
+        suggest="${underscoreToCamelCase(classToResource(className))}ViewModel" help="The name of the ViewModel class to create" />
+
+    <parameter id="bindingName" name="Binding Class Name" type="string" constraints="class|nonempty|unique" default="MvvmBinding"
+        suggest="${underscoreToCamelCase(classToResource(className))}Binding" help="The name of the generated ViewBinding class" />
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
