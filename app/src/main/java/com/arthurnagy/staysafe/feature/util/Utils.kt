@@ -1,3 +1,49 @@
 package com.arthurnagy.staysafe.feature.util
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ResolveInfo
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
+import androidx.core.graphics.drawable.toBitmap
+import com.arthurnagy.staysafe.R
+
 inline fun consume(block: () -> Unit) = true.also { block() }
+
+fun openUrl(context: Context, url: String) {
+    if (getCustomTabsPackages(context).isNotEmpty()) {
+        val customTabsIntent = CustomTabsIntent.Builder()
+            .setToolbarColor(context.color(R.color.color_primary))
+            .setShowTitle(true)
+            .apply {
+                context.drawable(R.drawable.ic_back_24dp)?.let {
+                    setCloseButtonIcon(it.toBitmap())
+                }
+            }
+            .setStartAnimations(context, R.anim.slide_in_right, R.anim.slide_out_left)
+            .setExitAnimations(context, R.anim.slide_in_left, R.anim.slide_out_right)
+            .build()
+        customTabsIntent.launchUrl(context, Uri.parse(url))
+    }
+}
+
+private fun getCustomTabsPackages(context: Context): List<ResolveInfo> {
+    val pm = context.packageManager
+    // Get default VIEW intent handler.
+    val activityIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"))
+    // Get all apps that can handle VIEW intents.
+    val resolvedActivityList: List<ResolveInfo> = pm.queryIntentActivities(activityIntent, 0)
+    val packagesSupportingCustomTabs = mutableListOf<ResolveInfo>()
+    resolvedActivityList.forEach { info ->
+        val serviceIntent = Intent().apply {
+            action = ACTION_CUSTOM_TABS_CONNECTION
+            setPackage(info.activityInfo.packageName)
+        }
+        // Check if this package also resolves the Custom Tabs service.
+        if (pm.resolveService(serviceIntent, 0) != null) {
+            packagesSupportingCustomTabs.add(info)
+        }
+    }
+    return packagesSupportingCustomTabs
+}

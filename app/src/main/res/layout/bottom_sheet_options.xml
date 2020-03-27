@@ -10,6 +10,7 @@
         android:orientation="vertical"
         android:paddingTop="@dimen/first_keyline"
         android:paddingBottom="@dimen/first_keyline"
+        android:clipToPadding="false"
         app:paddingBottomSystemWindowInsets="@{true}">
 
         <TextView

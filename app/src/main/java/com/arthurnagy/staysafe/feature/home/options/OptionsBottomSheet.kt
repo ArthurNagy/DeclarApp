@@ -9,6 +9,7 @@ import com.arthurnagy.staysafe.OptionsBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.feature.util.ThemeHelper
+import com.arthurnagy.staysafe.feature.util.openUrl
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.chrisbanes.insetter.InsetterBindingAdapters
@@ -29,6 +30,7 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
             it.donate.setOnClickListener {
             }
             it.sourceCode.setOnClickListener {
+                openUrl(requireContext(), REPO_URL)
             }
             it.theme.setOnClickListener {
                 showThemeDialog()
@@ -49,5 +51,9 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
                 }
             }
             .show()
+    }
+
+    companion object {
+        private const val REPO_URL = "https://github.com/ArthurNagy/StaySafe"
     }
 }
