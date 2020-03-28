@@ -36,12 +36,12 @@ class NewDocumentPagerAdapter(fragmentManager: FragmentManager, private val docu
     companion object {
         private const val STATEMENT_PAGE_COUNT = 3
         private const val CERTIFICATE_PAGE_COUNT = 4
-        private const val STATEMENT_PERSONAL_DATA_INDEX = 0
+        const val STATEMENT_PERSONAL_DATA_INDEX = 0
         private const val STATEMENT_ROUTE_DATA_INDEX = 1
-        private const val STATEMENT_SIGNATURE_INDEX = 2
-        private const val CERTIFICATE_EMPLOYER_DATA_INDEX = 0
+        const val STATEMENT_SIGNATURE_INDEX = 2
+        const val CERTIFICATE_EMPLOYER_DATA_INDEX = 0
         private const val CERTIFICATE_EMPLOYEE_DATA_INDEX = 1
         private const val CERTIFICATE_ROUTE_DATA_INDEX = 2
-        private const val CERTIFICATE_SIGNATURE_INDEX = 3
+        const val CERTIFICATE_SIGNATURE_INDEX = 3
     }
 }
