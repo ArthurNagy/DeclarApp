@@ -13,6 +13,7 @@ import com.arthurnagy.staysafe.core.db.CertificateDao
 import com.arthurnagy.staysafe.core.db.StatementDao
 import com.arthurnagy.staysafe.core.model.Certificate
 import com.arthurnagy.staysafe.core.model.Document
+import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.DocumentIdentifier
 import com.arthurnagy.staysafe.feature.DocumentType
@@ -69,7 +70,7 @@ class NewDocumentViewModel(
 
     val isActionEnabled: LiveData<Boolean> =
         currentPageIndex.asFlow().combine(pendingDocument.asFlow()) { currentPageIndex: Int, pendingDocument: PendingDocument ->
-            true
+            isActionEnabled(currentPageIndex, pendingDocument)
         }.asLiveData()
     val actionText: LiveData<Int> = currentPageIndex.map {
         val targetEndIndex = when (type) {
@@ -85,6 +86,14 @@ class NewDocumentViewModel(
 
     private val _events = MutableLiveData<Event<Action>>()
     val events: LiveData<Event<Action>> get() = _events
+
+    fun updateStatement(func: PendingStatement.() -> PendingStatement?) {
+        _pendingDocument.value = (_pendingDocument.value as? PendingStatement)?.func()
+    }
+
+    fun updateCertificate(func: PendingCertificate.() -> PendingCertificate?) {
+        _pendingDocument.value = (_pendingDocument.value as? PendingCertificate)?.func()
+    }
 
     fun onActionSelected() {
         val targetEndIndex = when (type) {
@@ -119,6 +128,28 @@ class NewDocumentViewModel(
         }
     }
 
+    private fun isActionEnabled(currentPageIndex: Int, pendingDocument: PendingDocument): Boolean = when (type) {
+        DocumentType.STATEMENT -> (pendingDocument as? PendingStatement)?.let { pendingStatement ->
+            when (currentPageIndex) {
+                NewDocumentPagerAdapter.STATEMENT_PERSONAL_DATA_INDEX ->
+                    !pendingStatement.firstName.isNullOrEmpty() && !pendingStatement.lastName.isNullOrEmpty() &&
+                        !pendingStatement.address.isNullOrBlank() && pendingStatement.birthDate != null
+                NewDocumentPagerAdapter.STATEMENT_ROUTE_DATA_INDEX -> TODO()
+                NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX -> TODO()
+                else -> false
+            }
+        } ?: false
+        DocumentType.CERTIFICATE -> (pendingDocument as? PendingCertificate)?.let { pendingCertificate ->
+            when (currentPageIndex) {
+                NewDocumentPagerAdapter.CERTIFICATE_EMPLOYER_DATA_INDEX -> TODO()
+                NewDocumentPagerAdapter.CERTIFICATE_EMPLOYEE_DATA_INDEX -> TODO()
+                NewDocumentPagerAdapter.CERTIFICATE_ROUTE_DATA_INDEX -> TODO()
+                NewDocumentPagerAdapter.CERTIFICATE_SIGNATURE_INDEX -> TODO()
+                else -> false
+            }
+        } ?: false
+    }
+
     private suspend fun createNewCertificate(pendingCertificate: PendingCertificate): Long {
         val newCertificate = Certificate(
             employerFirstName = pendingCertificate.employerFirstName.orIllegalState(),
@@ -147,6 +178,7 @@ class NewDocumentViewModel(
             birthDate = pendingStatement.birthDate.orIllegalState(),
             address = pendingStatement.address.orIllegalState(),
             route = pendingStatement.route.orIllegalState(),
+            motive = pendingStatement.motive.orIllegalState(),
             date = pendingStatement.date.orIllegalState(),
             signatureUri = pendingStatement.signatureUri.orIllegalState()
         )
@@ -191,6 +223,7 @@ class NewDocumentViewModel(
         val birthDate: Long? = null,
         val address: String? = null,
         val route: String? = null,
+        val motive: Motive? = null,
         val date: Long? = null,
         val signatureUri: String? = null
     ) : PendingDocument

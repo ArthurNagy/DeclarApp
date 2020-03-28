@@ -15,6 +15,7 @@ import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
 import com.arthurnagy.staysafe.feature.util.ThemeHelper
+import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -27,6 +28,7 @@ class StaySafeApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        AndroidThreeTen.init(this)
         startKoin {
             androidContext(this@StaySafeApplication)
             modules(appModule)

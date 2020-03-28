@@ -18,14 +18,16 @@
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:paddingTopSystemWindowInsets="@{true}"
-            app:liftOnScroll="true">
+            app:liftOnScroll="true"
+            app:paddingTopSystemWindowInsets="@{true}">
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/transparent"
-                android:layout_height="wrap_content" />
+                app:menu="@menu/document_detail"
+                app:navigationIcon="@drawable/ic_back_24dp" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <WebView

@@ -11,8 +11,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.arthurnagy.staysafe.R
+import org.threeten.bp.Instant
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.format.DateTimeFormatter
+
+private const val M = "M"
+private const val MONTH_FULL = "$M$M$M$M"
+private const val DAY = "d"
+private const val YEAR = "yyyy"
 
 inline fun consume(block: () -> Unit) = true.also { block() }
+
+fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
+    .format(DateTimeFormatter.ofPattern("$MONTH_FULL $DAY$DAY, $YEAR"))
 
 fun <T1, T2> mediatorLiveData(
     defaultValue: T1? = null,

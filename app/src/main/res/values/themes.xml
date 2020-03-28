@@ -17,6 +17,8 @@
 
         <item name="materialButtonStyle">@style/Widget.StaySafe.Button</item>
         <item name="extendedFloatingActionButtonStyle">@style/Widget.StaySafe.ExtendedFloatingActionButton</item>
+        <item name="textInputStyle">@style/Widget.StaySafe.TextInput</item>
+        <item name="materialCalendarTheme">@style/ThemeOverlay.StaySafe.Calendar</item>
 
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.StaySafe.Small</item>
         <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.StaySafe.Medium</item>
@@ -34,6 +36,14 @@
     </style>
 
     <style name="Theme.StaySafe.Dialog" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorPrimary">@color/color_secondary</item>
+    </style>
+
+    <style name="ThemeOverlay.StaySafe.TextInputEditText" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="colorPrimary">@color/color_secondary</item>
+    </style>
+
+    <style name="ThemeOverlay.StaySafe.Calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/color_secondary</item>
     </style>
 

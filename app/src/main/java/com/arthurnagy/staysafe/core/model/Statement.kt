@@ -12,6 +12,7 @@ data class Statement(
     @ColumnInfo(name = "birth_date") val birthDate: Long,
     @ColumnInfo(name = "address") val address: String,
     @ColumnInfo(name = "route") val route: String,
+    @ColumnInfo(name = "motive") val motive: Motive,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "signature") val signatureUri: String
 ) : Document
