@@ -6,4 +6,4 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 @Keep
-data class Document(val id: Int, val type: Type) : Parcelable
+data class DocumentIdentifier(val id: Long, val type: DocumentType) : Parcelable

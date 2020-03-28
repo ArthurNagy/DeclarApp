@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Certificate(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "employer_first_name") val employerFirstName: String,
     @ColumnInfo(name = "employer_last_name") val employerLastName: String,
     @ColumnInfo(name = "employer_job_title") val employerJobTitle: String,
@@ -22,4 +22,4 @@ data class Certificate(
     @ColumnInfo(name = "from_date") val fromDate: Long,
     @ColumnInfo(name = "to_date") val toDate: Long,
     @ColumnInfo(name = "signature") val signatureUri: String
-)
+) : Document

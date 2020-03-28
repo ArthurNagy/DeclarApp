@@ -30,7 +30,7 @@
             app:destination="@id/documentDetailFragment" />
         <argument
             android:name="documentType"
-            app:argType="com.arthurnagy.staysafe.feature.Type" />
+            app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
     </fragment>
     <fragment
         android:id="@+id/documentDetailFragment"

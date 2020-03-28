@@ -7,9 +7,28 @@ import android.net.Uri
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.arthurnagy.staysafe.R
 
 inline fun consume(block: () -> Unit) = true.also { block() }
+
+fun <T1, T2> mediatorLiveData(
+    defaultValue: T1? = null,
+    dependency: LiveData<T2>,
+    onChanged: (currentValue: T1?, value: T2) -> T1?
+): MutableLiveData<T1> =
+    MediatorLiveData<T1>().also { mediatorLiveData ->
+        defaultValue?.let { mediatorLiveData.value = it }
+        mediatorLiveData.addSource(dependency) {
+            onChanged(mediatorLiveData.value, it)?.let { newValue ->
+                if (mediatorLiveData.value != newValue) {
+                    mediatorLiveData.value = newValue
+                }
+            }
+        }
+    }
 
 fun openUrl(context: Context, url: String) {
     if (getCustomTabsPackages(context).isNotEmpty()) {

@@ -16,8 +16,11 @@ interface CertificateDao {
     @Query("SELECT * FROM certificate WHERE id LIKE :id")
     suspend fun getById(id: Int): Certificate
 
+    @Query("SELECT * FROM certificate ORDER BY from_date DESC LIMIT 1")
+    suspend fun getLast(): Certificate
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(certificate: Certificate)
+    suspend fun insert(certificate: Certificate): Long
 
     @Delete
     suspend fun delete(certificate: Certificate)

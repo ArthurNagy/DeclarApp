@@ -8,6 +8,9 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -16,3 +19,7 @@ fun Context.drawable(@DrawableRes drawableRes: Int): Drawable? = ContextCompat.g
 
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
+
+inline fun <reified VM : ViewModel> Fragment.parentViewModel(): Lazy<VM> = lazy {
+    requireParentFragment().getViewModel<VM>()
+}

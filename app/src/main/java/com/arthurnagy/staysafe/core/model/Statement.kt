@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Statement(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo(name = "first_name") val firstName: String,
     @ColumnInfo(name = "last_name") val lastName: String,
     @ColumnInfo(name = "birth_date") val birthDate: Long,
@@ -14,4 +14,4 @@ data class Statement(
     @ColumnInfo(name = "route") val route: String,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "signature") val signatureUri: String
-)
+) : Document
