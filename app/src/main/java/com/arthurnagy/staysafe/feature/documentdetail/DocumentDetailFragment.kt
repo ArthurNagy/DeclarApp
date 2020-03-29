@@ -1,6 +1,9 @@
 package com.arthurnagy.staysafe.feature.documentdetail
 
+import android.content.Context
 import android.os.Bundle
+import android.print.PrintAttributes
+import android.print.PrintManager
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -16,6 +19,8 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Certificate
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
+import com.arthurnagy.staysafe.feature.DocumentType
+import com.arthurnagy.staysafe.feature.util.consume
 import com.arthurnagy.staysafe.feature.util.formatToFormalDate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -41,6 +46,13 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
         with(binding) {
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
+            }
+            toolbar.setOnMenuItemClickListener {
+                consume {
+                    if (it.itemId == R.id.print) {
+                        createWebPrintJob(webview)
+                    }
+                }
             }
             webview.webViewClient = object : WebViewClientCompat() {
                 override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
@@ -74,6 +86,19 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
                 else -> throw IllegalStateException("Can't load any other document of type: $document")
             }
             binding.webview.loadUrl(baseUrl)
+        }
+    }
+
+    private fun createWebPrintJob(webView: WebView) {
+        (activity?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
+            val jobName = "${getString(R.string.app_name)} ${getString(
+                when (args.documentIdentifier.type) {
+                    DocumentType.STATEMENT -> R.string.statement
+                    DocumentType.CERTIFICATE -> R.string.certificate
+                }
+            )}"
+            val printAdapter = webView.createPrintDocumentAdapter(jobName)
+            printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
         }
     }
 
