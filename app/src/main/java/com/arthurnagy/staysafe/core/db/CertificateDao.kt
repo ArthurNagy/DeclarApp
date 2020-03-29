@@ -14,7 +14,7 @@ interface CertificateDao {
     fun get(): Flow<List<Certificate>>
 
     @Query("SELECT * FROM certificate WHERE id LIKE :id")
-    suspend fun getById(id: Int): Certificate
+    suspend fun getById(id: Long): Certificate
 
     @Query("SELECT * FROM certificate ORDER BY from_date DESC LIMIT 1")
     suspend fun getLast(): Certificate

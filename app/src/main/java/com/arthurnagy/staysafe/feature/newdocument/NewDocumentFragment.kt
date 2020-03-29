@@ -27,6 +27,10 @@ class NewDocumentFragment : Fragment(R.layout.fragment_new_document) {
         }
         val newDocumentPagerAdapter = NewDocumentPagerAdapter(childFragmentManager, args.documentType)
         with(binding) {
+            toolbar.setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
+
             pager.adapter = newDocumentPagerAdapter
 
             addPageChangeListenerTo(pager, onPageSelected = { pageIndex ->

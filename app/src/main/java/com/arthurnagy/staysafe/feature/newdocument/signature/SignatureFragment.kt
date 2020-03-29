@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.arthurnagy.staysafe.R
@@ -51,7 +50,7 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
                                 }
                                 File(requireContext().filesDir, signatureViewModel.fileName)
                             }
-                            signatureViewModel.onSignatureCreated(signaturePng.toUri())
+                            signatureViewModel.onSignatureCreated(signaturePng.path)
                         }
                     }
                 }

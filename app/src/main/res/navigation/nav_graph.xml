@@ -12,13 +12,24 @@
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_documentDetailFragment"
-            app:destination="@id/documentDetailFragment" />
+            app:destination="@id/documentDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_typeChooserBottomSheet"
             app:destination="@id/typeChooserBottomSheet" />
         <action
             android:id="@+id/action_homeFragment_to_optionsBottomSheet"
             app:destination="@id/optionsBottomSheet" />
+        <action
+            android:id="@+id/action_homeFragment_to_newDocumentFragment"
+            app:destination="@id/newDocumentFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/newDocumentFragment"
@@ -27,7 +38,13 @@
         tools:layout="@layout/fragment_new_document">
         <action
             android:id="@+id/action_newDocumentFragment_to_documentDetailFragment"
-            app:destination="@id/documentDetailFragment" />
+            app:destination="@id/documentDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/newDocumentFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="documentType"
             app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
@@ -43,9 +60,9 @@
     </fragment>
     <dialog
         android:id="@+id/typeChooserBottomSheet"
-        tools:layout="@layout/bottom_sheet_type"
         android:name="com.arthurnagy.staysafe.feature.newdocument.TypeChooserBottomSheet"
-        android:label="TypeChooserBottomSheet">
+        android:label="TypeChooserBottomSheet"
+        tools:layout="@layout/bottom_sheet_type">
         <action
             android:id="@+id/action_typeChooserBottomSheet_to_newDocumentFragment"
             app:destination="@id/newDocumentFragment" />
@@ -53,6 +70,6 @@
     <dialog
         android:id="@+id/optionsBottomSheet"
         android:name="com.arthurnagy.staysafe.feature.home.options.OptionsBottomSheet"
-        tools:layout="@layout/bottom_sheet_options"
-        android:label="OptionsBottomSheet" />
+        android:label="OptionsBottomSheet"
+        tools:layout="@layout/bottom_sheet_options" />
 </navigation>

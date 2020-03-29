@@ -14,7 +14,7 @@ interface StatementDao {
     fun get(): Flow<List<Statement>>
 
     @Query("SELECT * FROM statement WHERE id LIKE :id")
-    suspend fun getById(id: Int): Statement
+    suspend fun getById(id: Long): Statement
 
     @Query("SELECT * FROM statement ORDER BY date DESC LIMIT 1")
     suspend fun getLast(): Statement

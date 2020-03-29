@@ -14,5 +14,5 @@ data class Statement(
     @ColumnInfo(name = "route") val route: String,
     @ColumnInfo(name = "motive") val motive: Motive,
     @ColumnInfo(name = "date") val date: Long,
-    @ColumnInfo(name = "signature") val signatureUri: String
+    @ColumnInfo(name = "signature") val signaturePath: String
 ) : Document

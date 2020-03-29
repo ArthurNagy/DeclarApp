@@ -21,5 +21,5 @@ data class Certificate(
     @ColumnInfo(name = "transportation") val transportationMethod: String,
     @ColumnInfo(name = "from_date") val fromDate: Long,
     @ColumnInfo(name = "to_date") val toDate: Long,
-    @ColumnInfo(name = "signature") val signatureUri: String
+    @ColumnInfo(name = "signature") val signaturePath: String
 ) : Document

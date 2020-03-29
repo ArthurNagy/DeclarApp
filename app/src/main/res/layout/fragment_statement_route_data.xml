@@ -52,7 +52,7 @@
                 android:layout_marginTop="@dimen/second_keyline"
                 android:hint="@string/route"
                 app:counterEnabled="true"
-                app:counterMaxLength="80"
+                app:counterMaxLength="60"
                 app:helperText="@string/route_helper"
                 app:helperTextEnabled="true"
                 app:layout_constraintEnd_toEndOf="@id/guide_end"

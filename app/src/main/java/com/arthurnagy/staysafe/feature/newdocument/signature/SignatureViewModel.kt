@@ -1,6 +1,5 @@
 package com.arthurnagy.staysafe.feature.newdocument.signature
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
@@ -16,8 +15,8 @@ class SignatureViewModel(private val newDocumentViewModel: NewDocumentViewModel,
         newDocumentViewModel.clearSignature()
     }
 
-    fun onSignatureCreated(signatureUri: Uri) {
-        newDocumentViewModel.updateSignature(signatureUri.toString())
+    fun onSignatureCreated(signaturePath: String) {
+        newDocumentViewModel.updateSignature(signaturePath)
     }
 
     companion object {

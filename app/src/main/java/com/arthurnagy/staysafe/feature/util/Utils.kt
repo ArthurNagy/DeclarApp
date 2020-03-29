@@ -25,6 +25,9 @@ inline fun consume(block: () -> Unit) = true.also { block() }
 fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
     .format(DateTimeFormatter.ofPattern("$MONTH_FULL $DAY$DAY, $YEAR"))
 
+fun formatToFormalDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
+    .format(DateTimeFormatter.ofPattern("$DAY$DAY.$M$M.$YEAR"))
+
 fun <T1, T2> mediatorLiveData(
     defaultValue: T1? = null,
     dependency: LiveData<T2>,

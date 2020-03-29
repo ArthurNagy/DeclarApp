@@ -97,15 +97,15 @@ class NewDocumentViewModel(
 
     fun clearSignature() {
         _pendingDocument.value = when (type) {
-            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signatureUri = null)
-            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signatureUri = null)
+            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signaturePath = null)
+            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signaturePath = null)
         }
     }
 
-    fun updateSignature(signatureUri: String) {
+    fun updateSignature(signaturePath: String) {
         _pendingDocument.value = when (type) {
-            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signatureUri = signatureUri)
-            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signatureUri = signatureUri)
+            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signaturePath = signaturePath)
+            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signaturePath = signaturePath)
         }
     }
 
@@ -147,7 +147,7 @@ class NewDocumentViewModel(
             when (currentPageIndex) {
                 NewDocumentPagerAdapter.STATEMENT_PERSONAL_DATA_INDEX -> areStatementPersonalDataValid(pendingStatement)
                 NewDocumentPagerAdapter.STATEMENT_ROUTE_DATA_INDEX -> areStatementRouteDataValid(pendingStatement)
-                NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX -> pendingStatement.signatureUri != null
+                NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX -> pendingStatement.signaturePath != null
                 else -> false
             }
         } ?: false
@@ -185,7 +185,7 @@ class NewDocumentViewModel(
             transportationMethod = pendingCertificate.transportationMethod.orIllegalState(),
             fromDate = pendingCertificate.fromDate.orIllegalState(),
             toDate = pendingCertificate.toDate.orIllegalState(),
-            signatureUri = pendingCertificate.signatureUri.orIllegalState()
+            signaturePath = pendingCertificate.signaturePath.orIllegalState()
         )
         return certificateDao.insert(newCertificate)
     }
@@ -199,7 +199,7 @@ class NewDocumentViewModel(
             route = pendingStatement.route.orIllegalState(),
             motive = pendingStatement.motive.orIllegalState(),
             date = pendingStatement.date.orIllegalState(),
-            signatureUri = pendingStatement.signatureUri.orIllegalState()
+            signaturePath = pendingStatement.signaturePath.orIllegalState()
         )
         return statementDao.insert(newStatement)
     }
@@ -210,7 +210,7 @@ class NewDocumentViewModel(
             lastName = statement?.lastName ?: pendingStatement.lastName,
             birthDate = statement?.birthDate ?: pendingStatement.birthDate,
             address = statement?.address ?: pendingStatement.address,
-            signatureUri = statement?.signatureUri ?: pendingStatement.signatureUri
+            signaturePath = statement?.signaturePath ?: pendingStatement.signaturePath
         )
 
     private fun transformLastSavedCertificateToPendingCertificate(pendingCertificate: PendingCertificate?, certificate: Certificate?): PendingCertificate? =
@@ -225,7 +225,7 @@ class NewDocumentViewModel(
             employeeJobTitle = certificate?.employeeJobTitle ?: pendingCertificate.employeeJobTitle,
             employeeAddress = certificate?.employeeAddress ?: pendingCertificate.employeeAddress,
             birthDate = certificate?.birthDate ?: pendingCertificate.birthDate,
-            signatureUri = certificate?.signatureUri ?: pendingCertificate.signatureUri
+            signaturePath = certificate?.signaturePath ?: pendingCertificate.signaturePath
         )
 
     private inline fun <reified T> T?.orIllegalState(): T = this ?: throw IllegalStateException("Shouldn't be null at this point!")
@@ -244,7 +244,7 @@ class NewDocumentViewModel(
         val route: String? = null,
         val motive: Motive? = null,
         val date: Long? = null,
-        val signatureUri: String? = null
+        val signaturePath: String? = null
     ) : PendingDocument
 
     data class PendingCertificate(
@@ -262,6 +262,6 @@ class NewDocumentViewModel(
         val transportationMethod: String? = null,
         val fromDate: Long? = null,
         val toDate: Long? = null,
-        val signatureUri: String? = null
+        val signaturePath: String? = null
     ) : PendingDocument
 }
