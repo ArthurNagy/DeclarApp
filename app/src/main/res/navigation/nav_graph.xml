@@ -36,7 +36,11 @@
         android:id="@+id/documentDetailFragment"
         android:name="com.arthurnagy.staysafe.feature.documentdetail.DocumentDetailFragment"
         android:label="DocumentDetailFragment"
-        tools:layout="@layout/fragment_document_detail" />
+        tools:layout="@layout/fragment_document_detail">
+        <argument
+            android:name="documentIdentifier"
+            app:argType="com.arthurnagy.staysafe.feature.DocumentIdentifier" />
+    </fragment>
     <dialog
         android:id="@+id/typeChooserBottomSheet"
         tools:layout="@layout/bottom_sheet_type"

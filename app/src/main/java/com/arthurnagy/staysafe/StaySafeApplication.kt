@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.core.db.StaySafeDatabase
+import com.arthurnagy.staysafe.feature.DocumentIdentifier
 import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.documentdetail.DocumentDetailViewModel
 import com.arthurnagy.staysafe.feature.home.HomeViewModel
@@ -56,8 +57,8 @@ class StaySafeApplication : Application() {
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployeeDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateRouteDataViewModel(newDocumentViewModel) }
 
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, stringProvider = get()) }
 
-        viewModel { DocumentDetailViewModel() }
+        viewModel { (documentIdentifier: DocumentIdentifier) -> DocumentDetailViewModel(documentIdentifier, statementDao = get(), certificateDao = get()) }
     }
 }

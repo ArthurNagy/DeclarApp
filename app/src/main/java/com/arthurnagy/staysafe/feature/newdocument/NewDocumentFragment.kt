@@ -41,6 +41,15 @@ class NewDocumentFragment : Fragment(R.layout.fragment_new_document) {
                     binding.pager.setCurrentItem(it, true)
                 }
             }
+            events.observe(viewLifecycleOwner) {
+                when (val action = it.consume()) {
+                    is NewDocumentViewModel.Action.OpenDocument -> findNavController().navigate(
+                        NewDocumentFragmentDirections.actionNewDocumentFragmentToDocumentDetailFragment(
+                            action.documentIdentifier
+                        )
+                    )
+                }
+            }
         }
     }
 

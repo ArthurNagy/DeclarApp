@@ -95,6 +95,20 @@ class NewDocumentViewModel(
         _pendingDocument.value = (_pendingDocument.value as? PendingCertificate)?.func()
     }
 
+    fun clearSignature() {
+        _pendingDocument.value = when (type) {
+            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signatureUri = null)
+            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signatureUri = null)
+        }
+    }
+
+    fun updateSignature(signatureUri: String) {
+        _pendingDocument.value = when (type) {
+            DocumentType.STATEMENT -> (_pendingDocument.value as? PendingStatement)?.copy(signatureUri = signatureUri)
+            DocumentType.CERTIFICATE -> (_pendingDocument.value as? PendingCertificate)?.copy(signatureUri = signatureUri)
+        }
+    }
+
     fun onActionSelected() {
         val targetEndIndex = when (type) {
             DocumentType.STATEMENT -> NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX

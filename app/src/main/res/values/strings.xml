@@ -43,4 +43,7 @@
     <string name="motive_blood_donation">7. Donare de sânge</string>
     <string name="motive_commercialize_agricultural_produces">9. Comercializarea de produse agroalimentare</string>
     <string name="motive_professional_activity_necessities">10. Asigurarea necesarelor desfășurării activității profesionale</string>
+    <string name="date">Data deplasării</string>
+    <string name="signature_label">%1$d. Semnătura</string>
+    <string name="delete">Șterge</string>
 </resources>

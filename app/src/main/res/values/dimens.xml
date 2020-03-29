@@ -10,4 +10,6 @@
     <dimen name="small_shape_radius">4dp</dimen>
     <dimen name="medium_shape_radius">8dp</dimen>
     <dimen name="large_shape_radius">24dp</dimen>
+
+    <dimen name="icon_ripple_radius">20dp</dimen>
 </resources>
