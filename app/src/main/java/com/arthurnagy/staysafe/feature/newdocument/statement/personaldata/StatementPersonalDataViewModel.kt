@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.util.formatToDate
-import com.arthurnagy.staysafe.feature.util.mediatorLiveData
+import com.arthurnagy.staysafe.feature.shared.formatToDate
+import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
 
 class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocumentViewModel) : ViewModel() {
 

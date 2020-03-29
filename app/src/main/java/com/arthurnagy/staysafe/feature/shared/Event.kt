@@ -1,4 +1,4 @@
-package com.arthurnagy.staysafe.feature.util
+package com.arthurnagy.staysafe.feature.shared
 
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an Event.

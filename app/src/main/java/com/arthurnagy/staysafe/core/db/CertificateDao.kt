@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CertificateDao {
-    @Query("SELECT * FROM certificate")
+    @Query("SELECT * FROM certificate ORDER BY from_date DESC")
     fun get(): Flow<List<Certificate>>
 
     @Query("SELECT * FROM certificate WHERE id LIKE :id")

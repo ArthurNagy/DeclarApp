@@ -15,8 +15,8 @@ import com.arthurnagy.staysafe.feature.newdocument.certificate.routedata.Certifi
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
-import com.arthurnagy.staysafe.feature.util.StringProvider
-import com.arthurnagy.staysafe.feature.util.ThemeHelper
+import com.arthurnagy.staysafe.feature.shared.StringProvider
+import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -46,7 +46,7 @@ class StaySafeApplication : Application() {
         factory { get<StaySafeDatabase>().statementDao() }
         factory { get<StaySafeDatabase>().certificateDao() }
 
-        viewModel { HomeViewModel() }
+        viewModel { HomeViewModel(statementDao = get(), certificateDao = get()) }
 
         viewModel { (documentType: DocumentType) -> NewDocumentViewModel(documentType, certificateDao = get(), statementDao = get()) }
 

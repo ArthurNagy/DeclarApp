@@ -8,8 +8,8 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementRouteDataBinding
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.util.labelRes
-import com.arthurnagy.staysafe.feature.util.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.labelRes
+import com.arthurnagy.staysafe.feature.shared.parentViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -28,7 +28,7 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
         }
 
         val motives = Motive.values()
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_motive, motives.map { getString(it.labelRes) })
+        val adapter = ArrayAdapter(requireContext(), R.layout.item_motive, motives.mapIndexed { index, motive -> "${index + 1}.${getString(motive.labelRes)}" })
         with(binding) {
             motiveAutoComplete.setAdapter(adapter)
             motiveAutoComplete.setOnItemClickListener { _, _, position, _ ->

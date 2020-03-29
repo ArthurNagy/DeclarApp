@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementPersonalDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.util.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.parentViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker

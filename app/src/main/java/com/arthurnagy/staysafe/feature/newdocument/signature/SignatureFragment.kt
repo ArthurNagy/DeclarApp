@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.SignatureBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.util.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.parentViewModel
 import com.github.gcacace.signaturepad.views.SignaturePad
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

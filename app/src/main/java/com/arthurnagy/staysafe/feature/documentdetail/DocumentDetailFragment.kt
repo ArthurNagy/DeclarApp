@@ -20,8 +20,8 @@ import com.arthurnagy.staysafe.core.model.Certificate
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.DocumentType
-import com.arthurnagy.staysafe.feature.util.consume
-import com.arthurnagy.staysafe.feature.util.formatToFormalDate
+import com.arthurnagy.staysafe.feature.shared.consume
+import com.arthurnagy.staysafe.feature.shared.formatToFormalDate
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.threeten.bp.Instant
@@ -111,9 +111,8 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             addContent("birthDateMonth", "${localDate.month.value}.")
             addContent("birthDateYear", "${localDate.year}")
             if (statement.address.length > 40) {
-                val mid = statement.address.length / 2
-                addContent("locationAddressOne", statement.address.substring(0, mid))
-                addContent("locationAddressTwo", statement.address.substring(mid))
+                addContent("locationAddressOne", statement.address.substring(0, 40))
+                addContent("locationAddressTwo", statement.address.substring(40))
             } else {
                 addContent("locationAddressOne", statement.address)
             }

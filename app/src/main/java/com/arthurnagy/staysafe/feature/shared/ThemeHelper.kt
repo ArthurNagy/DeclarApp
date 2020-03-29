@@ -1,4 +1,4 @@
-package com.arthurnagy.staysafe.feature.util
+package com.arthurnagy.staysafe.feature.shared
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate

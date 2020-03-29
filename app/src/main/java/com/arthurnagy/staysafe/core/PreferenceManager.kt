@@ -1,7 +1,7 @@
 package com.arthurnagy.staysafe.core
 
 import android.content.Context
-import com.arthurnagy.staysafe.feature.util.ThemeHelper
+import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 

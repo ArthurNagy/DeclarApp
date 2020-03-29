@@ -17,8 +17,8 @@ import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.DocumentIdentifier
 import com.arthurnagy.staysafe.feature.DocumentType
-import com.arthurnagy.staysafe.feature.util.Event
-import com.arthurnagy.staysafe.feature.util.mediatorLiveData
+import com.arthurnagy.staysafe.feature.shared.Event
+import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch

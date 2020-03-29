@@ -14,7 +14,6 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:paddingBottomSystemWindowInsets="@{true}"
         tools:context=".feature.home.HomeFragment">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -40,10 +39,13 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="?attr/actionBarSize"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:paddingBottomSystemWindowInsets="@{true}"
+            tools:listitem="@layout/item_statement_document" />
 
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bar"

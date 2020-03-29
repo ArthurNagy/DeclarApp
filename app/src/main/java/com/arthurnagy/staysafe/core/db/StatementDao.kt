@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StatementDao {
-    @Query("SELECT * FROM statement")
+    @Query("SELECT * FROM statement ORDER BY date DESC")
     fun get(): Flow<List<Statement>>
 
     @Query("SELECT * FROM statement WHERE id LIKE :id")

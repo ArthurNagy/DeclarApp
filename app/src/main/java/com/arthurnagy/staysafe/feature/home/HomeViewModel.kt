@@ -1,7 +1,12 @@
 package com.arthurnagy.staysafe.feature.home
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.arthurnagy.staysafe.core.db.CertificateDao
+import com.arthurnagy.staysafe.core.db.StatementDao
+import kotlinx.coroutines.flow.map
 
-class HomeViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+class HomeViewModel(private val statementDao: StatementDao, private val certificateDao: CertificateDao) : ViewModel() {
+    val items: LiveData<List<StatementUiModel>> = statementDao.get().map { statements -> statements.map { StatementUiModel(it) } }.asLiveData()
 }

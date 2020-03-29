@@ -1,4 +1,4 @@
-package com.arthurnagy.staysafe.feature.util
+package com.arthurnagy.staysafe.feature.shared
 
 import android.widget.TextView
 import androidx.annotation.StringRes

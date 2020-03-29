@@ -11,7 +11,7 @@ import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.NewDocumentBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.feature.DocumentType
-import com.arthurnagy.staysafe.feature.util.addPageChangeListenerTo
+import com.arthurnagy.staysafe.feature.shared.addPageChangeListenerTo
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 

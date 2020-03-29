@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.util.StringProvider
+import com.arthurnagy.staysafe.feature.shared.StringProvider
 
 class SignatureViewModel(private val newDocumentViewModel: NewDocumentViewModel, stringProvider: StringProvider) : ViewModel() {
     val label: LiveData<String> = newDocumentViewModel.currentPageIndex.map { stringProvider.getString(R.string.signature_label, it + 1) }

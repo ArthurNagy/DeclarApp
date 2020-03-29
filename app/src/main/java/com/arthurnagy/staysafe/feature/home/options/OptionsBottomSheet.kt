@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import com.arthurnagy.staysafe.OptionsBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
-import com.arthurnagy.staysafe.feature.util.ThemeHelper
-import com.arthurnagy.staysafe.feature.util.openUrl
+import com.arthurnagy.staysafe.feature.shared.ThemeHelper
+import com.arthurnagy.staysafe.feature.shared.openUrl
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.chrisbanes.insetter.InsetterBindingAdapters
