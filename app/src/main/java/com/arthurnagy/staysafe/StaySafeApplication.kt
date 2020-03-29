@@ -14,6 +14,7 @@ import com.arthurnagy.staysafe.feature.newdocument.certificate.routedata.Certifi
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
+import com.arthurnagy.staysafe.feature.util.StringProvider
 import com.arthurnagy.staysafe.feature.util.ThemeHelper
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.android.inject
@@ -37,6 +38,8 @@ class StaySafeApplication : Application() {
     }
 
     private val appModule = module {
+        factory { StringProvider(androidContext()) }
+
         single { PreferenceManager(androidContext()) }
         single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").build() }
         factory { get<StaySafeDatabase>().statementDao() }
@@ -47,7 +50,7 @@ class StaySafeApplication : Application() {
         viewModel { (documentType: DocumentType) -> NewDocumentViewModel(documentType, certificateDao = get(), statementDao = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployerDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployeeDataViewModel(newDocumentViewModel) }

@@ -131,11 +131,9 @@ class NewDocumentViewModel(
     private fun isActionEnabled(currentPageIndex: Int, pendingDocument: PendingDocument): Boolean = when (type) {
         DocumentType.STATEMENT -> (pendingDocument as? PendingStatement)?.let { pendingStatement ->
             when (currentPageIndex) {
-                NewDocumentPagerAdapter.STATEMENT_PERSONAL_DATA_INDEX ->
-                    !pendingStatement.firstName.isNullOrEmpty() && !pendingStatement.lastName.isNullOrEmpty() &&
-                        !pendingStatement.address.isNullOrBlank() && pendingStatement.birthDate != null
-                NewDocumentPagerAdapter.STATEMENT_ROUTE_DATA_INDEX -> TODO()
-                NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX -> TODO()
+                NewDocumentPagerAdapter.STATEMENT_PERSONAL_DATA_INDEX -> areStatementPersonalDataValid(pendingStatement)
+                NewDocumentPagerAdapter.STATEMENT_ROUTE_DATA_INDEX -> areStatementRouteDataValid(pendingStatement)
+                NewDocumentPagerAdapter.STATEMENT_SIGNATURE_INDEX -> pendingStatement.signatureUri != null
                 else -> false
             }
         } ?: false
@@ -149,6 +147,13 @@ class NewDocumentViewModel(
             }
         } ?: false
     }
+
+    private fun areStatementPersonalDataValid(pendingStatement: PendingStatement) =
+        !pendingStatement.firstName.isNullOrEmpty() && !pendingStatement.lastName.isNullOrEmpty() &&
+            !pendingStatement.address.isNullOrBlank() && pendingStatement.birthDate != null
+
+    private fun areStatementRouteDataValid(pendingStatement: PendingStatement) = !pendingStatement.route.isNullOrEmpty() && pendingStatement.motive != null &&
+        pendingStatement.date != null
 
     private suspend fun createNewCertificate(pendingCertificate: PendingCertificate): Long {
         val newCertificate = Certificate(

@@ -14,6 +14,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.observe
 import androidx.viewpager.widget.ViewPager
+import com.arthurnagy.staysafe.R
+import com.arthurnagy.staysafe.core.model.Motive
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @ColorInt
@@ -27,6 +29,20 @@ fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensi
 inline fun <reified VM : ViewModel> Fragment.parentViewModel(): Lazy<VM> = lazy {
     requireParentFragment().getViewModel<VM>()
 }
+
+val Motive.labelRes: Int
+    get() = when (this) {
+        Motive.PROFESSIONAL_INTERESTS -> R.string.motive_professional_interests
+        Motive.NECESSITY_PROVISIONING -> R.string.motive_necessity_provisioning
+        Motive.MEDICAL_ASSISTANCE -> R.string.motive_medical_assistance
+        Motive.JUSTIFIED_HELP -> R.string.motive_justified_help
+        Motive.PHYSICAL_ACTIVITY -> R.string.motive_physical_activity
+        Motive.AGRICULTURAL_ACTIVITIES -> R.string.motive_agricultural_activities
+        Motive.BLOOD_DONATION -> R.string.motive_blood_donation
+        Motive.VOLUNTEERING -> R.string.motive_volunteering
+        Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> R.string.motive_commercialize_agricultural_produces
+        Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> R.string.motive_professional_activity_necessities
+    }
 
 fun Fragment.addPageChangeListenerTo(
     viewPager: ViewPager,

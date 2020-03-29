@@ -12,4 +12,8 @@
         <item name="materialThemeOverlay">@style/ThemeOverlay.StaySafe.TextInputEditText</item>
     </style>
 
+    <style name="Widget.StaySafe.TextInput.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.StaySafe.AutoCompleteTextView</item>
+    </style>
+
 </resources>
