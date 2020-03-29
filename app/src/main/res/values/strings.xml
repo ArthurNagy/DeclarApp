@@ -48,4 +48,8 @@
     <string name="signature_label">%1$d. Semnătura</string>
     <string name="delete">Șterge</string>
     <string name="no_documents_desc">Nu există formulare salvate!\nCreează unul nou.</string>
+    <string name="delete_title">Ștergere formular</string>
+    <string name="delete_desc">Sigur doriți să ștergeți acest formular?</string>
+    <string name="yes">Da</string>
+    <string name="cancel">Anulare</string>
 </resources>

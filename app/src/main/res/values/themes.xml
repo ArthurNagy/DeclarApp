@@ -13,7 +13,7 @@
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">@bool/use_light_navigation</item>
 
         <item name="bottomSheetDialogTheme">@style/Theme.StaySafe.BottomSheetDialog</item>
-        <item name="alertDialogTheme">@style/Theme.StaySafe.Dialog</item>
+        <item name="materialAlertDialogTheme">@style/Theme.StaySafe.Dialog</item>
 
         <item name="materialButtonStyle">@style/Widget.StaySafe.Button</item>
         <item name="extendedFloatingActionButtonStyle">@style/Widget.StaySafe.ExtendedFloatingActionButton</item>

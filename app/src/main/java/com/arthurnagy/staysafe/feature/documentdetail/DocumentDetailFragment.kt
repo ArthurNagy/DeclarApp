@@ -22,6 +22,7 @@ import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.formatToFormalDate
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.threeten.bp.Instant
@@ -49,8 +50,9 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             }
             toolbar.setOnMenuItemClickListener {
                 consume {
-                    if (it.itemId == R.id.print) {
-                        createWebPrintJob(webview)
+                    when (it.itemId) {
+                        R.id.print -> createWebPrintJob(webview)
+                        R.id.delete -> showDeleteDialog()
                     }
                 }
             }
@@ -79,13 +81,18 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
                 javaScriptEnabled = true
             }
         }
-        viewModel.document.observe(viewLifecycleOwner) { document ->
-            val baseUrl = when (document) {
-                is Statement -> HTML_STATEMENT
-                is Certificate -> HTML_CERTIFICATE
-                else -> throw IllegalStateException("Can't load any other document of type: $document")
+        with(viewModel) {
+            document.observe(viewLifecycleOwner) { document ->
+                val baseUrl = when (document) {
+                    is Statement -> HTML_STATEMENT
+                    is Certificate -> HTML_CERTIFICATE
+                    else -> throw IllegalStateException("Can't load any other document of type: $document")
+                }
+                binding.webview.loadUrl(baseUrl)
             }
-            binding.webview.loadUrl(baseUrl)
+            navigateBackEvent.observe(viewLifecycleOwner) {
+                if (it.consume() != null) findNavController().navigateUp()
+            }
         }
     }
 
@@ -100,6 +107,20 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
         }
+    }
+
+    private fun showDeleteDialog() {
+        MaterialAlertDialogBuilder(context)
+            .setTitle(R.string.delete_title)
+            .setMessage(R.string.delete_desc)
+            .setPositiveButton(R.string.yes) { dialog, _ ->
+                viewModel.deleteDocument()
+                dialog.dismiss()
+            }
+            .setNegativeButton(R.string.cancel) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     private fun addStatementData(webView: WebView, statement: Statement) {
