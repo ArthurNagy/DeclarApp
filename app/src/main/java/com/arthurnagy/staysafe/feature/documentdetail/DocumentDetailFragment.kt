@@ -110,9 +110,9 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             addContent("birthDateDay", "${localDate.dayOfMonth}.")
             addContent("birthDateMonth", "${localDate.month.value}.")
             addContent("birthDateYear", "${localDate.year}")
-            if (statement.address.length > 40) {
-                addContent("locationAddressOne", statement.address.substring(0, 40))
-                addContent("locationAddressTwo", statement.address.substring(40))
+            if (statement.address.length > SINGLE_LINE_ADDRESS_LIMIT) {
+                addContent("locationAddressOne", statement.address.substring(0, SINGLE_LINE_ADDRESS_LIMIT))
+                addContent("locationAddressTwo", statement.address.substring(SINGLE_LINE_ADDRESS_LIMIT))
             } else {
                 addContent("locationAddressOne", statement.address)
             }
@@ -151,6 +151,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
     }
 
     companion object {
+        private const val SINGLE_LINE_ADDRESS_LIMIT = 50
         private const val HTML_STATEMENT = "https://appassets.androidplatform.net/assets/declaratie_proprie_raspundere.html"
         private const val HTML_CERTIFICATE = "https://appassets.androidplatform.net/assets/adeverinta_angajator.html"
         private const val HTML_FILES = "https://appassets.androidplatform.net/files/"
