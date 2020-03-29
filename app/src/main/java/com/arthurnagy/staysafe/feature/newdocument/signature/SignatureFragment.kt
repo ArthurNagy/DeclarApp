@@ -9,7 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.SignatureBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
+import com.arthurnagy.staysafe.feature.shared.color
 import com.arthurnagy.staysafe.feature.shared.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.tint
 import com.github.gcacace.signaturepad.views.SignaturePad
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +45,7 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
                 override fun onSigned() {
                     lifecycleScope.launch {
                         viewModel?.let { signatureViewModel ->
-                            val signatureBitmap = signaturePad.transparentSignatureBitmap
+                            val signatureBitmap = signaturePad.transparentSignatureBitmap.tint(requireContext().color(R.color.black))
                             val signaturePng = withContext(Dispatchers.IO) {
                                 requireContext().openFileOutput(signatureViewModel.fileName, Context.MODE_PRIVATE).use {
                                     signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)

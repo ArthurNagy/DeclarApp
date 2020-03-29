@@ -1,6 +1,11 @@
 package com.arthurnagy.staysafe.feature.shared
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Paint
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -38,6 +43,15 @@ fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> 
         updateConstraints()
         applyTo(this@updateConstraintSet)
     }
+}
+
+fun Bitmap.tint(@ColorInt tintColor: Int): Bitmap {
+    val paint = Paint()
+    paint.colorFilter = PorterDuffColorFilter(tintColor, PorterDuff.Mode.SRC_IN)
+    val bitmapResult = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(bitmapResult)
+    canvas.drawBitmap(this, 0F, 0F, paint)
+    return bitmapResult
 }
 
 val Motive.labelRes: Int
