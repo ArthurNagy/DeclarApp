@@ -12,6 +12,7 @@ import com.arthurnagy.staysafe.NewDocumentBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.shared.addPageChangeListenerTo
+import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -47,7 +48,7 @@ class NewDocumentFragment : Fragment(R.layout.fragment_new_document) {
             }
             events.observe(viewLifecycleOwner) {
                 when (val action = it.consume()) {
-                    is NewDocumentViewModel.Action.OpenDocument -> findNavController().navigate(
+                    is NewDocumentViewModel.Action.OpenDocument -> findSafeNavController().navigate(
                         NewDocumentFragmentDirections.actionNewDocumentFragmentToDocumentDetailFragment(
                             action.documentIdentifier
                         )

@@ -58,9 +58,8 @@
                 android:layout_width="196dp"
                 android:layout_height="196dp"
                 android:background="@drawable/shape_oval"
-                android:backgroundTint="?colorSecondaryVariant"
+                android:backgroundTint="@color/color_secondary_variant_25"
                 android:padding="@dimen/second_keyline"
-                android:tint="?colorOnSecondary"
                 app:srcCompat="@drawable/ic_assignment_24dp" />
 
             <TextView

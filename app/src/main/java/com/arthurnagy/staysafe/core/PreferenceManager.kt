@@ -9,6 +9,7 @@ class PreferenceManager internal constructor(context: Context) {
 
     private val preferences = context.applicationContext.getSharedPreferences(context.packageName + "_preferences", Context.MODE_PRIVATE)
     var theme by PreferenceFieldDelegate.String("theme", ThemeHelper.DEFAULT_MODE)
+    var shouldShowOnboarding by PreferenceFieldDelegate.Boolean("shouldShowOnboarding", true)
 
     private sealed class PreferenceFieldDelegate<T>(protected val key: kotlin.String, protected val defaultValue: T) :
         ReadWriteProperty<PreferenceManager, T> {

@@ -1,5 +1,6 @@
 package com.arthurnagy.staysafe.feature.documentdetail
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.print.PrintAttributes
@@ -33,6 +34,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
     private val args by navArgs<DocumentDetailFragmentArgs>()
     private val viewModel: DocumentDetailViewModel by viewModel { parametersOf(args.documentIdentifier) }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = DocumentDetailBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner

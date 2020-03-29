@@ -5,19 +5,30 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arthurnagy.staysafe.HomeBinding
 import com.arthurnagy.staysafe.R
+import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.feature.DocumentIdentifier
 import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.shared.consume
+import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
-    private val viewModel: HomeViewModel by viewModel()
+    private val preferenceManager by inject<PreferenceManager>()
+    private val viewModel by viewModel<HomeViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (preferenceManager.shouldShowOnboarding) {
+            findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOnboardingFragment())
+            preferenceManager.shouldShowOnboarding = false
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = HomeBinding.bind(view).apply {
@@ -25,14 +36,21 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             viewModel = this@HomeFragment.viewModel
         }
         val documentsAdapter = DocumentsAdapter {
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(DocumentIdentifier(it.id, DocumentType.STATEMENT)))
+            findSafeNavController().navigate(
+                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(
+                    DocumentIdentifier(
+                        it.id,
+                        DocumentType.STATEMENT
+                    )
+                )
+            )
         }
         with(binding) {
             bar.setOnMenuItemClickListener {
-                consume { findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
+                consume { findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
             }
             add.setOnClickListener {
-                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocumentFragment(DocumentType.STATEMENT))
+                findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocumentFragment(DocumentType.STATEMENT))
             }
 
             with(recycler) {

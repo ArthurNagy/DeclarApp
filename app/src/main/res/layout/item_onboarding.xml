@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".OnboardingItemBinding">
+
+        <variable
+            name="uiModel"
+            type="com.arthurnagy.staysafe.feature.onboarding.OnboardingPagerAdapter.OnboardingUiModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/icon_background_variant"
+            android:layout_width="232dp"
+            android:layout_height="232dp"
+            android:background="@drawable/shape_oval"
+            android:backgroundTint="@color/color_secondary_variant_25"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.3" />
+
+        <View
+            android:id="@+id/icon_background"
+            android:layout_width="196dp"
+            android:layout_height="196dp"
+            android:background="@drawable/shape_oval"
+            android:backgroundTint="?attr/colorSecondaryVariant"
+            android:elevation="@dimen/small_elevation"
+            app:layout_constraintBottom_toBottomOf="@id/icon_background_variant"
+            app:layout_constraintEnd_toEndOf="@id/icon_background_variant"
+            app:layout_constraintStart_toStartOf="@id/icon_background_variant"
+            app:layout_constraintTop_toTopOf="@id/icon_background_variant" />
+
+        <ImageView
+            android:id="@+id/icon_first"
+            android:layout_width="@dimen/large_icon"
+            android:layout_height="@dimen/large_icon"
+            android:importantForAccessibility="no"
+            android:translationZ="@dimen/small_elevation"
+            app:imageResource="@{uiModel.firstIcon}"
+            app:layout_constraintCircle="@id/icon_background"
+            app:layout_constraintCircleAngle="300"
+            app:layout_constraintCircleRadius="56dp"
+            app:tint="?attr/colorOnSecondary"
+            tools:ignore="MissingConstraints"
+            tools:src="@drawable/ic_account_details_24dp" />
+
+        <ImageView
+            android:id="@+id/icon_second"
+            android:layout_width="@dimen/large_icon"
+            android:layout_height="@dimen/large_icon"
+            android:importantForAccessibility="no"
+            android:translationZ="@dimen/small_elevation"
+            app:imageResource="@{uiModel.secondIcon}"
+            app:layout_constraintCircle="@id/icon_background"
+            app:layout_constraintCircleAngle="60"
+            app:layout_constraintCircleRadius="56dp"
+            app:tint="?attr/colorOnSecondary"
+            tools:ignore="MissingConstraints"
+            tools:src="@drawable/ic_home_edit_24dp" />
+
+        <ImageView
+            android:id="@+id/icon_third"
+            android:layout_width="@dimen/large_icon"
+            android:layout_height="@dimen/large_icon"
+            android:importantForAccessibility="no"
+            android:translationZ="@dimen/small_elevation"
+            app:imageResource="@{uiModel.thirdIcon}"
+            app:layout_constraintCircle="@id/icon_background"
+            app:layout_constraintCircleAngle="180"
+            app:layout_constraintCircleRadius="56dp"
+            app:tint="?attr/colorOnSecondary"
+            tools:ignore="MissingConstraints"
+            tools:src="@drawable/ic_text_box_check_24dp" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/second_keyline"
+            android:layout_marginEnd="@dimen/second_keyline"
+            android:padding="@dimen/first_keyline"
+            android:textAlignment="center"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_background"
+            app:layout_constraintVertical_bias="0.4"
+            app:textRes="@{uiModel.message}"
+            tools:text="@string/onboarding_desc_first" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

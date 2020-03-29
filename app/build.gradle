@@ -53,6 +53,7 @@ dependencies {
 
     implementation 'com.google.android.material:material:1.2.0-alpha05'
     implementation 'com.github.gcacace:signature-pad:1.3.1'
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
     implementation "dev.chrisbanes:insetter-dbx:0.2.1"
 
@@ -63,6 +64,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
+
+    implementation "com.halcyonmobile.android.common.extensions:safe.navigation:0.1.1"
+    lintChecks "com.halcyonmobile.android.common.extensions:safe.navigation.lint:0.1.1"
 
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"

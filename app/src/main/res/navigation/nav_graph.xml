@@ -30,6 +30,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_homeFragment_to_onboardingFragment"
+            app:destination="@id/onboardingFragment" />
     </fragment>
     <fragment
         android:id="@+id/newDocumentFragment"
@@ -72,4 +75,9 @@
         android:name="com.arthurnagy.staysafe.feature.home.options.OptionsBottomSheet"
         android:label="OptionsBottomSheet"
         tools:layout="@layout/bottom_sheet_options" />
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.arthurnagy.staysafe.feature.onboarding.OnboardingFragment"
+        tools:layout="@layout/fragment_onboarding"
+        android:label="OnboardingFragment" />
 </navigation>

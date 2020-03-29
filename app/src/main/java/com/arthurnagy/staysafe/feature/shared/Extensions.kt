@@ -7,6 +7,8 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -28,6 +30,14 @@ fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensi
 
 inline fun <reified VM : ViewModel> Fragment.parentViewModel(): Lazy<VM> = lazy {
     requireParentFragment().getViewModel<VM>()
+}
+
+fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {
+    with(ConstraintSet()) {
+        clone(this@updateConstraintSet)
+        updateConstraints()
+        applyTo(this@updateConstraintSet)
+    }
 }
 
 val Motive.labelRes: Int

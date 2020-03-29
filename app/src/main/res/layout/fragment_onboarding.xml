@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class=".OnboardingBinding" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:paddingBottomSystemWindowInsets="@{true}"
+        app:paddingTopSystemWindowInsets="@{true}">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/skip"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.rd.PageIndicatorView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/second_keyline"
+            app:layout_constraintBottom_toTopOf="@id/skip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:piv_animationType="worm"
+            app:piv_padding="@dimen/first_keyline"
+            app:piv_radius="@dimen/small_shape_radius"
+            app:piv_selectedColor="?attr/colorSecondaryVariant"
+            app:piv_unselectedColor="@color/color_secondary_variant_25"
+            app:piv_viewPager="@id/pager" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/skip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/second_keyline"
+            android:text="@string/skip"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
