@@ -54,6 +54,6 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
     }
 
     companion object {
-        private const val REPO_URL = "https://github.com/ArthurNagy/StaySafe"
+        private const val REPO_URL = "https://github.com/ArthurNagy/DeclarApp"
     }
 }

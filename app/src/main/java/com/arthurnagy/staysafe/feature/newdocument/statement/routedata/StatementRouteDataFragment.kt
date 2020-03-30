@@ -30,9 +30,11 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
         val motives = Motive.values()
         val adapter = ArrayAdapter(requireContext(), R.layout.item_motive, motives.mapIndexed { index, motive -> "${index + 1}.${getString(motive.labelRes)}" })
         with(binding) {
-            motiveAutoComplete.setAdapter(adapter)
-            motiveAutoComplete.setOnItemClickListener { _, _, position, _ ->
-                viewModel?.onMotiveSelected(motives[position])
+            motiveAutoComplete.apply {
+                setAdapter(adapter)
+                setOnItemClickListener { _, _, position, _ ->
+                    viewModel?.onMotiveSelected(motives[position])
+                }
             }
             clickableDate.setOnClickListener {
                 openDateSelection()
