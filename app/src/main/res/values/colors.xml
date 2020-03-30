@@ -5,6 +5,8 @@
     <color name="secondary_variant_light">#d86422</color>
     <color name="secondary_variant_dark">#E39264</color>
 
+    <color name="signature_pen_color">#1565C0</color>
+
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="transparent">#00000000</color>

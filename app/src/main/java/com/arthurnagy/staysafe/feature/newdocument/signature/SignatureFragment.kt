@@ -45,7 +45,7 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
                 override fun onSigned() {
                     lifecycleScope.launch {
                         viewModel?.let { signatureViewModel ->
-                            val signatureBitmap = signaturePad.transparentSignatureBitmap.tint(requireContext().color(R.color.black))
+                            val signatureBitmap = signaturePad.transparentSignatureBitmap.tint(requireContext().color(R.color.signature_pen_color))
                             val signaturePng = withContext(Dispatchers.IO) {
                                 requireContext().openFileOutput(signatureViewModel.fileName, Context.MODE_PRIVATE).use {
                                     signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
