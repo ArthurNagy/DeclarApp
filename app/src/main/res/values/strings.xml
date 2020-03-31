@@ -58,4 +58,5 @@
     <string name="onboarding_desc_second">Vizualizează, șterge, tipărește sau exportează declarațiile dintr-un singur loc.</string>
     <string name="onboarding_desc_third">Păstrează-ți datele în siguranță tot timpul. Aplicația nu necesită conexiune la internet, toate datele sunt stocate doar pe telefonul tău.</string>
     <string name="start">Începe</string>
+    <string name="choose_motive">Alege motivul</string>
 </resources>

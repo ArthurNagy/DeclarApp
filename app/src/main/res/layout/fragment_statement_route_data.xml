@@ -69,25 +69,30 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/motive"
-                style="@style/Widget.StaySafe.TextInput.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/first_keyline"
-                android:focusable="false"
+                android:hint="@string/motive"
                 app:layout_constraintEnd_toEndOf="@id/guide_end"
                 app:layout_constraintStart_toStartOf="@id/guide_start"
                 app:layout_constraintTop_toBottomOf="@id/route">
-                <!--TODO: change to a bottom sheet-->
-                <AutoCompleteTextView
-                    android:id="@+id/motive_auto_complete"
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:focusable="false"
-                    android:hint="@string/motive"
                     android:inputType="none"
                     android:text="@{viewModel.selectedMotive}" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:id="@+id/clickable_motive"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/motive"
+                app:layout_constraintEnd_toEndOf="@id/motive"
+                app:layout_constraintStart_toStartOf="@id/motive"
+                app:layout_constraintTop_toTopOf="@id/motive" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/date"

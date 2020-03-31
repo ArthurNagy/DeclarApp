@@ -19,10 +19,8 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
 
     private val preferenceManager: PreferenceManager by inject()
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window?.decorView?.let { InsetterBindingAdapters.setEdgeToEdgeFlags(it, true) }
-        return dialog
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = super.onCreateDialog(savedInstanceState).apply {
+        window?.decorView?.let { InsetterBindingAdapters.setEdgeToEdgeFlags(it, true) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =

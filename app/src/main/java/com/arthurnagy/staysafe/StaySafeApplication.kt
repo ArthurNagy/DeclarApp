@@ -15,6 +15,7 @@ import com.arthurnagy.staysafe.feature.newdocument.certificate.routedata.Certifi
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
+import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerViewModel
 import com.arthurnagy.staysafe.feature.shared.StringProvider
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -56,6 +57,7 @@ class StaySafeApplication : Application() {
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployerDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployeeDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateRouteDataViewModel(newDocumentViewModel) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> MotivePickerViewModel(newDocumentViewModel) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, stringProvider = get()) }
 

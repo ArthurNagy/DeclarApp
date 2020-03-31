@@ -51,24 +51,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            app:isVisible="@{viewModel.isEmpty}"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:isVisible="@{viewModel.isEmpty}">
 
             <ImageView
                 android:layout_width="196dp"
                 android:layout_height="196dp"
                 android:background="@drawable/shape_oval"
-                android:backgroundTint="@color/color_secondary_variant_25"
+                android:backgroundTint="@color/color_secondary_variant"
                 android:padding="@dimen/second_keyline"
-                app:srcCompat="@drawable/ic_assignment_24dp" />
+                app:srcCompat="@drawable/ic_assignment_24dp"
+                app:tint="?attr/colorOnSecondary" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:textAlignment="center"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/first_keyline"
-                android:textAppearance="?attr/textAppearanceSubtitle1"
-                android:text="@string/no_documents_desc" />
+                android:text="@string/no_documents_desc"
+                android:textAlignment="center"
+                android:textAppearance="?attr/textAppearanceSubtitle1" />
 
         </LinearLayout>
 

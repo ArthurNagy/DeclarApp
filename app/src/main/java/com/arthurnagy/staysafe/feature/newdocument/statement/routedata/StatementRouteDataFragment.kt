@@ -2,14 +2,13 @@ package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementRouteDataBinding
-import com.arthurnagy.staysafe.core.model.Motive
+import com.arthurnagy.staysafe.feature.newdocument.NewDocumentFragmentDirections
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.shared.labelRes
-import com.arthurnagy.staysafe.feature.shared.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.parentGraphViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -18,7 +17,7 @@ import org.koin.core.parameter.parametersOf
 
 class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_data) {
 
-    private val sharedViewModel by parentViewModel<NewDocumentViewModel>()
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
     private val viewModel: StatementRouteDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,15 +25,9 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@StatementRouteDataFragment.viewModel
         }
-
-        val motives = Motive.values()
-        val adapter = ArrayAdapter(requireContext(), R.layout.item_motive, motives.mapIndexed { index, motive -> "${index + 1}.${getString(motive.labelRes)}" })
         with(binding) {
-            motiveAutoComplete.apply {
-                setAdapter(adapter)
-                setOnItemClickListener { _, _, position, _ ->
-                    viewModel?.onMotiveSelected(motives[position])
-                }
+            clickableMotive.setOnClickListener {
+                showMotiveSelection()
             }
             clickableDate.setOnClickListener {
                 openDateSelection()
@@ -57,5 +50,9 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
 
         datePicker.addOnPositiveButtonClickListener(viewModel::onDateSelected)
         datePicker.show(childFragmentManager, datePicker.toString())
+    }
+
+    private fun showMotiveSelection() {
+        requireParentFragment().findNavController().navigate(NewDocumentFragmentDirections.actionNewDocumentFragmentToMotivePickerBottomSheet())
     }
 }

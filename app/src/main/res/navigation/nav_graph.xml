@@ -24,33 +24,19 @@
             android:id="@+id/action_homeFragment_to_optionsBottomSheet"
             app:destination="@id/optionsBottomSheet" />
         <action
-            android:id="@+id/action_homeFragment_to_newDocumentFragment"
-            app:destination="@id/newDocumentFragment"
+            android:id="@+id/action_homeFragment_to_newDocument"
+            app:destination="@id/newDocument"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            app:popExitAnim="@anim/slide_out_right">
+            <argument
+                android:name="documentType"
+                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
+        </action>
         <action
             android:id="@+id/action_homeFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/newDocumentFragment"
-        android:name="com.arthurnagy.staysafe.feature.newdocument.NewDocumentFragment"
-        android:label="NewDocumentFragment"
-        tools:layout="@layout/fragment_new_document">
-        <action
-            android:id="@+id/action_newDocumentFragment_to_documentDetailFragment"
-            app:destination="@id/documentDetailFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/newDocumentFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="documentType"
-            app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
     </fragment>
     <fragment
         android:id="@+id/documentDetailFragment"
@@ -67,8 +53,12 @@
         android:label="TypeChooserBottomSheet"
         tools:layout="@layout/bottom_sheet_type">
         <action
-            android:id="@+id/action_typeChooserBottomSheet_to_newDocumentFragment"
-            app:destination="@id/newDocumentFragment" />
+            android:id="@+id/action_typeChooserBottomSheet_to_newDocument"
+            app:destination="@id/newDocument">
+            <argument
+                android:name="documentType"
+                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
+        </action>
     </dialog>
     <dialog
         android:id="@+id/optionsBottomSheet"
@@ -78,6 +68,39 @@
     <fragment
         android:id="@+id/onboardingFragment"
         android:name="com.arthurnagy.staysafe.feature.onboarding.OnboardingFragment"
-        tools:layout="@layout/fragment_onboarding"
-        android:label="OnboardingFragment" />
+        android:label="OnboardingFragment"
+        tools:layout="@layout/fragment_onboarding" />
+
+
+    <navigation
+        android:id="@+id/newDocument"
+        app:startDestination="@id/newDocumentFragment">
+        <fragment
+            android:id="@+id/newDocumentFragment"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.NewDocumentFragment"
+            android:label="NewDocumentFragment"
+            tools:layout="@layout/fragment_new_document">
+            <action
+                android:id="@+id/action_newDocumentFragment_to_documentDetailFragment"
+                app:destination="@id/documentDetailFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right"
+                app:popUpTo="@id/newDocumentFragment"
+                app:popUpToInclusive="true" />
+            <argument
+                android:name="documentType"
+                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
+            <action
+                android:id="@+id/action_newDocumentFragment_to_motivePickerBottomSheet"
+                app:destination="@id/motivePickerBottomSheet" />
+        </fragment>
+
+        <dialog
+            android:id="@+id/motivePickerBottomSheet"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerBottomSheet"
+            android:label="MotivePickerBottomSheet"
+            tools:layout="@layout/bottom_sheet_motive_picker" />
+    </navigation>
 </navigation>

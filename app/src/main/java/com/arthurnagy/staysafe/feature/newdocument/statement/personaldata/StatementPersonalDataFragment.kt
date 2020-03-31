@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementPersonalDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.shared.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.parentGraphViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -17,7 +17,7 @@ import org.threeten.bp.ZoneOffset
 
 class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_personal_data) {
 
-    private val sharedViewModel by parentViewModel<NewDocumentViewModel>()
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
     private val viewModel: StatementPersonalDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

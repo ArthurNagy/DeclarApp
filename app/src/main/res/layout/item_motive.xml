@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:ellipsize="end"
-    android:maxLines="2"
-    android:textAppearance="?attr/textAppearanceSubtitle1" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".ItemMotiveBinding">
+
+        <variable
+            name="uiModel"
+            type="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerViewModel.UiModel" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@drawable/ic_check_24dp"
+        android:drawablePadding="@dimen/first_keyline"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="2"
+        android:padding="@dimen/first_keyline"
+        android:textAppearance="?attr/textAppearanceSubtitle1"
+        app:drawableTint="@{uiModel.checkTint}"
+        app:textRes="@{uiModel.motiveLabel}"
+        tools:drawableTint="?colorSecondaryVariant"
+        tools:text="Interes profesional" />
+</layout>

@@ -10,7 +10,7 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.SignatureBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.color
-import com.arthurnagy.staysafe.feature.shared.parentViewModel
+import com.arthurnagy.staysafe.feature.shared.parentGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.tint
 import com.github.gcacace.signaturepad.views.SignaturePad
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ import java.io.File
 
 class SignatureFragment : Fragment(R.layout.fragment_signature) {
 
-    private val sharedViewModel by parentViewModel<NewDocumentViewModel>()
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
     private val viewModel: SignatureViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

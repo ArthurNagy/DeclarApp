@@ -37,12 +37,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         val documentsAdapter = DocumentsAdapter {
             findSafeNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(
-                    DocumentIdentifier(
-                        it.id,
-                        DocumentType.STATEMENT
-                    )
-                )
+                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(DocumentIdentifier(it.id, DocumentType.STATEMENT))
             )
         }
         with(binding) {
@@ -50,7 +45,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 consume { findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
             }
             add.setOnClickListener {
-                findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocumentFragment(DocumentType.STATEMENT))
+                findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocument(DocumentType.STATEMENT))
             }
 
             with(recycler) {
