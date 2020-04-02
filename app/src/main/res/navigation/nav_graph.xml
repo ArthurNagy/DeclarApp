@@ -18,14 +18,11 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
         <action
-            android:id="@+id/action_homeFragment_to_typeChooserBottomSheet"
-            app:destination="@id/typeChooserBottomSheet" />
-        <action
             android:id="@+id/action_homeFragment_to_optionsBottomSheet"
             app:destination="@id/optionsBottomSheet" />
         <action
             android:id="@+id/action_homeFragment_to_newDocument"
-            app:destination="@id/newDocument"
+            app:destination="@id/nav_new_document"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -48,19 +45,6 @@
             app:argType="com.arthurnagy.staysafe.feature.DocumentIdentifier" />
     </fragment>
     <dialog
-        android:id="@+id/typeChooserBottomSheet"
-        android:name="com.arthurnagy.staysafe.feature.newdocument.TypeChooserBottomSheet"
-        android:label="TypeChooserBottomSheet"
-        tools:layout="@layout/bottom_sheet_type">
-        <action
-            android:id="@+id/action_typeChooserBottomSheet_to_newDocument"
-            app:destination="@id/newDocument">
-            <argument
-                android:name="documentType"
-                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
-        </action>
-    </dialog>
-    <dialog
         android:id="@+id/optionsBottomSheet"
         android:name="com.arthurnagy.staysafe.feature.home.options.OptionsBottomSheet"
         android:label="OptionsBottomSheet"
@@ -73,7 +57,7 @@
 
 
     <navigation
-        android:id="@+id/newDocument"
+        android:id="@+id/nav_new_document"
         app:startDestination="@id/newDocumentFragment">
         <fragment
             android:id="@+id/newDocumentFragment"

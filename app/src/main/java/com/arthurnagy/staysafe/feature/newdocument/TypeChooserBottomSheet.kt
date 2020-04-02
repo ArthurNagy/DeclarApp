@@ -6,9 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arthurnagy.staysafe.TypeChooserBinding
-import com.arthurnagy.staysafe.feature.DocumentType
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import dev.chrisbanes.insetter.InsetterBindingAdapters
 
 class TypeChooserBottomSheet : BottomSheetDialogFragment() {
@@ -20,10 +18,10 @@ class TypeChooserBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         TypeChooserBinding.inflate(inflater, container, false).also {
             it.certificate.setOnClickListener {
-                findSafeNavController().navigate(TypeChooserBottomSheetDirections.actionTypeChooserBottomSheetToNewDocument(DocumentType.CERTIFICATE))
+                // findSafeNavController().navigate(TypeChooserBottomSheetDirections.actionTypeChooserBottomSheetToNewDocument(DocumentType.CERTIFICATE))
             }
             it.statement.setOnClickListener {
-                findSafeNavController().navigate(TypeChooserBottomSheetDirections.actionTypeChooserBottomSheetToNewDocument(DocumentType.STATEMENT))
+                // findSafeNavController().navigate(TypeChooserBottomSheetDirections.actionTypeChooserBottomSheetToNewDocument(DocumentType.STATEMENT))
             }
         }.root
 }

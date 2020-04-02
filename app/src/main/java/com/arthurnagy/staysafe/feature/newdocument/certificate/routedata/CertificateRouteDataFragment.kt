@@ -12,7 +12,7 @@ import org.koin.core.parameter.parametersOf
 
 class CertificateRouteDataFragment : Fragment(R.layout.fragment_certificate_route_data) {
 
-    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: CertificateRouteDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

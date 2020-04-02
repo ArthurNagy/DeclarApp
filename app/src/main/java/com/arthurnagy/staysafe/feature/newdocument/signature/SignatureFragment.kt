@@ -22,7 +22,7 @@ import java.io.File
 
 class SignatureFragment : Fragment(R.layout.fragment_signature) {
 
-    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: SignatureViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

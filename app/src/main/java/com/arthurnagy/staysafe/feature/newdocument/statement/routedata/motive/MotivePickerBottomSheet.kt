@@ -8,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.arthurnagy.staysafe.MotivePickerBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.chrisbanes.insetter.InsetterBindingAdapters
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -20,7 +20,7 @@ import org.koin.core.parameter.parametersOf
 
 class MotivePickerBottomSheet : BottomSheetDialogFragment() {
 
-    private val sharedViewModel by sharedGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
+    private val sharedViewModel by navGraphViewModels<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: MotivePickerViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = super.onCreateDialog(savedInstanceState).apply {

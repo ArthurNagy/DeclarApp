@@ -49,7 +49,7 @@ class StaySafeApplication : Application() {
 
         viewModel { HomeViewModel(statementDao = get(), certificateDao = get()) }
 
-        viewModel { (documentType: DocumentType) -> NewDocumentViewModel(documentType, certificateDao = get(), statementDao = get()) }
+        factory { (documentType: DocumentType) -> NewDocumentViewModel.Factory(documentType, certificateDao = get(), statementDao = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }

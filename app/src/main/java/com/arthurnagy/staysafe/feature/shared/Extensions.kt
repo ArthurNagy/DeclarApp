@@ -21,16 +21,10 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
-import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ViewModelParameter
-import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.koin.getViewModel
-import org.koin.core.parameter.ParametersDefinition
-import org.koin.core.qualifier.Qualifier
 
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -40,22 +34,18 @@ fun Context.drawable(@DrawableRes drawableRes: Int): Drawable? = ContextCompat.g
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
 
-inline fun <reified VM : ViewModel> Fragment.parentViewModel(): Lazy<VM> = lazy {
-    requireParentFragment().getViewModel<VM>()
-}
-
 inline fun <reified VM : ViewModel> Fragment.parentGraphViewModel(@IdRes navGraphId: Int): Lazy<VM> = lazy {
-    requireParentFragment().sharedGraphViewModel<VM>(navGraphId = navGraphId).value
+    requireParentFragment().navGraphViewModels<VM>(navGraphId = navGraphId).value
 }
 
-inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
-    @IdRes navGraphId: Int,
-    qualifier: Qualifier? = null,
-    noinline parameters: ParametersDefinition? = null
-) = lazy {
-    val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
-    getKoin().getViewModel(ViewModelParameter(VM::class, qualifier, parameters, null, store, null))
-}
+// inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
+//     @IdRes navGraphId: Int,
+//     qualifier: Qualifier? = null,
+//     noinline parameters: ParametersDefinition? = null
+// ) = lazy {
+//     val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
+//     getKoin().getViewModel(ViewModelParameter(VM::class, qualifier, parameters, null, store, null))
+// }
 
 fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {
     with(ConstraintSet()) {

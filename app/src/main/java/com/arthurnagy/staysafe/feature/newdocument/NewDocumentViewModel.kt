@@ -3,6 +3,7 @@ package com.arthurnagy.staysafe.feature.newdocument
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
@@ -264,4 +265,17 @@ class NewDocumentViewModel(
         val toDate: Long? = null,
         val signaturePath: String? = null
     ) : PendingDocument
+
+    class Factory(
+        private val type: DocumentType,
+        private val statementDao: StatementDao,
+        private val certificateDao: CertificateDao
+    ) : ViewModelProvider.Factory {
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(NewDocumentViewModel::class.java)) {
+                return NewDocumentViewModel(type, statementDao, certificateDao) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
 }

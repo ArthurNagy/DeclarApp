@@ -17,7 +17,7 @@ import org.threeten.bp.ZoneOffset
 
 class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_personal_data) {
 
-    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.newDocument)
+    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: StatementPersonalDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
