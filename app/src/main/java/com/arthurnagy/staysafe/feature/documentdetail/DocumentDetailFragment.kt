@@ -17,10 +17,8 @@ import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
 import com.arthurnagy.staysafe.DocumentDetailBinding
 import com.arthurnagy.staysafe.R
-import com.arthurnagy.staysafe.core.model.Certificate
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
-import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.formatToFormalDate
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -32,7 +30,7 @@ import org.threeten.bp.ZoneOffset
 class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
     private val args by navArgs<DocumentDetailFragmentArgs>()
-    private val viewModel: DocumentDetailViewModel by viewModel { parametersOf(args.documentIdentifier) }
+    private val viewModel: DocumentDetailViewModel by viewModel { parametersOf(args.documentId) }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,11 +63,9 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
                 override fun onPageFinished(view: WebView?, url: String?) {
                     super.onPageFinished(view, url)
-                    view?.let {
-                        when (val document = viewModel?.document?.value) {
-                            is Statement -> addStatementData(it, document)
-                            is Certificate -> addCertificateData(it, document)
-                            else -> throw IllegalStateException("Document not read or known")
+                    view?.let { webView ->
+                        viewModel?.statement?.value?.let { statement ->
+                            addStatementData(webView, statement)
                         }
                     }
                 }
@@ -84,13 +80,8 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             }
         }
         with(viewModel) {
-            document.observe(viewLifecycleOwner) { document ->
-                val baseUrl = when (document) {
-                    is Statement -> HTML_STATEMENT
-                    is Certificate -> HTML_CERTIFICATE
-                    else -> throw IllegalStateException("Can't load any other document of type: $document")
-                }
-                binding.webview.loadUrl(baseUrl)
+            statement.observe(viewLifecycleOwner) {
+                binding.webview.loadUrl(HTML_STATEMENT)
             }
             navigateBackEvent.observe(viewLifecycleOwner) {
                 if (it.consume() != null) findNavController().navigateUp()
@@ -100,12 +91,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
     private fun createWebPrintJob(webView: WebView) {
         (activity?.getSystemService(Context.PRINT_SERVICE) as? PrintManager)?.let { printManager ->
-            val jobName = "${getString(R.string.app_name)} ${getString(
-                when (args.documentIdentifier.type) {
-                    DocumentType.STATEMENT -> R.string.statement
-                    DocumentType.CERTIFICATE -> R.string.certificate
-                }
-            )}"
+            val jobName = "${getString(R.string.app_name)} ${getString(R.string.statement)}"
             val printAdapter = webView.createPrintDocumentAdapter(jobName)
             printManager.print(jobName, printAdapter, PrintAttributes.Builder().build())
         }
@@ -157,10 +143,6 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
         }
     }
 
-    private fun addCertificateData(webView: WebView, certificate: Certificate) {
-        TODO()
-    }
-
     private fun WebView.addContent(tagId: String, content: String) {
         loadUrl("javascript:addContent('$tagId', '$content')")
     }
@@ -176,7 +158,6 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
     companion object {
         private const val SINGLE_LINE_ADDRESS_LIMIT = 50
         private const val HTML_STATEMENT = "https://appassets.androidplatform.net/assets/declaratie_proprie_raspundere.html"
-        private const val HTML_CERTIFICATE = "https://appassets.androidplatform.net/assets/adeverinta_angajator.html"
         private const val HTML_FILES = "https://appassets.androidplatform.net/files/"
     }
 }

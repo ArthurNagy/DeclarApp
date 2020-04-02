@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arthurnagy.staysafe.HomeBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
-import com.arthurnagy.staysafe.feature.DocumentIdentifier
-import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import org.koin.android.ext.android.inject
@@ -37,7 +35,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
         val documentsAdapter = DocumentsAdapter {
             findSafeNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(DocumentIdentifier(it.id, DocumentType.STATEMENT))
+                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(it.id)
             )
         }
         with(binding) {
@@ -45,7 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 consume { findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
             }
             add.setOnClickListener {
-                findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocument(DocumentType.STATEMENT))
+                findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewDocument())
             }
 
             with(recycler) {

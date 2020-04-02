@@ -11,8 +11,7 @@
     <string name="forms">Formulare</string>
 
     <string name="choose_type_title">Alege tipul formularului</string>
-    <string name="statement">Declarație pe propria răspundere</string>
-    <string name="certificate">Adeverință angajator</string>
+    <string name="statement">Declarație pe proprie răspundere</string>
     <string name="new_form">Formular nou</string>
 
     <string name="next">Următorul pas</string>

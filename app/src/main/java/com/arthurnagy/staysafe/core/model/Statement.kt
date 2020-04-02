@@ -15,4 +15,4 @@ data class Statement(
     @ColumnInfo(name = "motive") val motive: Motive,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "signature") val signaturePath: String
-) : Document
+)

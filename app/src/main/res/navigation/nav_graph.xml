@@ -27,9 +27,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right">
-            <argument
-                android:name="documentType"
-                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
         </action>
         <action
             android:id="@+id/action_homeFragment_to_onboardingFragment"
@@ -41,8 +38,8 @@
         android:label="DocumentDetailFragment"
         tools:layout="@layout/fragment_document_detail">
         <argument
-            android:name="documentIdentifier"
-            app:argType="com.arthurnagy.staysafe.feature.DocumentIdentifier" />
+            android:name="documentId"
+            app:argType="long" />
     </fragment>
     <dialog
         android:id="@+id/optionsBottomSheet"
@@ -73,9 +70,6 @@
                 app:popExitAnim="@anim/slide_out_right"
                 app:popUpTo="@id/newDocumentFragment"
                 app:popUpToInclusive="true" />
-            <argument
-                android:name="documentType"
-                app:argType="com.arthurnagy.staysafe.feature.DocumentType" />
             <action
                 android:id="@+id/action_newDocumentFragment_to_motivePickerBottomSheet"
                 app:destination="@id/motivePickerBottomSheet" />

@@ -4,14 +4,9 @@ import android.app.Application
 import androidx.room.Room
 import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.core.db.StaySafeDatabase
-import com.arthurnagy.staysafe.feature.DocumentIdentifier
-import com.arthurnagy.staysafe.feature.DocumentType
 import com.arthurnagy.staysafe.feature.documentdetail.DocumentDetailViewModel
 import com.arthurnagy.staysafe.feature.home.HomeViewModel
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.newdocument.certificate.employeedata.CertificateEmployeeDataViewModel
-import com.arthurnagy.staysafe.feature.newdocument.certificate.employerdata.CertificateEmployerDataViewModel
-import com.arthurnagy.staysafe.feature.newdocument.certificate.routedata.CertificateRouteDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
@@ -43,24 +38,20 @@ class StaySafeApplication : Application() {
         factory { StringProvider(androidContext()) }
 
         single { PreferenceManager(androidContext()) }
-        single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").build() }
+        single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").fallbackToDestructiveMigration().build() }
         factory { get<StaySafeDatabase>().statementDao() }
-        factory { get<StaySafeDatabase>().certificateDao() }
 
-        viewModel { HomeViewModel(statementDao = get(), certificateDao = get()) }
+        viewModel { HomeViewModel(statementDao = get()) }
 
-        factory { (documentType: DocumentType) -> NewDocumentViewModel.Factory(documentType, certificateDao = get(), statementDao = get()) }
+        factory { NewDocumentViewModel.Factory(statementDao = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }
 
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployerDataViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateEmployeeDataViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> CertificateRouteDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> MotivePickerViewModel(newDocumentViewModel) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, stringProvider = get()) }
 
-        viewModel { (documentIdentifier: DocumentIdentifier) -> DocumentDetailViewModel(documentIdentifier, statementDao = get(), certificateDao = get()) }
+        viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementDao = get()) }
     }
 }
