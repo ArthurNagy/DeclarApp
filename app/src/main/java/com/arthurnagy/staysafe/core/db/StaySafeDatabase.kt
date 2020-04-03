@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.arthurnagy.staysafe.core.model.MotiveConverter
 import com.arthurnagy.staysafe.core.model.Statement
 
-@Database(entities = [Statement::class], version = 2, exportSchema = false)
+@Database(entities = [Statement::class], version = 3, exportSchema = true)
 @TypeConverters(MotiveConverter::class)
 abstract class StaySafeDatabase : RoomDatabase() {
     abstract fun statementDao(): StatementDao

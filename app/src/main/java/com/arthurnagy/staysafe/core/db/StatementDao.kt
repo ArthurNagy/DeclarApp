@@ -16,7 +16,7 @@ interface StatementDao {
     @Query("SELECT * FROM statement WHERE id LIKE :id")
     suspend fun getById(id: Long): Statement
 
-    @Query("SELECT * FROM statement ORDER BY date DESC LIMIT 1")
+    @Query("SELECT * FROM statement ORDER BY created_at DESC LIMIT 1")
     suspend fun getLast(): Statement
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

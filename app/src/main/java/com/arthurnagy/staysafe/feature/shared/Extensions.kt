@@ -18,6 +18,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
@@ -61,6 +63,15 @@ val Motive.labelRes: Int
         Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> R.string.motive_commercialize_agricultural_produces
         Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> R.string.motive_professional_activity_necessities
     }
+
+inline fun <T> LiveData<T>.doOnChanged(crossinline observer: (T) -> Unit) {
+    observeForever(object : Observer<T> {
+        override fun onChanged(t: T) {
+            observer(t)
+            this@doOnChanged.removeObserver(this)
+        }
+    })
+}
 
 fun Fragment.addPageChangeListenerTo(
     viewPager: ViewPager,

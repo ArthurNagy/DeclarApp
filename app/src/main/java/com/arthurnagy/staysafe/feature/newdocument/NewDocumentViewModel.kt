@@ -25,6 +25,7 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
         )
     }
     val hasExistingSignature: LiveData<Boolean> = lastSavedStatement.map { it?.signaturePath != null }
+    val existingSignaturePath: LiveData<String?> = lastSavedStatement.map { it?.signaturePath }
 
     private val _pendingStatement: MutableLiveData<PendingStatement> = mediatorLiveData(
         defaultValue = PendingStatement(),

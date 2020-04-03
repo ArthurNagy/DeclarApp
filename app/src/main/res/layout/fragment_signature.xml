@@ -69,10 +69,11 @@
 
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/signature_selection"
+                isVisible="@{viewModel.hasExistingSignature}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                isVisible="@{viewModel.hasExistingSignature}"
                 android:layout_marginTop="@dimen/content_margin"
+                app:check="@{viewModel.checkedSignatureSelection}"
                 app:layout_constraintEnd_toEndOf="@id/guide_end"
                 app:layout_constraintStart_toStartOf="@id/guide_start"
                 app:layout_constraintTop_toBottomOf="@id/step_label"
@@ -80,21 +81,26 @@
                 app:singleSelection="true">
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signature_existing"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()-> viewModel.toggleSignatureSelection()}"
                     android:text="@string/existing" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/signature_new"
                     style="?attr/materialButtonOutlinedStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()-> viewModel.toggleSignatureSelection()}"
                     android:text="@string/new_signature" />
 
             </com.google.android.material.button.MaterialButtonToggleGroup>
 
             <ImageView
                 android:id="@+id/clear"
+                isVisible="@{!viewModel.isExistingVisible}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_icon_ripple"
@@ -107,6 +113,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/signature_pad_card"
+                isVisible="@{!viewModel.isExistingVisible}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/content_margin"
@@ -122,6 +129,27 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:penColor="?attr/colorOnSurface" />
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/signature_existing_card"
+                isVisible="@{viewModel.isExistingVisible}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/content_margin"
+                app:layout_constraintDimensionRatio="16:10"
+                app:layout_constraintEnd_toEndOf="@id/guide_end"
+                app:layout_constraintStart_toStartOf="@id/guide_start"
+                app:layout_constraintTop_toBottomOf="@id/signature_selection"
+                app:strokeColor="?attr/colorSecondary"
+                app:strokeWidth="1dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:tint="?attr/colorOnSurface"
+                    app:image="@{viewModel.existingSignaturePath}" />
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
