@@ -17,6 +17,8 @@ class SignatureViewModel(
 ) : ViewModel() {
 
     private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
+
+    val hasExistingSignature: LiveData<Boolean> = newDocumentViewModel.hasExistingSignature
     val fileName = SIGNATURE_FILE_NAME_SUFFIX.format(System.currentTimeMillis())
     val isGenerateEnabled: LiveData<Boolean> = pendingStatement.map { it.signaturePath != null }
     private val _events = MutableLiveData<Event<Action>>()

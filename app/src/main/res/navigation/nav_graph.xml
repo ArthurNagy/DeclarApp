@@ -62,11 +62,7 @@
             tools:layout="@layout/fragment_statement_personal_data">
             <action
                 android:id="@+id/action_statementPersonalDataFragment_to_statementRouteDataFragment"
-                app:destination="@id/statementRouteDataFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
+                app:destination="@id/statementRouteDataFragment" />
         </fragment>
 
         <dialog
@@ -84,11 +80,7 @@
                 app:destination="@id/motivePickerBottomSheet" />
             <action
                 android:id="@+id/action_statementRouteDataFragment_to_signatureFragment"
-                app:destination="@id/signatureFragment"
-                app:enterAnim="@anim/slide_in_right"
-                app:exitAnim="@anim/slide_out_left"
-                app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right" />
+                app:destination="@id/signatureFragment" />
         </fragment>
         <fragment
             android:id="@+id/signatureFragment"

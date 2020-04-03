@@ -3,6 +3,9 @@ package com.arthurnagy.staysafe.feature.newdocument.signature
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.Slide
+import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -28,6 +31,12 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
     private val sharedViewModel by navGraphViewModels<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: SignatureViewModel by viewModel { parametersOf(sharedViewModel) }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enterTransition = Slide(Gravity.END)
+        sharedElementEnterTransition = ChangeBounds()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = SignatureBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
@@ -39,13 +48,13 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
             }
             clear.setOnClickListener {
                 signaturePad.clear()
+                viewModel?.onClearSignature()
             }
             signaturePad.setOnSignedListener(object : SignaturePad.OnSignedListener {
                 override fun onStartSigning() {
                 }
 
                 override fun onClear() {
-                    viewModel?.onClearSignature()
                 }
 
                 override fun onSigned() {

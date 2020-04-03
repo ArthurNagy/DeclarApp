@@ -58,4 +58,6 @@
     <string name="onboarding_desc_third">Păstrează-ți datele în siguranță tot timpul. Aplicația nu necesită conexiune la internet, toate datele sunt stocate doar pe telefonul tău.</string>
     <string name="start">Începe</string>
     <string name="choose_motive">Alege motivul</string>
+    <string name="existing">Actuală</string>
+    <string name="new_signature">Nouă</string>
 </resources>

@@ -1,11 +1,14 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
 import android.os.Bundle
+import android.transition.ChangeBounds
+import android.transition.Slide
+import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
-import androidx.transition.ChangeBounds
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementRouteDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
@@ -23,6 +26,8 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        exitTransition = Slide(Gravity.START)
+        enterTransition = Slide(Gravity.END)
         sharedElementEnterTransition = ChangeBounds()
     }
 
@@ -43,7 +48,11 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
             }
             next.setOnClickListener {
                 findSafeNavController().navigate(
-                    StatementRouteDataFragmentDirections.actionStatementRouteDataFragmentToSignatureFragment()
+                    StatementRouteDataFragmentDirections.actionStatementRouteDataFragmentToSignatureFragment(),
+                    FragmentNavigatorExtras(
+                        binding.toolbar to getString(R.string.transition_toolbar),
+                        binding.next to getString(R.string.transition_action)
+                    )
                 )
             }
         }

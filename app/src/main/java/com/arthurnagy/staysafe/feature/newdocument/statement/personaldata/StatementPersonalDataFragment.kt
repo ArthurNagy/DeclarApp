@@ -1,6 +1,8 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.personaldata
 
 import android.os.Bundle
+import android.transition.Slide
+import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -24,6 +26,11 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
     private val viewModelFactory by inject<NewDocumentViewModel.Factory>()
     private val sharedViewModel: NewDocumentViewModel by navGraphViewModels(navGraphId = R.id.nav_new_document) { viewModelFactory }
     private val viewModel: StatementPersonalDataViewModel by viewModel { parametersOf(sharedViewModel) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Slide(Gravity.START)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val binding = StatementPersonalDataBinding.bind(view).apply {

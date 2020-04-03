@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import com.arthurnagy.staysafe.core.db.StatementDao
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
@@ -23,6 +24,7 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
             }
         )
     }
+    val hasExistingSignature: LiveData<Boolean> = lastSavedStatement.map { it?.signaturePath != null }
 
     private val _pendingStatement: MutableLiveData<PendingStatement> = mediatorLiveData(
         defaultValue = PendingStatement(),
