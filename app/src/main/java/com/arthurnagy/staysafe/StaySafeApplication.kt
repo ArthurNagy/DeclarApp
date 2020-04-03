@@ -47,10 +47,8 @@ class StaySafeApplication : Application() {
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }
-
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> MotivePickerViewModel(newDocumentViewModel) }
-
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, stringProvider = get()) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, statementDao = get()) }
 
         viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementDao = get()) }
     }

@@ -3,13 +3,17 @@ package com.arthurnagy.staysafe.feature.newdocument.statement.personaldata
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementPersonalDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.shared.parentGraphViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.threeten.bp.LocalDate
@@ -17,7 +21,8 @@ import org.threeten.bp.ZoneOffset
 
 class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_personal_data) {
 
-    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
+    private val viewModelFactory by inject<NewDocumentViewModel.Factory>()
+    private val sharedViewModel: NewDocumentViewModel by navGraphViewModels(navGraphId = R.id.nav_new_document) { viewModelFactory }
     private val viewModel: StatementPersonalDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -26,8 +31,20 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
             viewModel = this@StatementPersonalDataFragment.viewModel
         }
         with(binding) {
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
             clickableBirthDate.setOnClickListener {
                 openBirthDateSelection()
+            }
+            next.setOnClickListener {
+                findSafeNavController().navigate(
+                    StatementPersonalDataFragmentDirections.actionStatementPersonalDataFragmentToStatementRouteDataFragment(),
+                    FragmentNavigatorExtras(
+                        binding.toolbar to getString(R.string.transition_toolbar),
+                        binding.next to getString(R.string.transition_action)
+                    )
+                )
             }
         }
     }

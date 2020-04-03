@@ -9,8 +9,7 @@ import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
 
 class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocumentViewModel) : ViewModel() {
 
-    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> =
-        newDocumentViewModel.pendingDocument.map { it as NewDocumentViewModel.PendingStatement }
+    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
     val lastName = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
         if (pendingStatement.lastName != currentValue) {
             pendingStatement.lastName
@@ -34,6 +33,7 @@ class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocume
     }
     val birthDate: LiveData<Long?> = pendingStatement.map { it.birthDate }
     val birthDateFormatted: LiveData<String> = birthDate.map { it?.let { formatToDate(it) } ?: "" }
+    val isNextEnabled: LiveData<Boolean> = pendingStatement.map(::areStatementPersonalDataValid)
 
     init {
         lastName.observeForever {
@@ -52,6 +52,10 @@ class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocume
             }
         }
     }
+
+    private fun areStatementPersonalDataValid(pendingStatement: NewDocumentViewModel.PendingStatement) =
+        !pendingStatement.firstName.isNullOrEmpty() && !pendingStatement.lastName.isNullOrEmpty() &&
+            !pendingStatement.address.isNullOrBlank() && pendingStatement.birthDate != null
 
     fun onBirthDateSelected(timestamp: Long) {
         newDocumentViewModel.updateStatement { copy(birthDate = timestamp) }

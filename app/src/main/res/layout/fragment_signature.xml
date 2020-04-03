@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class=".SignatureBinding">
 
@@ -13,8 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/third_keyline"
-        tools:context="com.arthurnagy.staysafe.feature.newdocument.signature.SignatureFragment">
+        app:paddingBottomSystemWindowInsets="@{true}"
+        app:paddingTopSystemWindowInsets="@{true}">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_start"
@@ -30,45 +29,72 @@
             android:orientation="vertical"
             app:layout_constraintGuide_end="@dimen/first_keyline" />
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_back_24dp"
+            app:title="@null">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/new_form"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
         <TextView
             android:id="@+id/step_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.label}"
             android:layout_marginTop="@dimen/first_keyline"
+            android:text="@string/signature_label"
             android:textAppearance="?attr/textAppearanceSubtitle1"
             app:layout_constraintStart_toStartOf="@id/guide_start"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Semnătura" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <ImageView
             android:id="@+id/clear"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_delete_24dp"
             android:background="@drawable/bg_icon_ripple"
+            android:contentDescription="@string/delete"
             android:padding="@dimen/first_keyline"
-            android:contentDescription="@string/delete" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:srcCompat="@drawable/ic_delete_24dp" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/colorSecondary"
             app:layout_constraintDimensionRatio="16:10"
-            app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
-            app:layout_constraintTop_toBottomOf="@id/clear">
+            app:layout_constraintStart_toStartOf="@id/guide_start"
+            app:layout_constraintTop_toBottomOf="@id/clear"
+            app:strokeColor="?attr/colorSecondary"
+            app:strokeWidth="1dp">
 
             <com.github.gcacace.signaturepad.views.SignaturePad
                 android:id="@+id/signature_pad"
-                app:penColor="?attr/colorOnSurface"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                app:penColor="?attr/colorOnSurface" />
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/first_keyline"
+            android:enabled="@{viewModel.isGenerateEnabled}"
+            android:onClick="@{(v) -> viewModel.onGenerateDocument()}"
+            android:text="@string/generate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

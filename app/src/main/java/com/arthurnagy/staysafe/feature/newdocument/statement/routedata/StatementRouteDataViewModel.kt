@@ -4,20 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
-import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.StringProvider
 import com.arthurnagy.staysafe.feature.shared.formatToDate
 import com.arthurnagy.staysafe.feature.shared.labelRes
 
 class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentViewModel, stringProvider: StringProvider) : ViewModel() {
-    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> =
-        newDocumentViewModel.pendingDocument.map { it as NewDocumentViewModel.PendingStatement }
+    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
     val route = MutableLiveData<String>()
     val selectedMotive: LiveData<String> =
         pendingStatement.map { pendingStatement -> pendingStatement.motive?.let { stringProvider.getString(it.labelRes) } ?: "" }
     val date: LiveData<Long?> = pendingStatement.map { it.date }
     val dateFormatted: LiveData<String> = date.map { it?.let { formatToDate(it) } ?: "" }
+    val isNextEnabled: LiveData<Boolean> = pendingStatement.map(::areStatementRouteDataValid)
 
     init {
         route.observeForever {
@@ -27,11 +26,9 @@ class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentV
         }
     }
 
-    fun onMotiveSelected(motive: Motive) {
-        if (pendingStatement.value?.motive != motive) {
-            newDocumentViewModel.updateStatement { copy(motive = motive) }
-        }
-    }
+    private fun areStatementRouteDataValid(pendingStatement: NewDocumentViewModel.PendingStatement) =
+        !pendingStatement.route.isNullOrEmpty() && pendingStatement.motive != null &&
+            pendingStatement.date != null
 
     fun onDateSelected(date: Long) {
         if (pendingStatement.value?.date != date) {

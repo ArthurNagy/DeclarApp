@@ -6,13 +6,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.SignatureBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.color
-import com.arthurnagy.staysafe.feature.shared.parentGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.tint
 import com.github.gcacace.signaturepad.views.SignaturePad
+import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,7 +25,7 @@ import java.io.File
 
 class SignatureFragment : Fragment(R.layout.fragment_signature) {
 
-    private val sharedViewModel by parentGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
+    private val sharedViewModel by navGraphViewModels<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: SignatureViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,6 +34,9 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
             viewModel = this@SignatureFragment.viewModel
         }
         with(binding) {
+            toolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
             clear.setOnClickListener {
                 signaturePad.clear()
             }
@@ -57,6 +63,13 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
                     }
                 }
             })
+        }
+        viewModel.events.observe(viewLifecycleOwner) {
+            when (val action = it.consume()) {
+                is SignatureViewModel.Action.OpenDocument -> findSafeNavController().navigate(
+                    SignatureFragmentDirections.actionGlobalDocumentDetailFragment(action.documentId)
+                )
+            }
         }
     }
 }

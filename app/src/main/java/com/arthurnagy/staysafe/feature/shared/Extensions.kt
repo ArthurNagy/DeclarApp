@@ -11,7 +11,6 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
-import androidx.annotation.IdRes
 import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -19,9 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.observe
-import androidx.navigation.navGraphViewModels
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
@@ -33,19 +30,6 @@ fun Context.drawable(@DrawableRes drawableRes: Int): Drawable? = ContextCompat.g
 
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
-
-inline fun <reified VM : ViewModel> Fragment.parentGraphViewModel(@IdRes navGraphId: Int): Lazy<VM> = lazy {
-    requireParentFragment().navGraphViewModels<VM>(navGraphId = navGraphId).value
-}
-
-// inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
-//     @IdRes navGraphId: Int,
-//     qualifier: Qualifier? = null,
-//     noinline parameters: ParametersDefinition? = null
-// ) = lazy {
-//     val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
-//     getKoin().getViewModel(ViewModelParameter(VM::class, qualifier, parameters, null, store, null))
-// }
 
 fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {
     with(ConstraintSet()) {

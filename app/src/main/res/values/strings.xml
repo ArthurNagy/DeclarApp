@@ -46,7 +46,7 @@
     <string name="motive_professional_activity_necessities">Asigurarea necesarelor desfășurării activității profesionale</string>
     <string name="date">Data deplasării</string>
     <string name="date_short">Data</string>
-    <string name="signature_label">%1$d. Semnătura</string>
+    <string name="signature_label">3. Semnătura</string>
     <string name="delete">Șterge</string>
     <string name="no_documents_desc">Nu există formulare salvate!\nCreează unul nou.</string>
     <string name="delete_title">Ștergere formular</string>

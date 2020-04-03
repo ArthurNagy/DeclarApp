@@ -18,7 +18,7 @@ class OnboardingFragment : Fragment(R.layout.fragment_onboarding) {
             }
             val onboardingPagerAdapter = OnboardingPagerAdapter()
             pager.adapter = onboardingPagerAdapter
-            pager.setPageTransformer(false) { page, position ->
+            pager.setPageTransformer(false) { _, _ ->
                 // TODO: Add animation
             }
             addPageChangeListenerTo(pager, onPageSelected = {

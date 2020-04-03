@@ -26,8 +26,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right">
-        </action>
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_homeFragment_to_onboardingFragment"
             app:destination="@id/onboardingFragment" />
@@ -55,24 +54,19 @@
 
     <navigation
         android:id="@+id/nav_new_document"
-        app:startDestination="@id/newDocumentFragment">
+        app:startDestination="@id/statementPersonalDataFragment">
         <fragment
-            android:id="@+id/newDocumentFragment"
-            android:name="com.arthurnagy.staysafe.feature.newdocument.NewDocumentFragment"
-            android:label="NewDocumentFragment"
-            tools:layout="@layout/fragment_new_document">
+            android:id="@+id/statementPersonalDataFragment"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataFragment"
+            android:label="StatementPersonalDataFragment"
+            tools:layout="@layout/fragment_statement_personal_data">
             <action
-                android:id="@+id/action_newDocumentFragment_to_documentDetailFragment"
-                app:destination="@id/documentDetailFragment"
+                android:id="@+id/action_statementPersonalDataFragment_to_statementRouteDataFragment"
+                app:destination="@id/statementRouteDataFragment"
                 app:enterAnim="@anim/slide_in_right"
                 app:exitAnim="@anim/slide_out_left"
                 app:popEnterAnim="@anim/slide_in_left"
-                app:popExitAnim="@anim/slide_out_right"
-                app:popUpTo="@id/newDocumentFragment"
-                app:popUpToInclusive="true" />
-            <action
-                android:id="@+id/action_newDocumentFragment_to_motivePickerBottomSheet"
-                app:destination="@id/motivePickerBottomSheet" />
+                app:popExitAnim="@anim/slide_out_right" />
         </fragment>
 
         <dialog
@@ -80,5 +74,36 @@
             android:name="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerBottomSheet"
             android:label="MotivePickerBottomSheet"
             tools:layout="@layout/bottom_sheet_motive_picker" />
+        <fragment
+            android:id="@+id/statementRouteDataFragment"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataFragment"
+            android:label="StatementRouteDataFragment"
+            tools:layout="@layout/fragment_statement_route_data">
+            <action
+                android:id="@+id/action_statementRouteDataFragment_to_motivePickerBottomSheet"
+                app:destination="@id/motivePickerBottomSheet" />
+            <action
+                android:id="@+id/action_statementRouteDataFragment_to_signatureFragment"
+                app:destination="@id/signatureFragment"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        </fragment>
+        <fragment
+            android:id="@+id/signatureFragment"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.signature.SignatureFragment"
+            android:label="SignatureFragment"
+            tools:layout="@layout/fragment_signature" />
+        <action
+            android:id="@+id/action_global_documentDetailFragment"
+            app:destination="@id/documentDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/statementPersonalDataFragment"
+            app:popUpToInclusive="true" />
+
     </navigation>
 </navigation>
