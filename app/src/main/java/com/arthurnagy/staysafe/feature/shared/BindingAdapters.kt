@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
@@ -27,6 +28,11 @@ fun TextView.drawableTint(@ColorRes colorRes: Int) {
 @BindingAdapter("isVisible")
 fun View.setVisible(visible: Boolean) {
     this.isVisible = visible
+}
+
+@BindingAdapter("isInvisible")
+fun View.isInvisible(invisible: Boolean) {
+    this.isInvisible = invisible
 }
 
 @BindingAdapter("image")

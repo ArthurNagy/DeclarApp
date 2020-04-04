@@ -100,7 +100,7 @@
 
             <ImageView
                 android:id="@+id/clear"
-                isVisible="@{!viewModel.isExistingVisible}"
+                isInvisible="@{viewModel.isExistingVisible}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_icon_ripple"
@@ -113,7 +113,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/signature_pad_card"
-                isVisible="@{!viewModel.isExistingVisible}"
+                isInvisible="@{viewModel.isExistingVisible}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/content_margin"
@@ -134,7 +134,7 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/signature_existing_card"
-                isVisible="@{viewModel.isExistingVisible}"
+                isInvisible="@{!viewModel.isExistingVisible}"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/content_margin"
@@ -148,8 +148,8 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:tint="?attr/colorOnSurface"
-                    app:image="@{viewModel.existingSignaturePath}" />
+                    app:image="@{viewModel.existingSignaturePath}"
+                    app:tint="?attr/colorOnSurface" />
             </com.google.android.material.card.MaterialCardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

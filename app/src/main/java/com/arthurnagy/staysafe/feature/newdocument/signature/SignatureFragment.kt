@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.transition.ChangeBounds
 import android.transition.Slide
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -60,14 +61,18 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
                 override fun onSigned() {
                     lifecycleScope.launch {
                         viewModel?.let { signatureViewModel ->
-                            val signatureBitmap = signaturePad.transparentSignatureBitmap.tint(requireContext().color(R.color.signature_pen_color))
-                            val signaturePng = withContext(Dispatchers.IO) {
-                                requireContext().openFileOutput(signatureViewModel.fileName, Context.MODE_PRIVATE).use {
-                                    signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                            try {
+                                val signatureBitmap = signaturePad.transparentSignatureBitmap.tint(requireContext().color(R.color.signature_pen_color))
+                                val signaturePng = withContext(Dispatchers.IO) {
+                                    requireContext().openFileOutput(signatureViewModel.fileName, Context.MODE_PRIVATE).use {
+                                        signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                                    }
+                                    File(requireContext().filesDir, signatureViewModel.fileName)
                                 }
-                                File(requireContext().filesDir, signatureViewModel.fileName)
+                                signatureViewModel.onSignatureCreated(signaturePng.path)
+                            } catch (exception: Exception) {
+                                Log.e("SignatureFragment", exception.message.orEmpty())
                             }
-                            signatureViewModel.onSignatureCreated(signaturePng.path)
                         }
                     }
                 }

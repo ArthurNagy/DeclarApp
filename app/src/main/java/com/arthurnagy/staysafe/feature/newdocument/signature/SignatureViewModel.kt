@@ -21,10 +21,14 @@ class SignatureViewModel(
     private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
 
     val hasExistingSignature: LiveData<Boolean> = newDocumentViewModel.hasExistingSignature
+
     val fileName = SIGNATURE_FILE_NAME_SUFFIX.format(System.currentTimeMillis())
+
     val isGenerateEnabled: LiveData<Boolean> = pendingStatement.map { it.signaturePath != null }
+
     private val _events = MutableLiveData<Event<Action>>()
     val events: LiveData<Event<Action>> get() = _events
+
     private val _checkedSignatureSelection = MutableLiveData<Int>()
     val checkedSignatureSelection: LiveData<Int> get() = _checkedSignatureSelection
     val isExistingVisible: LiveData<Boolean> get() = checkedSignatureSelection.map { it == R.id.signature_existing }
@@ -55,17 +59,6 @@ class SignatureViewModel(
 
     fun onGenerateDocument() {
         viewModelScope.launch {
-            val finalSignature = when (checkedSignatureSelection.value) {
-                R.id.signature_existing -> existingSignaturePath.value
-                else -> pendingStatement.value?.signaturePath
-            }
-
-            finalSignature?.let {
-                newDocumentViewModel.updateStatement {
-                    copy(signaturePath = it)
-                }
-            }
-
             pendingStatement.value?.let { pendingStatement ->
                 val statementId = createNewStatement(pendingStatement)
                 _events.value = Event(Action.OpenDocument(documentId = statementId))
