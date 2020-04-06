@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arthurnagy.staysafe.HomeBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
+import com.arthurnagy.staysafe.feature.shared.color
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.setupSwipeToDelete
 import com.google.android.material.snackbar.Snackbar
@@ -69,9 +70,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             statementDeletedEvent.observe(viewLifecycleOwner) {
                 val statement = it.consume()
                 if (statement != null) {
-                    Snackbar.make(binding.coordinator, R.string.form_deleted_message, Snackbar.LENGTH_LONG).setAction(R.string.undo) {
-                        viewModel.undoStatementDeletion(statement)
-                    }.show()
+                    Snackbar.make(binding.coordinator, R.string.form_deleted_message, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.undo) {
+                            viewModel.undoStatementDeletion(statement)
+                        }
+                        .setActionTextColor(requireContext().color(R.color.color_secondary))
+                        .setAnchorView(binding.bar)
+                        .show()
                 }
             }
         }
