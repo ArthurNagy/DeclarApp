@@ -60,4 +60,7 @@
     <string name="choose_motive">Alege motivul</string>
     <string name="existing">Actuală</string>
     <string name="new_signature">Nouă</string>
+    <string name="form_deleted_message">Formularul a fost șters!</string>
+    <string name="undo">Anulează</string>
+
 </resources>

@@ -19,6 +19,8 @@
     <color name="color_on_primary">@color/black</color>
     <color name="color_on_secondary">@color/white</color>
 
+    <color name="shadow">#4c000000</color>
+    <color name="delete_red">#FF1744</color>
     <!-- Scrim colors -->
     <color name="system_ui_scrim_light">#B3FFFFFF</color> <!-- 70% white -->
     <color name="system_ui_scrim_black">#66000000</color> <!-- 25% black -->

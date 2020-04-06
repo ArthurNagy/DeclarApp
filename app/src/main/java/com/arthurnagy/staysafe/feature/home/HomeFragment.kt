@@ -11,6 +11,8 @@ import com.arthurnagy.staysafe.HomeBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.feature.shared.consume
+import com.arthurnagy.staysafe.feature.shared.setupSwipeToDelete
+import com.google.android.material.snackbar.Snackbar
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,7 +58,22 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 }
                 adapter = documentsAdapter
             }
+
+            setupSwipeToDelete(recycler, documentsAdapter, onRemoveItem = {
+                viewModel?.deleteStatement(it.statement)
+            })
         }
-        viewModel.items.observe(viewLifecycleOwner, documentsAdapter::submitList)
+
+        with(viewModel) {
+            items.observe(viewLifecycleOwner, documentsAdapter::submitList)
+            statementDeletedEvent.observe(viewLifecycleOwner) {
+                val statement = it.consume()
+                if (statement != null) {
+                    Snackbar.make(binding.coordinator, R.string.form_deleted_message, Snackbar.LENGTH_LONG).setAction(R.string.undo) {
+                        viewModel.undoStatementDeletion(statement)
+                    }.show()
+                }
+            }
+        }
     }
 }

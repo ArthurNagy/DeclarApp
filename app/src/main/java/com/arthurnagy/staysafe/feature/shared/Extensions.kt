@@ -3,9 +3,11 @@ package com.arthurnagy.staysafe.feature.shared
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
+import android.graphics.Shader
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -29,6 +31,8 @@ import com.arthurnagy.staysafe.core.model.Motive
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
 
 fun Context.drawable(@DrawableRes drawableRes: Int): Drawable? = ContextCompat.getDrawable(this, drawableRes)
+
+fun Context.dimension(@DimenRes dimenRes: Int): Float = resources.getDimension(dimenRes)
 
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
@@ -120,4 +124,14 @@ class LifecyclePageChangeListener(
     override fun onPause(owner: LifecycleOwner) {
         viewPager.removeOnPageChangeListener(pageChangeCallback)
     }
+}
+
+fun Shader.setTranslation(x: Float = 0f, y: Float = 0f) {
+    getLocalMatrix(matrix)
+    matrix.setTranslate(x, y)
+    setLocalMatrix(matrix)
+}
+
+private val matrix: Matrix by lazy(LazyThreadSafetyMode.NONE) {
+    Matrix()
 }
