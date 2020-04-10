@@ -2,9 +2,8 @@ package com.arthurnagy.staysafe.feature.newdocument.signature
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.Slide
 import android.util.Log
 import android.view.Gravity
 import android.view.View
@@ -13,10 +12,13 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.transition.ChangeBounds
+import androidx.transition.Slide
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.SignatureBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.color
+import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
 import com.arthurnagy.staysafe.feature.shared.tint
 import com.github.gcacace.signaturepad.views.SignaturePad
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
@@ -34,8 +36,10 @@ class SignatureFragment : Fragment(R.layout.fragment_signature) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enterTransition = Slide(Gravity.END)
-        sharedElementEnterTransition = ChangeBounds()
+        doIfAboveVersion(Build.VERSION_CODES.LOLLIPOP_MR1) {
+            enterTransition = Slide(Gravity.END)
+            sharedElementEnterTransition = ChangeBounds()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

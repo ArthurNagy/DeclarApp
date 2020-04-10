@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
+import android.os.Build
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import androidx.core.graphics.drawable.toBitmap
@@ -21,6 +22,12 @@ private const val DAY = "d"
 private const val YEAR = "yyyy"
 
 inline fun consume(block: () -> Unit) = true.also { block() }
+
+inline fun doIfAboveVersion(version: Int, block: () -> Unit) {
+    if (Build.VERSION.SDK_INT > version) {
+        block()
+    }
+}
 
 fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
     .format(DateTimeFormatter.ofPattern("$MONTH_FULL $DAY$DAY, $YEAR"))

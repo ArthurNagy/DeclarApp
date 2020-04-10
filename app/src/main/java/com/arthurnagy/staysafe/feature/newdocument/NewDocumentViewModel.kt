@@ -44,8 +44,7 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
             firstName = statement?.firstName ?: pendingStatement.firstName,
             lastName = statement?.lastName ?: pendingStatement.lastName,
             birthDate = statement?.birthDate ?: pendingStatement.birthDate,
-            address = statement?.address ?: pendingStatement.address,
-            signaturePath = statement?.signaturePath ?: pendingStatement.signaturePath
+            address = statement?.address ?: pendingStatement.address
         )
 
     data class PendingStatement(

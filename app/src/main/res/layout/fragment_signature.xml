@@ -131,7 +131,6 @@
                     app:penColor="?attr/colorOnSurface" />
             </com.google.android.material.card.MaterialCardView>
 
-
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/signature_existing_card"
                 isInvisible="@{!viewModel.isExistingVisible}"

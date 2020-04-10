@@ -1,16 +1,18 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.personaldata
 
+import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
 import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.transition.Slide
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementPersonalDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
+import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -29,7 +31,9 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        exitTransition = Slide(Gravity.START)
+        doIfAboveVersion(Build.VERSION_CODES.LOLLIPOP_MR1) {
+            exitTransition = Slide(Gravity.START)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

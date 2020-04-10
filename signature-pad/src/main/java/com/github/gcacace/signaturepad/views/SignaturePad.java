@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
-import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -106,28 +104,28 @@ public class SignaturePad extends View {
         });
     }
 
-    @Override
-    protected Parcelable onSaveInstanceState() {
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("superState", super.onSaveInstanceState());
-        if (this.mHasEditState == null || this.mHasEditState) {
-            this.mBitmapSavedState = this.getTransparentSignatureBitmap();
-        }
-        bundle.putParcelable("signatureBitmap", this.mBitmapSavedState);
-        return bundle;
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Parcelable state) {
-        if (state instanceof Bundle) {
-            Bundle bundle = (Bundle) state;
-            this.setSignatureBitmap((Bitmap) bundle.getParcelable("signatureBitmap"));
-            this.mBitmapSavedState = bundle.getParcelable("signatureBitmap");
-            state = bundle.getParcelable("superState");
-        }
-        this.mHasEditState = false;
-        super.onRestoreInstanceState(state);
-    }
+//    @Override
+//    protected Parcelable onSaveInstanceState() {
+//        Bundle bundle = new Bundle();
+//        bundle.putParcelable("superState", super.onSaveInstanceState());
+//        if (this.mHasEditState == null || this.mHasEditState) {
+//            this.mBitmapSavedState = this.getTransparentSignatureBitmap();
+//        }
+//        bundle.putParcelable("signatureBitmap", this.mBitmapSavedState);
+//        return bundle;
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Parcelable state) {
+//        if (state instanceof Bundle) {
+//            Bundle bundle = (Bundle) state;
+//            this.setSignatureBitmap((Bitmap) bundle.getParcelable("signatureBitmap"));
+//            this.mBitmapSavedState = bundle.getParcelable("signatureBitmap");
+//            state = bundle.getParcelable("superState");
+//        }
+//        this.mHasEditState = false;
+//        super.onRestoreInstanceState(state);
+//    }
 
     /**
      * Set the pen color from a given resource.
