@@ -1,2 +1,3 @@
+include ':signature-pad'
 include ':app'
 rootProject.name = "staySafe"
