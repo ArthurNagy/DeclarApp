@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.viewpager.widget.ViewPager
@@ -75,6 +76,58 @@ inline fun <T> LiveData<T>.doOnChanged(crossinline observer: (T) -> Unit) {
             this@doOnChanged.removeObserver(this)
         }
     })
+}
+
+fun <T1, T2, T3, R> combine(first: LiveData<T1>, second: LiveData<T2>, third: LiveData<T3>, func: (first: T1, second: T2, third: T3) -> R): LiveData<R> =
+    MediatorLiveData<R>().apply {
+        var lastValueT1: T1? = null
+        var lastValueT2: T2? = null
+        var lastValueT3: T3? = null
+        fun combineData(first: T1?, second: T2?, third: T3?) {
+            if (first != null && second != null && third != null) value = func(first, second, third)
+        }
+        addSource(first) {
+            lastValueT1 = it
+            combineData(lastValueT1, lastValueT2, lastValueT3)
+        }
+        addSource(second) {
+            lastValueT2 = it
+            combineData(lastValueT1, lastValueT2, lastValueT3)
+        }
+        addSource(third) {
+            lastValueT3 = it
+            combineData(lastValueT1, lastValueT2, lastValueT3)
+        }
+    }
+
+fun <T1, T2, R> LiveData<T1>.combineWith(other: LiveData<T2>, func: (firstValue: T1, otherValue: T2) -> R): LiveData<R> = MediatorLiveData<R>().apply {
+    var lastValueT1: T1? = null
+    var lastValueT2: T2? = null
+    fun combineData(first: T1?, second: T2?) {
+        if (first != null && second != null) value = func(first, second)
+    }
+    addSource(this@combineWith) {
+        lastValueT1 = it
+        combineData(lastValueT1, lastValueT2)
+    }
+    addSource(other) {
+        lastValueT2 = it
+        combineData(lastValueT1, lastValueT2)
+    }
+}
+
+fun <T1, T2, R> LiveData<T1>.mergeWith(second: LiveData<T2>, func: (firstValue: T1?, secondValue: T2?) -> R?): LiveData<R> = MediatorLiveData<R>().apply {
+    fun notify() {
+        func(this@mergeWith.value, second.value)?.let {
+            value = it
+        }
+    }
+    addSource(this@mergeWith) {
+        notify()
+    }
+    addSource(second) {
+        notify()
+    }
 }
 
 fun Fragment.addPageChangeListenerTo(

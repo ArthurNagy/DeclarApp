@@ -1,4 +1,4 @@
-package com.arthurnagy.staysafe.feature.shared
+package com.arthurnagy.staysafe.feature.shared.provider
 
 import android.content.Context
 import androidx.annotation.PluralsRes

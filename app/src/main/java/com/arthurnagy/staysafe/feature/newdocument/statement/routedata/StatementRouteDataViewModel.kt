@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
-import com.arthurnagy.staysafe.feature.shared.StringProvider
 import com.arthurnagy.staysafe.feature.shared.formatToDate
 import com.arthurnagy.staysafe.feature.shared.labelRes
+import com.arthurnagy.staysafe.feature.shared.provider.StringProvider
 
 class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentViewModel, stringProvider: StringProvider) : ViewModel() {
     private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement

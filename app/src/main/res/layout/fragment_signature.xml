@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".SignatureBinding">
 
         <variable
             name="viewModel"
             type="com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel" />
+
+        <import type="androidx.core.content.ContextCompat" />
+
+        <import type="com.arthurnagy.staysafe.R" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -128,6 +133,8 @@
                     android:id="@+id/signature_pad"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    app:onClear="@{() -> viewModel.onClearSignature()}"
+                    app:onSigned="@{() -> viewModel.onSignatureCreated()}"
                     app:penColor="?attr/colorOnSurface" />
             </com.google.android.material.card.MaterialCardView>
 
@@ -155,16 +162,28 @@
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/action"
+            isInvisible="@{viewModel.isLoading}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/first_keyline"
             android:enabled="@{viewModel.isGenerateEnabled}"
-            android:onClick="@{(v) -> viewModel.onGenerateDocument()}"
+            android:onClick="@{(v) -> viewModel.onGenerateDocument(signaturePad.getTransparentSignatureBitmap(), ContextCompat.getColor(context, R.color.signature_pen_color))}"
             android:text="@string/generate"
             android:transitionName="@string/transition_action"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            isVisible="@{viewModel.isLoading}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/action"
+            app:layout_constraintEnd_toEndOf="@id/action"
+            app:layout_constraintStart_toStartOf="@id/action"
+            app:layout_constraintTop_toTopOf="@id/action" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

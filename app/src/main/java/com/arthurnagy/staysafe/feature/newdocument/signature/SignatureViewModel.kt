@@ -1,5 +1,7 @@
 package com.arthurnagy.staysafe.feature.newdocument.signature
 
+import android.graphics.Bitmap
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,29 +12,44 @@ import com.arthurnagy.staysafe.core.db.StatementDao
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.Event
+import com.arthurnagy.staysafe.feature.shared.combine
 import com.arthurnagy.staysafe.feature.shared.doOnChanged
+import com.arthurnagy.staysafe.feature.shared.provider.FileProvider
+import com.arthurnagy.staysafe.feature.shared.tint
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SignatureViewModel(
     private val newDocumentViewModel: NewDocumentViewModel,
-    private val statementDao: StatementDao
+    private val statementDao: StatementDao,
+    private val fileProvider: FileProvider
 ) : ViewModel() {
 
     private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
 
     val hasExistingSignature: LiveData<Boolean> = newDocumentViewModel.hasExistingSignature
-
-    val fileName = SIGNATURE_FILE_NAME_SUFFIX.format(System.currentTimeMillis())
-
-    val isGenerateEnabled: LiveData<Boolean> = pendingStatement.map { it.signaturePath != null }
+    val existingSignaturePath: LiveData<String?> get() = newDocumentViewModel.existingSignaturePath
+    private val newSignatureFileName = SIGNATURE_FILE_NAME_SUFFIX.format(System.currentTimeMillis())
+    private val newSignatureCreated = MutableLiveData(false)
 
     private val _events = MutableLiveData<Event<Action>>()
     val events: LiveData<Event<Action>> get() = _events
 
     private val _checkedSignatureSelection = MutableLiveData<Int>()
     val checkedSignatureSelection: LiveData<Int> get() = _checkedSignatureSelection
+
+    val isGenerateEnabled: LiveData<Boolean> =
+        combine(hasExistingSignature, newSignatureCreated, checkedSignatureSelection) { hasExistingSignature, newSignatureCreated, checkedSignatureSelection ->
+            when (checkedSignatureSelection) {
+                R.id.signature_existing -> hasExistingSignature
+                else -> newSignatureCreated
+            }
+        }
     val isExistingVisible: LiveData<Boolean> get() = checkedSignatureSelection.map { it == R.id.signature_existing }
-    val existingSignaturePath: LiveData<String?> get() = newDocumentViewModel.existingSignaturePath
+
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
         hasExistingSignature.doOnChanged {
@@ -50,19 +67,42 @@ class SignatureViewModel(
     }
 
     fun onClearSignature() {
-        newDocumentViewModel.updateStatement { copy(signaturePath = null) }
+        newSignatureCreated.value = false
     }
 
-    fun onSignatureCreated(signaturePath: String) {
-        newDocumentViewModel.updateStatement { copy(signaturePath = signaturePath) }
+    fun onSignatureCreated() {
+        newSignatureCreated.value = true
     }
 
-    fun onGenerateDocument() {
+    fun onGenerateDocument(newSignature: Bitmap, signatureColor: Int) {
         viewModelScope.launch {
+            _isLoading.value = true
+            setFinalSignature(newSignature, signatureColor)
             pendingStatement.value?.let { pendingStatement ->
                 val statementId = createNewStatement(pendingStatement)
                 _events.value = Event(Action.OpenDocument(documentId = statementId))
+                _isLoading.value = false
             }
+        }
+    }
+
+    private suspend fun setFinalSignature(newSignature: Bitmap, signatureColor: Int) {
+        when (checkedSignatureSelection.value) {
+            R.id.signature_new -> {
+                try {
+                    val signaturePng = withContext(Dispatchers.IO) {
+                        val signatureBitmap = newSignature.tint(signatureColor)
+                        fileProvider.openAppFile(fileName = newSignatureFileName) {
+                            signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+                        }
+                        fileProvider.getAppFile(fileName = newSignatureFileName)
+                    }
+                    newDocumentViewModel.updateStatement { copy(signaturePath = signaturePng.path) }
+                } catch (exception: Exception) {
+                    Log.e("SignatureViewModel", exception.message.orEmpty())
+                }
+            }
+            R.id.signature_existing -> newDocumentViewModel.updateStatement { copy(signaturePath = existingSignaturePath.value) }
         }
     }
 

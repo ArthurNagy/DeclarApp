@@ -11,8 +11,9 @@ import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerViewModel
-import com.arthurnagy.staysafe.feature.shared.StringProvider
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
+import com.arthurnagy.staysafe.feature.shared.provider.FileProvider
+import com.arthurnagy.staysafe.feature.shared.provider.StringProvider
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -36,6 +37,7 @@ class StaySafeApplication : Application() {
 
     private val appModule = module {
         factory { StringProvider(androidContext()) }
+        factory { FileProvider(androidContext()) }
 
         single { PreferenceManager(androidContext()) }
         single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").fallbackToDestructiveMigration().build() }
@@ -48,7 +50,7 @@ class StaySafeApplication : Application() {
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> MotivePickerViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, statementDao = get()) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, statementDao = get(), fileProvider = get()) }
 
         viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementDao = get()) }
     }
