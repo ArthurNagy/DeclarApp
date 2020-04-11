@@ -40,7 +40,7 @@ class StaySafeApplication : Application() {
         factory { FileProvider(androidContext()) }
 
         single { PreferenceManager(androidContext()) }
-        single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").fallbackToDestructiveMigration().build() }
+        single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").build() }
         factory { get<StaySafeDatabase>().statementDao() }
 
         viewModel { HomeViewModel(statementDao = get()) }
