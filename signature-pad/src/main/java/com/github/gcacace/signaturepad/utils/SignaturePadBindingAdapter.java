@@ -1,9 +1,11 @@
 package com.github.gcacace.signaturepad.utils;
 
+import androidx.annotation.Keep;
 import androidx.databinding.BindingAdapter;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 
+@Keep
 public final class SignaturePadBindingAdapter {
 
     @BindingAdapter("onStartSigning")

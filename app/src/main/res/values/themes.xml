@@ -44,10 +44,6 @@
         <item name="colorPrimary">@color/color_secondary</item>
     </style>
 
-    <style name="ThemeOverlay.StaySafe.AutoCompleteTextView" parent="ThemeOverlay.MaterialComponents.AutoCompleteTextView.OutlinedBox">
-        <item name="colorPrimary">@color/color_secondary</item>
-    </style>
-
     <style name="ThemeOverlay.StaySafe.Calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorPrimary">@color/color_secondary</item>
     </style>

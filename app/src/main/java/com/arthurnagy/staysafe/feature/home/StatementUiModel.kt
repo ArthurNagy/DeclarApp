@@ -5,6 +5,6 @@ import com.arthurnagy.staysafe.feature.shared.formatToDate
 import com.arthurnagy.staysafe.feature.shared.labelRes
 
 data class StatementUiModel(val statement: Statement) {
-    val motiveTextRes: Int get() = statement.motive.labelRes
+    val motiveTextResList: List<Int> get() = statement.motives.map { it.labelRes }
     val date: String get() = formatToDate(statement.date)
 }

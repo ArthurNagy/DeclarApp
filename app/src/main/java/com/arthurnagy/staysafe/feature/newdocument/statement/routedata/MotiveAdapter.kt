@@ -1,16 +1,17 @@
-package com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive
+package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import com.arthurnagy.staysafe.ItemMotiveBinding
+import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel.MotiveUiModel
 import com.arthurnagy.staysafe.feature.shared.DataBoundListAdapter
 import com.arthurnagy.staysafe.feature.shared.DataBoundViewHolder
 
-typealias OnMotiveSelected = (motive: MotivePickerViewModel.UiModel) -> Unit
+typealias OnMotiveSelected = (motive: MotiveUiModel) -> Unit
 
 class MotiveAdapter(private val onMotiveSelected: OnMotiveSelected) :
-    DataBoundListAdapter<MotivePickerViewModel.UiModel, ItemMotiveBinding>(diffUtilItemCallback) {
+    DataBoundListAdapter<MotiveUiModel, ItemMotiveBinding>(diffUtilItemCallback) {
 
     override fun createBinding(parent: ViewGroup): ItemMotiveBinding = ItemMotiveBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
@@ -20,16 +21,16 @@ class MotiveAdapter(private val onMotiveSelected: OnMotiveSelected) :
         }
     }
 
-    override fun bind(binding: ItemMotiveBinding, item: MotivePickerViewModel.UiModel) {
+    override fun bind(binding: ItemMotiveBinding, item: MotiveUiModel) {
         binding.uiModel = item
     }
 
     companion object {
-        private val diffUtilItemCallback = object : DiffUtil.ItemCallback<MotivePickerViewModel.UiModel>() {
-            override fun areItemsTheSame(oldItem: MotivePickerViewModel.UiModel, newItem: MotivePickerViewModel.UiModel): Boolean =
+        private val diffUtilItemCallback = object : DiffUtil.ItemCallback<MotiveUiModel>() {
+            override fun areItemsTheSame(oldItem: MotiveUiModel, newItem: MotiveUiModel): Boolean =
                 oldItem.motive == newItem.motive
 
-            override fun areContentsTheSame(oldItem: MotivePickerViewModel.UiModel, newItem: MotivePickerViewModel.UiModel): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: MotiveUiModel, newItem: MotiveUiModel): Boolean = oldItem == newItem
         }
     }
 }

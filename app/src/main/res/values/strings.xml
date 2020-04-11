@@ -7,10 +7,8 @@
     <string name="dark">Întunecată</string>
     <string name="system_default">Automată</string>
 
-    <string name="add">Adaugă</string>
     <string name="forms">Formulare</string>
 
-    <string name="choose_type_title">Alege tipul formularului</string>
     <string name="statement">Declarație pe proprie răspundere</string>
     <string name="new_form">Formular nou</string>
 
@@ -48,7 +46,6 @@
     <string name="motive_commercialize_agricultural_produces">Comercializarea de produse agroalimentare</string>
     <string name="motive_professional_activity_necessities">Asigurarea necesarelor desfășurării activității profesionale</string>
     <string name="date">Data deplasării</string>
-    <string name="date_short">Data</string>
     <string name="signature_label">3. Semnătura</string>
     <string name="delete">Șterge</string>
     <string name="no_documents_desc">Nu există formulare salvate!\nCreează unul nou.</string>
@@ -60,10 +57,10 @@
     <string name="onboarding_desc_second">Vizualizează, șterge, tipărește sau exportează declarațiile dintr-un singur loc.</string>
     <string name="onboarding_desc_third">Păstrează-ți datele în siguranță tot timpul. Aplicația nu necesită conexiune la internet, toate datele sunt stocate doar pe telefonul tău.</string>
     <string name="start">Începe</string>
-    <string name="choose_motive">Alege motivul</string>
     <string name="existing">Actuală</string>
     <string name="new_signature">Nouă</string>
     <string name="form_deleted_message">Formularul a fost șters!</string>
     <string name="undo">Anulează</string>
+    <string name="motive_label">Alege motivul/motivele deplasării</string>
 
 </resources>

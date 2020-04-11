@@ -2,7 +2,6 @@
 <resources>
 
     <color name="color_primary">@color/black</color>
-    <color name="color_primary_dark">@color/black</color>
 
     <color name="color_secondary">@color/secondary_dark</color>
     <color name="color_secondary_variant">@color/secondary_variant_dark</color>

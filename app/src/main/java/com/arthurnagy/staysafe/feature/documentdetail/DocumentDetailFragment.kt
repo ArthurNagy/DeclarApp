@@ -125,17 +125,19 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             } else {
                 addContent("locationAddressOne", statement.address)
             }
-            when (statement.motive) {
-                Motive.PROFESSIONAL_INTERESTS -> show("optionOne")
-                Motive.NECESSITY_PROVISIONING -> show("optionTwo")
-                Motive.MEDICAL_ASSISTANCE -> show("optionThree")
-                Motive.JUSTIFIED_HELP -> show("optionFour")
-                Motive.PHYSICAL_ACTIVITY -> show("optionFive")
-                Motive.AGRICULTURAL_ACTIVITIES -> show("optionSix")
-                Motive.BLOOD_DONATION -> show("optionSeven")
-                Motive.VOLUNTEERING -> show("optionEight")
-                Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> show("optionNine")
-                Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> show("optionTen")
+            statement.motives.forEach {
+                when (it) {
+                    Motive.PROFESSIONAL_INTERESTS -> show("optionOne")
+                    Motive.NECESSITY_PROVISIONING -> show("optionTwo")
+                    Motive.MEDICAL_ASSISTANCE -> show("optionThree")
+                    Motive.JUSTIFIED_HELP -> show("optionFour")
+                    Motive.PHYSICAL_ACTIVITY -> show("optionFive")
+                    Motive.AGRICULTURAL_ACTIVITIES -> show("optionSix")
+                    Motive.BLOOD_DONATION -> show("optionSeven")
+                    Motive.VOLUNTEERING -> show("optionEight")
+                    Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> show("optionNine")
+                    Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> show("optionTen")
+                }
             }
             addContent("routeAddress", statement.route)
             addContent("date", formatToFormalDate(statement.date))
@@ -153,6 +155,10 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
     private fun WebView.signature(signaturePath: String) {
         loadUrl("javascript:signature('$signaturePath')")
+    }
+
+    private fun WebView.fontSize(tagId: String, sizeInPixel: Int) {
+        loadUrl("javascript:fontSize('$tagId', '${sizeInPixel}px')")
     }
 
     companion object {

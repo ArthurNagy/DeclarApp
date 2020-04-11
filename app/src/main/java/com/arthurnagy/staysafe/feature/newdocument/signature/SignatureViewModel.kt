@@ -113,7 +113,7 @@ class SignatureViewModel(
             birthDate = pendingStatement.birthDate.orIllegalState(),
             address = pendingStatement.address.orIllegalState(),
             route = pendingStatement.route.orIllegalState(),
-            motive = pendingStatement.motive.orIllegalState(),
+            motives = pendingStatement.motives.orIllegalState(),
             date = pendingStatement.date.orIllegalState(),
             signaturePath = pendingStatement.signaturePath.orIllegalState(),
             createdAt = System.currentTimeMillis()

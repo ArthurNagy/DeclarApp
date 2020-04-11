@@ -20,6 +20,13 @@ fun TextView.textResource(@StringRes textResource: Int) {
     }
 }
 
+@BindingAdapter("textResList")
+fun TextView.textResouceList(textResourceList: List<Int>?) {
+    if (!textResourceList.isNullOrEmpty()) {
+        text = textResourceList.joinToString { context.getString(it) }
+    }
+}
+
 @BindingAdapter("drawableTint")
 fun TextView.drawableTint(@ColorRes colorRes: Int) {
     TextViewCompat.setCompoundDrawableTintList(this, if (colorRes != 0) ColorStateList.valueOf(context.color(colorRes)) else null)

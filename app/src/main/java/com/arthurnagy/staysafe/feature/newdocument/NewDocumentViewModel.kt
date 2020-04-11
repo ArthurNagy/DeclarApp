@@ -53,7 +53,7 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
         val birthDate: Long? = null,
         val address: String? = null,
         val route: String? = null,
-        val motive: Motive? = null,
+        val motives: List<Motive>? = null,
         val date: Long? = null,
         val signaturePath: String? = null
     )

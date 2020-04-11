@@ -43,11 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/first_keyline"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
             app:layout_constraintEnd_toStartOf="@id/date_barrier"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/motive_label"
-            app:textRes="@{uiModel.motiveTextRes}"
+            app:textResList="@{uiModel.motiveTextResList}"
             tools:text="Interes profesional" />
 
         <TextView

@@ -1,13 +1,16 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
+import android.graphics.drawable.InsetDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.transition.ChangeBounds
 import androidx.transition.Slide
 import com.arthurnagy.staysafe.R
@@ -40,12 +43,19 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@StatementRouteDataFragment.viewModel
         }
+        val motiveAdapter = MotiveAdapter {
+            viewModel.onMotiveSelected(it)
+        }
         with(binding) {
             toolbar.setNavigationOnClickListener {
                 findNavController().navigateUp()
             }
-            clickableMotive.setOnClickListener {
-                showMotiveSelection()
+            recycler.apply {
+                adapter = motiveAdapter
+                val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+                val firstKeyline = resources.getDimensionPixelSize(R.dimen.first_keyline)
+                itemDecoration.setDrawable(InsetDrawable(itemDecoration.drawable?.mutate(), firstKeyline, 0, firstKeyline, 0))
+                addItemDecoration(itemDecoration)
             }
             clickableDate.setOnClickListener {
                 openDateSelection()
@@ -60,6 +70,7 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
                 )
             }
         }
+        viewModel.motiveItems.observe(viewLifecycleOwner, motiveAdapter::submitList)
     }
 
     private fun openDateSelection() {
@@ -77,9 +88,5 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
 
         datePicker.addOnPositiveButtonClickListener(viewModel::onDateSelected)
         datePicker.show(childFragmentManager, datePicker.toString())
-    }
-
-    private fun showMotiveSelection() {
-        findSafeNavController().navigate(StatementRouteDataFragmentDirections.actionStatementRouteDataFragmentToMotivePickerBottomSheet())
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data class=".StatementRouteDataBinding">
 
@@ -34,15 +35,15 @@
                 android:textAppearance="?attr/textAppearanceHeadline6" />
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/colorSurface"
             android:clipChildren="false"
             android:clipToPadding="false"
             android:fillViewport="true"
             android:paddingTop="@dimen/first_keyline"
             android:paddingBottom="@dimen/third_keyline"
-            android:background="?attr/colorSurface"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,7 +81,7 @@
                     android:layout_marginTop="@dimen/second_keyline"
                     android:hint="@string/route"
                     app:counterEnabled="true"
-                    app:counterMaxLength="60"
+                    app:counterMaxLength="80"
                     app:helperText="@string/route_helper"
                     app:helperTextEnabled="true"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
@@ -96,33 +97,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/motive"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/first_keyline"
-                    android:hint="@string/motive"
-                    app:layout_constraintEnd_toEndOf="@id/guide_end"
-                    app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/route">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:text="@{viewModel.selectedMotive}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <View
-                    android:id="@+id/clickable_motive"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@id/motive"
-                    app:layout_constraintEnd_toEndOf="@id/motive"
-                    app:layout_constraintStart_toStartOf="@id/motive"
-                    app:layout_constraintTop_toTopOf="@id/motive" />
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -130,7 +104,7 @@
                     android:hint="@string/date"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/motive">
+                    app:layout_constraintTop_toBottomOf="@id/route">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -148,8 +122,33 @@
                     app:layout_constraintEnd_toEndOf="@id/date"
                     app:layout_constraintStart_toStartOf="@id/date"
                     app:layout_constraintTop_toTopOf="@id/date" />
+
+                <TextView
+                    android:id="@+id/motive_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorSecondary"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/clickable_date"
+                    android:layout_marginTop="@dimen/first_keyline"
+                    android:text="@string/motive_label" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:paddingBottom="56dp"
+                    android:layout_marginTop="@dimen/content_margin"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/motive_label"
+                    tools:listitem="@layout/item_motive" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/next"

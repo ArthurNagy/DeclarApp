@@ -12,7 +12,6 @@
     <color name="transparent">#00000000</color>
 
     <color name="color_primary">@color/white</color>
-    <color name="color_primary_dark">@color/white</color>
     <color name="color_secondary">@color/secondary_light</color>
     <color name="color_secondary_variant">@color/secondary_variant_light</color>
 

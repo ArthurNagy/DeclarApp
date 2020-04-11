@@ -17,7 +17,7 @@ class HomeViewModel(private val statementDao: StatementDao) : ViewModel() {
     private val _statementDeletedEvent = MutableLiveData<Event<Statement>>()
     val statementDeletedEvent get() = _statementDeletedEvent
 
-    val items: LiveData<List<StatementUiModel>> = statementDao.get().map { statements -> statements.map { StatementUiModel(it) } }.asLiveData()
+    val items: LiveData<List<StatementUiModel>> = statementDao.getDistinct().map { statements -> statements.map { StatementUiModel(it) } }.asLiveData()
     val isEmpty: LiveData<Boolean> = items.map { it.isEmpty() }
 
     fun deleteStatement(statement: Statement) {

@@ -10,7 +10,6 @@ import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
-import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerViewModel
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.arthurnagy.staysafe.feature.shared.provider.FileProvider
 import com.arthurnagy.staysafe.feature.shared.provider.StringProvider
@@ -40,7 +39,11 @@ class StaySafeApplication : Application() {
         factory { FileProvider(androidContext()) }
 
         single { PreferenceManager(androidContext()) }
-        single { Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db").build() }
+        single {
+            Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db")
+                .addMigrations(StaySafeDatabase.MIGRATION_3_4)
+                .build()
+        }
         factory { get<StaySafeDatabase>().statementDao() }
 
         viewModel { HomeViewModel(statementDao = get()) }
@@ -48,8 +51,7 @@ class StaySafeApplication : Application() {
         factory { NewDocumentViewModel.Factory(statementDao = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel, stringProvider = get()) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> MotivePickerViewModel(newDocumentViewModel) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, statementDao = get(), fileProvider = get()) }
 
         viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementDao = get()) }

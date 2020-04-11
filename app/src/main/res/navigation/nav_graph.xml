@@ -65,19 +65,11 @@
                 app:destination="@id/statementRouteDataFragment" />
         </fragment>
 
-        <dialog
-            android:id="@+id/motivePickerBottomSheet"
-            android:name="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerBottomSheet"
-            android:label="MotivePickerBottomSheet"
-            tools:layout="@layout/bottom_sheet_motive_picker" />
         <fragment
             android:id="@+id/statementRouteDataFragment"
             android:name="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataFragment"
             android:label="StatementRouteDataFragment"
             tools:layout="@layout/fragment_statement_route_data">
-            <action
-                android:id="@+id/action_statementRouteDataFragment_to_motivePickerBottomSheet"
-                app:destination="@id/motivePickerBottomSheet" />
             <action
                 android:id="@+id/action_statementRouteDataFragment_to_signatureFragment"
                 app:destination="@id/signatureFragment" />

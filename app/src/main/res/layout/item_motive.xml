@@ -7,7 +7,7 @@
 
         <variable
             name="uiModel"
-            type="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.motive.MotivePickerViewModel.UiModel" />
+            type="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel.MotiveUiModel" />
     </data>
 
     <TextView
@@ -17,8 +17,12 @@
         android:drawableEnd="@drawable/ic_check_24dp"
         android:drawablePadding="@dimen/first_keyline"
         android:gravity="center_vertical"
-        android:padding="@dimen/first_keyline"
-        android:textAppearance="?attr/textAppearanceSubtitle1"
+        android:minHeight="?attr/listPreferredItemHeightSmall"
+        android:paddingStart="@dimen/first_keyline"
+        android:paddingTop="@dimen/content_margin"
+        android:paddingEnd="@dimen/first_keyline"
+        android:paddingBottom="@dimen/content_margin"
+        android:textAppearance="?attr/textAppearanceBody2"
         app:drawableTint="@{uiModel.checkTint}"
         app:textRes="@{uiModel.motiveLabel}"
         tools:drawableTint="?colorSecondaryVariant"
