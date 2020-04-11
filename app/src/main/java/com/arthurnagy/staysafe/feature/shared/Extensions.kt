@@ -9,11 +9,13 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
+import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.Px
+import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -27,6 +29,7 @@ import androidx.lifecycle.observe
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
+import com.google.android.material.snackbar.Snackbar
 
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -37,6 +40,10 @@ fun Context.dimension(@DimenRes dimenRes: Int): Float = resources.getDimension(d
 
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
+
+fun View.showSnackbar(@StringRes message: Int) {
+    Snackbar.make(this, context.getString(message), Snackbar.LENGTH_LONG).show()
+}
 
 fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {
     with(ConstraintSet()) {

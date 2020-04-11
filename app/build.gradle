@@ -53,6 +53,7 @@ dependencies {
     def lifecycle_version = "2.2.0"
     def koin_version = "2.1.5"
     def room_version = "2.2.5"
+    def billing = '2.2.0'
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":signature-pad")
@@ -92,7 +93,10 @@ dependencies {
     implementation "io.coil-kt:coil:0.9.5"
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
-    
+
+    implementation "com.android.billingclient:billing:$billing"
+    implementation "com.android.billingclient:billing-ktx:$billing"
+
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
