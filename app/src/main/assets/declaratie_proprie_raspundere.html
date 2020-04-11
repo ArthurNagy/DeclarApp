@@ -14,8 +14,8 @@
 	.ft14{font-size:12px;font-family:Times;color:#202429;}
 	.ft15{font-size:12px;font-family:Times;color:#000000;}
 	.ft16{font-size:16px;font-family:Times;color:#000000;}
-	.ft17{font-size:25px;font-family:Helvetica;color:#000000;}
-	.ft18{font-size:27px;font-family:Helvetica;color:#000000;}
+	.ft17{font-size:24px;font-family:Helvetica;color:#000000;}
+	.ft18{font-size:22px;font-family:Helvetica;color:#000000;}
 	.ft19{font-size:20px;font-family:Helvetica;color:#000000;}
 	.ft110{font-size:16px;line-height:35px;font-family:Times;color:#000000;}
 -->
@@ -40,6 +40,10 @@
             document.getElementById('signature').src=signaturePath
         }
 
+        function fontSize(id, size)
+        {
+            document.getElementById(id).style.fontSize = "size";
+        }
     </script>
 </head>
 <body bgcolor="#A0A0A0" vlink="blue" link="blue">
