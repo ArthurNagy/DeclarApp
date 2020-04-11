@@ -1,24 +1,90 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
 <head>
     <title></title>
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <br/>
     <style type="text/css">
-<!--
-	p {margin: 0; padding: 0;}	.ft10{font-size:19px;font-family:Times;color:#000000;}
-	.ft11{font-size:16px;font-family:Times;color:#000000;}
-	.ft12{font-size:12px;font-family:Times;color:#000000;}
-	.ft13{font-size:16px;font-family:Times;color:#202429;}
-	.ft14{font-size:12px;font-family:Times;color:#202429;}
-	.ft15{font-size:12px;font-family:Times;color:#000000;}
-	.ft16{font-size:16px;font-family:Times;color:#000000;}
-	.ft17{font-size:24px;font-family:Helvetica;color:#000000;}
-	.ft18{font-size:22px;font-family:Helvetica;color:#000000;}
-	.ft19{font-size:20px;font-family:Helvetica;color:#000000;}
-	.ft110{font-size:16px;line-height:35px;font-family:Times;color:#000000;}
--->
+        <!--
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .ft10 {
+            font-size: 19px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .ft11 {
+            font-size: 16px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .ft12 {
+            font-size: 12px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .ft13 {
+            font-size: 16px;
+            font-family: Times;
+            color: #202429;
+        }
+
+        .ft14 {
+            font-size: 12px;
+            font-family: Times;
+            color: #202429;
+        }
+
+        .ft15 {
+            font-size: 12px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .ft16 {
+            font-size: 16px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .ft17 {
+            font-size: 24px;
+            font-family: Helvetica;
+            color: #000000;
+        }
+
+        .ft18 {
+            font-size: 20px;
+            font-family: Helvetica;
+            color: #000000;
+        }
+
+        .ft19 {
+            font-size: 20px;
+            font-family: Helvetica;
+            color: #000000;
+        }
+
+        .ft110 {
+            font-size: 16px;
+            line-height: 35px;
+            font-family: Times;
+            color: #000000;
+        }
+
+        .wrap {
+            white-space: normal !important;
+            width: 80%;
+        }
+        -->
 
 
 
@@ -26,91 +92,157 @@
 
     </style>
     <script type="text/javascript">
-        function addContent(id, newContent)
-        {
+        let observer;
+        function addContent(id, newContent) {
             document.getElementById(id).innerHTML = newContent;
         }
 
-        function show(id)
-        {
+        function show(id) {
             document.getElementById(id).style.display = "block";
         }
-        function signature(signaturePath)
-        {
-            document.getElementById('signature').src=signaturePath
+        function signature(signaturePath) {
+            document.getElementById('signature').src = signaturePath
         }
 
-        function fontSize(id, size)
-        {
+        function fontSize(id, size) {
             document.getElementById(id).style.fontSize = "size";
         }
+        function adjustFontSize() {
+            observer.disconnect();
+            const routeDiv = document.getElementById('routeAddress');
+            let fontSize = Math.min(20, (740 / routeDiv.getBoundingClientRect().width * 20));
+            const addWrap = fontSize < 10;
+            fontSize = Math.max(10, fontSize);
+            if (addWrap) {
+                routeDiv.classList.add('wrap')
+            }
+            routeDiv.style.fontSize = `${fontSize}px`
+        }
+
+        setTimeout(() => {
+            const targetNode = document.getElementById('routeAddress');
+
+            const config = { attributes: true, childList: true, subtree: true };
+            observer = new MutationObserver(adjustFontSize);
+            observer.observe(targetNode, config);
+        }, 0)
     </script>
 </head>
+
 <body bgcolor="#A0A0A0" vlink="blue" link="blue">
 <div id="page1-div" style="position:relative;width:918px;height:1188px;">
     <img width="918" height="1188" src="img_declaratie_proprie_raspundere.png" alt="background image"/>
-    <p style="position:absolute;top:106px;left:249px;white-space:nowrap" class="ft10"><b>DECLARAȚIE&#160;PE&#160;PROPRIE&#160;RĂSPUNDERE</b></p>
+    <p style="position:absolute;top:106px;left:249px;white-space:nowrap" class="ft10">
+        <b>DECLARAȚIE&#160;PE&#160;PROPRIE&#160;RĂSPUNDERE</b></p>
     <p style="position:absolute;top:109px;left:669px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:313px;left:244px;white-space:nowrap" class="ft12">Se&#160;va&#160;completa&#160;adresa&#160;locuinței&#160;în&#160;care&#160;persoana&#160;locuiește&#160;în&#160;fapt,&#160;indiferent&#160;dacă&#160;este&#160;identică&#160;</p>
-    <p style="position:absolute;top:332px;left:244px;white-space:nowrap" class="ft12">sau&#160;nu&#160;cu&#160;cea&#160;menționată&#160;în&#160;actul&#160;de&#160;identitate.</p>
+    <p style="position:absolute;top:313px;left:244px;white-space:nowrap" class="ft12">
+        Se&#160;va&#160;completa&#160;adresa&#160;locuinței&#160;în&#160;care&#160;persoana&#160;locuiește&#160;în&#160;fapt,&#160;indiferent&#160;dacă&#160;este&#160;identică&#160;
+    </p>
+    <p style="position:absolute;top:332px;left:244px;white-space:nowrap" class="ft12">
+        sau&#160;nu&#160;cu&#160;cea&#160;menționată&#160;în&#160;actul&#160;de&#160;identitate.</p>
     <p style="position:absolute;top:329px;left:525px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:378px;left:85px;white-space:nowrap" class="ft13"><b>Locul/locurile&#160;deplasării:&#160; &#160;</b></p>
-    <p style="position:absolute;top:439px;left:85px;white-space:nowrap" class="ft12">Se&#160;vor&#160;menționa&#160;locurile&#160;în&#160;care&#160;persoana&#160;se&#160;deplasează,&#160;în&#160;ordinea&#160;în&#160;care&#160;aceasta&#160;intenționează&#160;să-și&#160;desfășoare&#160;traseul.</p>
+    <p style="position:absolute;top:378px;left:85px;white-space:nowrap" class="ft13">
+        <b>Locul/locurile&#160;deplasării:&#160; &#160;</b></p>
+    <p style="position:absolute;top:439px;left:85px;white-space:nowrap" class="ft12">
+        Se&#160;vor&#160;menționa&#160;locurile&#160;în&#160;care&#160;persoana&#160;se&#160;deplasează,&#160;în&#160;ordinea&#160;în&#160;care&#160;aceasta&#160;intenționează&#160;să-și&#160;desfășoare&#160;traseul.
+    </p>
     <p style="position:absolute;top:435px;left:808px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:489px;left:84px;white-space:nowrap" class="ft13"><b>Motivul&#160;deplasării:</b></p>
+    <p style="position:absolute;top:489px;left:84px;white-space:nowrap" class="ft13"><b>Motivul&#160;deplasării:</b>
+    </p>
     <p style="position:absolute;top:489px;left:231px;white-space:nowrap" class="ft11">&#160;</p>
 
-    <p id="optionOne" style="display:none;position:absolute;top:520px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:520px;left:163px;white-space:nowrap" class="ft11">1.interes&#160;profesional, inclusiv între&#160;locuință/gospodărie&#160;și&#160;locul/locurile&#160;de&#160;desfășurare&#160;a</p>
-    <p style="position:absolute;top:543px;left:165px;white-space:nowrap" class="ft11">activității&#160;profesionale&#160;și&#160;înapoi</p>
+    <p id="optionOne" style="display:none;position:absolute;top:520px;left:140px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:520px;left:163px;white-space:nowrap" class="ft11">1.interes&#160;profesional,
+        inclusiv între&#160;locuință/gospodărie&#160;și&#160;locul/locurile&#160;de&#160;desfășurare&#160;a</p>
+    <p style="position:absolute;top:543px;left:165px;white-space:nowrap" class="ft11">
+        activității&#160;profesionale&#160;și&#160;înapoi</p>
 
-    <p id="optionTwo" style="display:none;position:absolute;top:567px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:567px;left:163px;white-space:nowrap" class="ft11">2.asigurarea&#160;de&#160;bunuri&#160;care&#160;acoperă&#160;necesitățile&#160;de&#160;bază&#160;ale&#160;persoanelor&#160;și&#160;animalelor&#160;de</p>
+    <p id="optionTwo" style="display:none;position:absolute;top:567px;left:140px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:567px;left:163px;white-space:nowrap" class="ft11">
+        2.asigurarea&#160;de&#160;bunuri&#160;care&#160;acoperă&#160;necesitățile&#160;de&#160;bază&#160;ale&#160;persoanelor&#160;și&#160;animalelor&#160;de
+    </p>
     <p style="position:absolute;top:590px;left:165px;white-space:nowrap" class="ft11">companie/domestice</p>
 
-    <p id="optionThree" style="display:none;position:absolute;top:615px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:613px;left:163px;white-space:nowrap" class="ft11">3.asistență&#160;medicală&#160;care&#160;nu&#160;poate&#160;fi&#160;amânată&#160;și&#160;nici&#160;realizată&#160;de&#160;la&#160;distanță</p>
+    <p id="optionThree" style="display:none;position:absolute;top:615px;left:140px;white-space:nowrap" class="ft11">
+        ✓</p>
+    <p style="position:absolute;top:613px;left:163px;white-space:nowrap" class="ft11">
+        3.asistență&#160;medicală&#160;care&#160;nu&#160;poate&#160;fi&#160;amânată&#160;și&#160;nici&#160;realizată&#160;de&#160;la&#160;distanță
+    </p>
 
-    <p id="optionFour" style="display:none;position:absolute;top:640px;left:139px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:637px;left:163px;white-space:nowrap" class="ft11">4.motive&#160;justificate,&#160;precum&#160;îngrijirea/&#160;însoțirea&#160;unui&#160;minor/copilului,
+    <p id="optionFour" style="display:none;position:absolute;top:640px;left:139px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:637px;left:163px;white-space:nowrap" class="ft11">
+        4.motive&#160;justificate,&#160;precum&#160;îngrijirea/&#160;însoțirea&#160;unui&#160;minor/copilului,
         asistența&#160;persoanelor</p>
-    <p style="position:absolute;top:660px;left:165px;white-space:nowrap" class="ft11">vârstnice, bolnave&#160;sau cu&#160;dizabilități&#160;ori&#160;deces&#160;al&#160;unui&#160;membru
+    <p style="position:absolute;top:660px;left:165px;white-space:nowrap" class="ft11">vârstnice, bolnave&#160;sau
+        cu&#160;dizabilități&#160;ori&#160;deces&#160;al&#160;unui&#160;membru
         de&#160;familie</p>
 
-    <p id="optionFive" style="display:none;position:absolute;top:686px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:684px;left:163px;white-space:nowrap" class="ft11">5.activitate&#160;fizică&#160;individuală&#160;(cu&#160;excluderea&#160;oricăror&#160;activități&#160;sportive&#160;de&#160;echipă/&#160;colective)</p>
-    <p style="position:absolute;top:707px;left:165px;white-space:nowrap" class="ft11">sau pentru nevoile&#160;animalelor&#160;de&#160;companie/domestice, în
+    <p id="optionFive" style="display:none;position:absolute;top:686px;left:140px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:684px;left:163px;white-space:nowrap" class="ft11">
+        5.activitate&#160;fizică&#160;individuală&#160;(cu&#160;excluderea&#160;oricăror&#160;activități&#160;sportive&#160;de&#160;echipă/&#160;colective)
+    </p>
+    <p style="position:absolute;top:707px;left:165px;white-space:nowrap" class="ft11">sau pentru
+        nevoile&#160;animalelor&#160;de&#160;companie/domestice, în
         apropierea&#160;locuinței</p>
 
-    <p id="optionSix" style="display:none;position:absolute;top:734px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:730px;left:163px;white-space:nowrap" class="ft11">6.realizarea&#160;de&#160;activități&#160;agricole</p>
-    <p style="position:absolute;top:754px;left:166px;white-space:nowrap" class="ft11">-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-</p>
-
-    <p id="optionSeven" style="display:none;position:absolute;top:780px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:778px;left:163px;white-space:nowrap" class="ft11">7.donarea&#160;de&#160;sânge, la&#160;centrele&#160;de&#160;transfuzie&#160;sanguină</p>
-
-    <p id="optionEight" style="display:none;position:absolute;top:804px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:802px;left:163px;white-space:nowrap" class="ft11">8.scopuri&#160;umanitare&#160;sau&#160;de&#160;voluntariat;</p>
-
-    <p id="optionNine" style="display:none;position:absolute;top:828px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:825px;left:163px;white-space:nowrap" class="ft11">9.comercializarea&#160;de&#160;produse&#160;agroalimentare&#160;(în&#160;cazul&#160;producătorilor&#160;agricoli)</p>
-
-    <p id="optionTen" style="display:none;position:absolute;top:851px;left:140px;white-space:nowrap" class="ft11">✓</p>
-    <p style="position:absolute;top:849px;left:161px;white-space:nowrap" class="ft11">10.&#160;asigurarea&#160;de&#160;bunuri&#160;necesare&#160;desfășurării&#160;activității&#160;profesionale.</p>
-
-    <p style="position:absolute;top:893px;left:111px;white-space:nowrap" class="ft12">Se&#160;va&#160;bifa&#160;doar&#160;motivul/motivele&#160;deplasării&#160;dintre&#160;cele&#160;prevăzute&#160;în&#160;listă,&#160;nefiind&#160;permise&#160;deplasări&#160;realizate&#160;invocând&#160;</p>
-    <p style="position:absolute;top:912px;left:111px;white-space:nowrap" class="ft12">alte&#160;motive&#160;decât&#160;cele&#160;prevăzute&#160;în&#160;Ordonanța&#160;Militară&#160;nr.&#160;3/2020.&#160;</p>
-    <p style="position:absolute;top:979px;left:111px;white-space:nowrap" class="ft11">Data&#160;declarației&#160; &#160;..................................&#160;
-        &#160;&#160;</p>
-    <p style="position:absolute;top:979px;left:486px;white-space:nowrap" class="ft11">Semnătura&#160;&#160;.......................................&#160;</p>
-    <p style="position:absolute;top:1040px;left:85px;white-space:nowrap" class="ft14"><b>Persoanele&#160;care&#160;au&#160;</b></p>
-    <p style="position:absolute;top:1040px;left:209px;white-space:nowrap" class="ft15"><b>împlinit&#160;vârsta&#160;de&#160;65&#160;de&#160;ani&#160;completează&#160;doar&#160;pentru&#160;motivele&#160;prevăzute&#160;în&#160;câmpurile&#160;1-6,&#160;</b>
+    <p id="optionSix" style="display:none;position:absolute;top:734px;left:140px;white-space:nowrap" class="ft11">✓
     </p>
-    <p style="position:absolute;top:1059px;left:85px;white-space:nowrap" class="ft15"><b>deplasarea&#160;fiind&#160;permisă&#160;zilnic&#160;doar&#160;în&#160;intervalul&#160;orar&#160;11.00&#160;–&#160;13.00.&#160;</b>
+    <p style="position:absolute;top:730px;left:163px;white-space:nowrap" class="ft11">
+        6.realizarea&#160;de&#160;activități&#160;agricole</p>
+    <p style="position:absolute;top:754px;left:166px;white-space:nowrap" class="ft11">
+        -&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-&#160;-
+    </p>
+
+    <p id="optionSeven" style="display:none;position:absolute;top:780px;left:140px;white-space:nowrap" class="ft11">
+        ✓</p>
+    <p style="position:absolute;top:778px;left:163px;white-space:nowrap" class="ft11">7.donarea&#160;de&#160;sânge,
+        la&#160;centrele&#160;de&#160;transfuzie&#160;sanguină</p>
+
+    <p id="optionEight" style="display:none;position:absolute;top:804px;left:140px;white-space:nowrap" class="ft11">
+        ✓</p>
+    <p style="position:absolute;top:802px;left:163px;white-space:nowrap" class="ft11">
+        8.scopuri&#160;umanitare&#160;sau&#160;de&#160;voluntariat;</p>
+
+    <p id="optionNine" style="display:none;position:absolute;top:828px;left:140px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:825px;left:163px;white-space:nowrap" class="ft11">
+        9.comercializarea&#160;de&#160;produse&#160;agroalimentare&#160;(în&#160;cazul&#160;producătorilor&#160;agricoli)
+    </p>
+
+    <p id="optionTen" style="display:none;position:absolute;top:851px;left:140px;white-space:nowrap" class="ft11">✓
+    </p>
+    <p style="position:absolute;top:849px;left:161px;white-space:nowrap" class="ft11">
+        10.&#160;asigurarea&#160;de&#160;bunuri&#160;necesare&#160;desfășurării&#160;activității&#160;profesionale.
+    </p>
+
+    <p style="position:absolute;top:893px;left:111px;white-space:nowrap" class="ft12">
+        Se&#160;va&#160;bifa&#160;doar&#160;motivul/motivele&#160;deplasării&#160;dintre&#160;cele&#160;prevăzute&#160;în&#160;listă,&#160;nefiind&#160;permise&#160;deplasări&#160;realizate&#160;invocând&#160;
+    </p>
+    <p style="position:absolute;top:912px;left:111px;white-space:nowrap" class="ft12">
+        alte&#160;motive&#160;decât&#160;cele&#160;prevăzute&#160;în&#160;Ordonanța&#160;Militară&#160;nr.&#160;3/2020.&#160;
+    </p>
+    <p style="position:absolute;top:979px;left:111px;white-space:nowrap" class="ft11">Data&#160;declarației&#160;
+        &#160;..................................&#160;
+        &#160;&#160;</p>
+    <p style="position:absolute;top:979px;left:486px;white-space:nowrap" class="ft11">
+        Semnătura&#160;&#160;.......................................&#160;</p>
+    <p style="position:absolute;top:1040px;left:85px;white-space:nowrap" class="ft14">
+        <b>Persoanele&#160;care&#160;au&#160;</b></p>
+    <p style="position:absolute;top:1040px;left:209px;white-space:nowrap" class="ft15">
+        <b>împlinit&#160;vârsta&#160;de&#160;65&#160;de&#160;ani&#160;completează&#160;doar&#160;pentru&#160;motivele&#160;prevăzute&#160;în&#160;câmpurile&#160;1-6,&#160;</b>
+    </p>
+    <p style="position:absolute;top:1059px;left:85px;white-space:nowrap" class="ft15">
+        <b>deplasarea&#160;fiind&#160;permisă&#160;zilnic&#160;doar&#160;în&#160;intervalul&#160;orar&#160;11.00&#160;–&#160;13.00.&#160;</b>
     </p>
     <p style="position:absolute;top:1056px;left:523px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:171px;left:85px;white-space:nowrap" class="ft16"><b>Nume, prenume:&#160; &#160; &#160;</b></p>
-    <p style="position:absolute;top:209px;left:85px;white-space:nowrap" class="ft110"><b>Data nașterii:</b>&#160;&#160; &#160; &#160; &#160; &#160;
+    <p style="position:absolute;top:171px;left:85px;white-space:nowrap" class="ft16"><b>Nume, prenume:&#160; &#160;
+        &#160;</b></p>
+    <p style="position:absolute;top:209px;left:85px;white-space:nowrap" class="ft110"><b>Data
+        nașterii:</b>&#160;&#160; &#160; &#160; &#160; &#160;
         &#160;<br/><b>Adresa&#160;</b>&#160;<b>locuinței:&#160; &#160;&#160;</b></p>
     <p id="lastName" style="position:absolute;top:171px;left:246px;white-space:nowrap" class="ft17"></p>
     <p id="firstName" style="position:absolute;top:171px;left:511px;white-space:nowrap" class="ft17"></p>
@@ -124,4 +256,5 @@
     <img id="signature" style="position:absolute;top:926px;left:576px; width:130px; height:auto;" src="">
 </div>
 </body>
+
 </html>
