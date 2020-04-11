@@ -1,6 +1,7 @@
 package com.arthurnagy.staysafe.feature.shared
 
 import android.app.Activity
+import android.util.Log
 import com.android.billingclient.api.BillingClient
 import com.android.billingclient.api.BillingClientStateListener
 import com.android.billingclient.api.BillingFlowParams
@@ -53,8 +54,8 @@ object InAppPurchaseHelper {
         }
     }
 
-    suspend fun launchBillingFlow(billingClient: BillingClient, activity: Activity) {
-        querySkuDetails(billingClient)?.let { skuDetails ->
+    suspend fun launchBillingFlow(billingClient: BillingClient, activity: Activity): BillingResult? {
+        return querySkuDetails(billingClient)?.let { skuDetails ->
             billingClient.launchBillingFlow(
                 activity, BillingFlowParams.newBuilder()
                     .setSkuDetails(skuDetails)
@@ -64,13 +65,15 @@ object InAppPurchaseHelper {
     }
 
     suspend fun consumePurchase(billingClient: BillingClient, purchase: Purchase): PurchaseResult {
+        Log.e(IAP_TAG, "consumePurchase: purchase: $purchase")
+
         return if (purchase.purchaseState == Purchase.PurchaseState.PURCHASED) {
             if (!purchase.isAcknowledged) {
                 val consumeResult = withContext(Dispatchers.IO) {
                     billingClient.consume(
                         ConsumeParams.newBuilder()
                             .setPurchaseToken(purchase.purchaseToken)
-                            .setDeveloperPayload(purchase.developerPayload)
+                            // .setDeveloperPayload(purchase.developerPayload)
                             .build()
                     )
                 }
@@ -100,7 +103,8 @@ object InAppPurchaseHelper {
         val skuDetailsResult = withContext(Dispatchers.IO) {
             billingClient.querySkuDetails(params.build())
         }
-        return if (skuDetailsResult.billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+        Log.d(IAP_TAG, "querySkuDetails: skuDetailsResult: $skuDetailsResult, code:${skuDetailsResult.billingResult.responseCode}")
+        return if (skuDetailsResult.billingResult.isOk) {
             skuDetailsResult.skuDetailsList?.firstOrNull()
         } else null
     }

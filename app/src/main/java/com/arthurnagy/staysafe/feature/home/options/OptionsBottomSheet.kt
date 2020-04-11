@@ -73,7 +73,7 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
         InAppPurchaseHelper.startPurchaseFlow(
             billingClient = billingClient,
             onConnected = {
-                Log.d(IAP_TAG, "startPurchaseFlow: onConnected")
+                Log.d(IAP_TAG, "startPurchaseFlow: onConnected: ${it.responseCode}")
                 lifecycleScope.launchWhenResumed {
                     InAppPurchaseHelper.launchBillingFlow(billingClient, requireActivity())
                 }
