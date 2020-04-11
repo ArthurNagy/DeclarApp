@@ -18,9 +18,12 @@
     <string name="generate">Generează</string>
 
     <string name="more">Opțiuni</string>
-    <string name="buy_me_a_paper_roll">Cumpără-mi o hârtie igienică!</string>
     <string name="change_theme">Schimbă tema</string>
     <string name="view_source_code">Vizualizează codul sursă</string>
+    <string name="contact">Contactează-mă</string>
+    <string name="share">Distribuie aplicația</string>
+    <string name="review">Scrie o recenzie pe Google Play</string>
+    <string name="buy_me_a_coffee">Invită-mă la o cafea!</string>
 
     <string name="choose_theme">Alege tema</string>
     <string name="print">Tipărește</string>

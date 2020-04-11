@@ -1,6 +1,8 @@
 package com.arthurnagy.staysafe.feature.home.options
 
 import android.app.Dialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,11 +29,24 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
         OptionsBinding.inflate(inflater, container, false).also {
             it.donate.setOnClickListener {
             }
+            it.contactMe.setOnClickListener {
+                openUrl(requireContext(), WEB_PAGE_URL)
+            }
             it.sourceCode.setOnClickListener {
                 openUrl(requireContext(), REPO_URL)
             }
             it.theme.setOnClickListener {
                 showThemeDialog()
+            }
+            it.review.setOnClickListener {
+                startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(PLAY_STORE_URL) })
+            }
+            it.share.setOnClickListener {
+                startActivity(Intent.createChooser(Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, PLAY_STORE_URL)
+                    type = "text/plain"
+                }, null))
             }
         }.root
 
@@ -53,5 +68,7 @@ class OptionsBottomSheet : BottomSheetDialogFragment() {
 
     companion object {
         private const val REPO_URL = "https://github.com/ArthurNagy/DeclarApp"
+        private const val WEB_PAGE_URL = "https://arthurnagy.com/"
+        private const val PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=com.arthurnagy.staysafe"
     }
 }

@@ -7,24 +7,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingTop="@dimen/first_keyline"
         android:paddingBottom="@dimen/first_keyline"
-        android:clipToPadding="false"
         app:paddingBottomSystemWindowInsets="@{true}">
-
-        <TextView
-            android:id="@+id/donate"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeight"
-            android:background="?attr/selectableItemBackground"
-            android:drawableStart="@drawable/ic_paper_roll_24dp"
-            android:drawablePadding="@dimen/second_keyline"
-            android:gravity="center_vertical"
-            android:padding="@dimen/first_keyline"
-            android:text="@string/buy_me_a_paper_roll"
-            android:textAppearance="?attr/textAppearanceSubtitle1" />
 
         <TextView
             android:id="@+id/theme"
@@ -39,6 +26,30 @@
             android:textAppearance="?attr/textAppearanceSubtitle1" />
 
         <TextView
+            android:id="@+id/review"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_google_play_24dp"
+            android:drawablePadding="@dimen/second_keyline"
+            android:gravity="center_vertical"
+            android:padding="@dimen/first_keyline"
+            android:text="@string/review"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <TextView
+            android:id="@+id/share"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_share_24dp"
+            android:drawablePadding="@dimen/second_keyline"
+            android:gravity="center_vertical"
+            android:padding="@dimen/first_keyline"
+            android:text="@string/share"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <TextView
             android:id="@+id/source_code"
             android:layout_width="match_parent"
             android:layout_height="?attr/listPreferredItemHeight"
@@ -49,6 +60,31 @@
             android:padding="@dimen/first_keyline"
             android:text="@string/view_source_code"
             android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <TextView
+            android:id="@+id/contact_me"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_contact_mail_24dp"
+            android:drawablePadding="@dimen/second_keyline"
+            android:gravity="center_vertical"
+            android:padding="@dimen/first_keyline"
+            android:text="@string/contact"
+            android:textAppearance="?attr/textAppearanceSubtitle1" />
+
+        <TextView
+            android:id="@+id/donate"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/listPreferredItemHeight"
+            android:background="?attr/selectableItemBackground"
+            android:drawableStart="@drawable/ic_local_cafe_24dp"
+            android:drawablePadding="@dimen/second_keyline"
+            android:gravity="center_vertical"
+            android:padding="@dimen/first_keyline"
+            android:text="@string/buy_me_a_coffee"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:visibility="gone" />
 
     </LinearLayout>
 </layout>
