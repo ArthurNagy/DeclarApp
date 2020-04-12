@@ -1,7 +1,6 @@
 package com.arthurnagy.staysafe.feature.newdocument.signature
 
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +18,7 @@ import com.arthurnagy.staysafe.feature.shared.tint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class SignatureViewModel(
     private val newDocumentViewModel: NewDocumentViewModel,
@@ -99,7 +99,7 @@ class SignatureViewModel(
                     }
                     newDocumentViewModel.updateStatement { copy(signaturePath = signaturePng.path) }
                 } catch (exception: Exception) {
-                    Log.e("SignatureViewModel", exception.message.orEmpty())
+                    Timber.e(exception.message.orEmpty())
                 }
             }
             R.id.signature_existing -> newDocumentViewModel.updateStatement { copy(signaturePath = existingSignaturePath.value) }

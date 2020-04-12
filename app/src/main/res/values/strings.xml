@@ -63,4 +63,9 @@
     <string name="undo">Anulează</string>
     <string name="motive_label">Alege motivul/motivele deplasării</string>
 
+    <string name="in_app_purchase_success">Mulțumesc!</string>
+    <string name="in_app_purchase_connection_failed">Nu s-a putut conecta la Google Play, încercați din nou!</string>
+    <string name="in_app_purchase_error">Achiziția a eșuat</string>
+    <string name="in_app_purchase_pending">Achiziția este în stare suspendat, se aşteaptă aprobarea.</string>
+
 </resources>

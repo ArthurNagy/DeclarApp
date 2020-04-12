@@ -7,11 +7,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.arthurnagy.staysafe.OptionsBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
+import com.arthurnagy.staysafe.feature.home.HomeViewModel
+import com.arthurnagy.staysafe.feature.shared.Event
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.arthurnagy.staysafe.feature.shared.openUrl
+import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.chrisbanes.insetter.InsetterBindingAdapters
@@ -20,28 +24,31 @@ import org.koin.android.ext.android.inject
 class OptionsBottomSheet : BottomSheetDialogFragment() {
 
     private val preferenceManager: PreferenceManager by inject()
+    private val homeViewModel by sharedGraphViewModel<HomeViewModel>(navGraphId = R.id.nav_main)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = super.onCreateDialog(savedInstanceState).apply {
         window?.decorView?.let { InsetterBindingAdapters.setEdgeToEdgeFlags(it, true) }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        OptionsBinding.inflate(inflater, container, false).also {
-            it.donate.setOnClickListener {
+        OptionsBinding.inflate(inflater, container, false).apply {
+            donate.setOnClickListener {
+                homeViewModel.purchaseEvent.value = Event(Unit)
+                findNavController().navigateUp()
             }
-            it.contactMe.setOnClickListener {
+            contactMe.setOnClickListener {
                 openUrl(requireContext(), WEB_PAGE_URL)
             }
-            it.sourceCode.setOnClickListener {
+            sourceCode.setOnClickListener {
                 openUrl(requireContext(), REPO_URL)
             }
-            it.theme.setOnClickListener {
+            theme.setOnClickListener {
                 showThemeDialog()
             }
-            it.review.setOnClickListener {
+            review.setOnClickListener {
                 startActivity(Intent(Intent.ACTION_VIEW).apply { data = Uri.parse(PLAY_STORE_URL) })
             }
-            it.share.setOnClickListener {
+            share.setOnClickListener {
                 startActivity(Intent.createChooser(Intent().apply {
                     action = Intent.ACTION_SEND
                     putExtra(Intent.EXTRA_TEXT, PLAY_STORE_URL)

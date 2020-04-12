@@ -3,7 +3,6 @@ package com.arthurnagy.staysafe.feature.newdocument
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.arthurnagy.staysafe.core.db.StatementDao
@@ -57,14 +56,4 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
         val date: Long? = null,
         val signaturePath: String? = null
     )
-
-    class Factory(private val statementDao: StatementDao) : ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            if (modelClass.isAssignableFrom(NewDocumentViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
-                return NewDocumentViewModel(statementDao) as T
-            }
-            throw IllegalArgumentException("Unknown ViewModel class")
-        }
-    }
 }
