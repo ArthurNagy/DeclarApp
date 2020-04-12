@@ -19,6 +19,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
+import timber.log.Timber
 
 class StaySafeApplication : Application() {
 
@@ -27,6 +28,7 @@ class StaySafeApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        Timber.plant(Timber.DebugTree())
         startKoin {
             androidContext(this@StaySafeApplication)
             modules(appModule)
@@ -48,7 +50,7 @@ class StaySafeApplication : Application() {
 
         viewModel { HomeViewModel(statementDao = get()) }
 
-        factory { NewDocumentViewModel.Factory(statementDao = get()) }
+        viewModel { NewDocumentViewModel(statementDao = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel) }

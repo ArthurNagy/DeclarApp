@@ -2,7 +2,6 @@ package com.arthurnagy.staysafe.feature.home
 
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -10,26 +9,28 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.BillingClient
+import com.android.billingclient.api.BillingResult
 import com.android.billingclient.api.Purchase
 import com.android.billingclient.api.PurchasesUpdatedListener
 import com.arthurnagy.staysafe.HomeBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
-import com.arthurnagy.staysafe.feature.shared.IAP_TAG
 import com.arthurnagy.staysafe.feature.shared.InAppPurchaseHelper
-import com.arthurnagy.staysafe.feature.shared.color
+import com.arthurnagy.staysafe.feature.shared.OnDisconnected
+import com.arthurnagy.staysafe.feature.shared.autoCleared
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.setupSwipeToDelete
+import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.showSnackbar
-import com.google.android.material.snackbar.Snackbar
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val preferenceManager by inject<PreferenceManager>()
-    private val viewModel by viewModel<HomeViewModel>()
+    private val viewModel by sharedGraphViewModel<HomeViewModel>(navGraphId = R.id.nav_main)
+    private var binding by autoCleared<HomeBinding>()
     private val billingClient: BillingClient by lazy {
         BillingClient.newBuilder(requireContext())
             .setListener(createPurchaseListener())
@@ -46,7 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val binding = HomeBinding.bind(view).apply {
+        binding = HomeBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@HomeFragment.viewModel
         }
@@ -84,46 +85,74 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             statementDeletedEvent.observe(viewLifecycleOwner) {
                 val statement = it.consume()
                 if (statement != null) {
-                    Snackbar.make(binding.coordinator, R.string.form_deleted_message, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.undo) {
-                            viewModel.undoStatementDeletion(statement)
-                        }
-                        .setActionTextColor(requireContext().color(R.color.color_secondary))
-                        .setAnchorView(binding.bar)
-                        .show()
+                    showSnackbar(binding.coordinator, binding.bar, R.string.form_deleted_message, R.string.undo) {
+                        viewModel.undoStatementDeletion(statement)
+                    }
+                }
+            }
+            purchaseEvent.observe(viewLifecycleOwner) {
+                if (it.consume() != null) {
+                    startPurchaseFlow {
+                        Timber.e("startPurchaseFlow: onDisconnected")
+                        showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_connection_failed)
+                    }
                 }
             }
         }
         InAppPurchaseHelper.checkPurchases(billingClient, onConnected = {
-            Log.d(IAP_TAG, "checkPurchases: onConnected: $it")
+            Timber.d("checkPurchases: onConnected: $it")
             lifecycleScope.launchWhenResumed {
                 InAppPurchaseHelper.consumeAlreadyPurchased(billingClient)
             }
         }, onDisconnected = {
-            Log.e(IAP_TAG, "checkPurchases: onDisconnected")
+            Timber.e("checkPurchases: onDisconnected")
             // TODO: check if we need to handle this ATM
         })
     }
 
-    // TODO: this is duplicated in HomeFragment & OptionsBottomSheet, check if we can somehow sole reusing it. ATM we can't since we need an instance of
-    //      BillingClient, but this is used when BillingClient is initialized, so we can't pass the reference yet.
+    private fun startPurchaseFlow(onDisconnected: OnDisconnected) {
+        InAppPurchaseHelper.startPurchaseFlow(
+            billingClient = billingClient,
+            onConnected = {
+                Timber.d("startPurchaseFlow: onConnected: ${it.responseCode}")
+                lifecycleScope.launchWhenResumed {
+                    InAppPurchaseHelper.launchBillingFlow(billingClient, requireActivity())
+                }
+            },
+            onDisconnected = onDisconnected
+        )
+    }
+
     private fun createPurchaseListener(): PurchasesUpdatedListener = object : InAppPurchaseHelper.SimplePurchaseListener() {
+
         override fun onPurchase(purchases: MutableList<Purchase>) {
-            Log.e(IAP_TAG, "createPurchaseListener: onPurchase: $purchases")
+            Timber.d("createPurchaseListener: onPurchase: $purchases")
             lifecycleScope.launchWhenResumed {
                 purchases.forEach {
                     when (InAppPurchaseHelper.consumePurchase(billingClient, it)) {
-                        InAppPurchaseHelper.PurchaseResult.Success -> view?.showSnackbar(R.string.in_app_purchase_success)
-                        InAppPurchaseHelper.PurchaseResult.Pending -> view?.showSnackbar(R.string.in_app_purchase_pending)
-                        InAppPurchaseHelper.PurchaseResult.Error -> view?.showSnackbar(R.string.in_app_purchase_error)
+                        InAppPurchaseHelper.PurchaseResult.Success -> showSnackbar(
+                            view = binding.coordinator,
+                            anchorView = binding.bar,
+                            message = R.string.in_app_purchase_success
+                        )
+                        InAppPurchaseHelper.PurchaseResult.Pending -> showSnackbar(
+                            view = binding.coordinator,
+                            anchorView = binding.bar,
+                            message = R.string.in_app_purchase_pending
+                        )
+                        InAppPurchaseHelper.PurchaseResult.Error -> showSnackbar(
+                            view = binding.coordinator,
+                            anchorView = binding.bar,
+                            message = R.string.in_app_purchase_error
+                        )
                     }
                 }
             }
         }
 
-        override fun onError() {
-            Log.e(IAP_TAG, "createPurchaseListener: onError")
-            view?.showSnackbar(R.string.in_app_purchase_error)
+        override fun onError(purchaseResult: BillingResult) {
+            Timber.e("createPurchaseListener: onError: $purchaseResult")
+            showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_error)
         }
     }
 }

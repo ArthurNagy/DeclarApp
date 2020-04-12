@@ -12,6 +12,6 @@
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         app:layout_edgeToEdge="@{true}"
-        app:navGraph="@navigation/nav_graph"
+        app:navGraph="@navigation/nav_main"
         tools:context=".feature.MainActivity" />
 </layout>

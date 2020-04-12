@@ -9,13 +9,12 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
-import android.view.View
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IdRes
 import androidx.annotation.Px
-import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
@@ -25,11 +24,18 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
-import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.getKoin
+import org.koin.androidx.viewmodel.ViewModelParameter
+import org.koin.androidx.viewmodel.koin.getViewModel
+import org.koin.core.parameter.ParametersDefinition
+import org.koin.core.qualifier.Qualifier
+import timber.log.Timber
 
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -41,8 +47,15 @@ fun Context.dimension(@DimenRes dimenRes: Int): Float = resources.getDimension(d
 @Px
 fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensionPixelSize(dimension)
 
-fun View.showSnackbar(@StringRes message: Int) {
-    Snackbar.make(this, context.getString(message), Snackbar.LENGTH_LONG).show()
+inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
+    @IdRes navGraphId: Int,
+    qualifier: Qualifier? = null,
+    noinline parameters: ParametersDefinition? = null
+) = lazy {
+    val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
+    getKoin().getViewModel(ViewModelParameter(VM::class, qualifier, parameters, null, store, null)).also {
+        Timber.d("sharedGraphViewModel: $it")
+    }
 }
 
 fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {
@@ -106,36 +119,6 @@ fun <T1, T2, T3, R> combine(first: LiveData<T1>, second: LiveData<T2>, third: Li
             combineData(lastValueT1, lastValueT2, lastValueT3)
         }
     }
-
-fun <T1, T2, R> LiveData<T1>.combineWith(other: LiveData<T2>, func: (firstValue: T1, otherValue: T2) -> R): LiveData<R> = MediatorLiveData<R>().apply {
-    var lastValueT1: T1? = null
-    var lastValueT2: T2? = null
-    fun combineData(first: T1?, second: T2?) {
-        if (first != null && second != null) value = func(first, second)
-    }
-    addSource(this@combineWith) {
-        lastValueT1 = it
-        combineData(lastValueT1, lastValueT2)
-    }
-    addSource(other) {
-        lastValueT2 = it
-        combineData(lastValueT1, lastValueT2)
-    }
-}
-
-fun <T1, T2, R> LiveData<T1>.mergeWith(second: LiveData<T2>, func: (firstValue: T1?, secondValue: T2?) -> R?): LiveData<R> = MediatorLiveData<R>().apply {
-    fun notify() {
-        func(this@mergeWith.value, second.value)?.let {
-            value = it
-        }
-    }
-    addSource(this@mergeWith) {
-        notify()
-    }
-    addSource(second) {
-        notify()
-    }
-}
 
 fun Fragment.addPageChangeListenerTo(
     viewPager: ViewPager,

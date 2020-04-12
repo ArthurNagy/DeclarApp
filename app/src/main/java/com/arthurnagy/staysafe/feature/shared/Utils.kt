@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
+import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
 import androidx.core.graphics.drawable.toBitmap
@@ -12,6 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.arthurnagy.staysafe.R
+import com.google.android.material.snackbar.Snackbar
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
@@ -27,6 +29,19 @@ inline fun doIfAboveVersion(version: Int, block: () -> Unit) {
     if (Build.VERSION.SDK_INT > version) {
         block()
     }
+}
+
+fun showSnackbar(view: View, anchorView: View? = null, message: Int, action: Int = 0, func: (() -> Unit)? = null) {
+    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+    if (action != 0 && func != null) {
+        snackbar.setAction(action) {
+            func()
+        }.setActionTextColor(view.context.color(R.color.color_secondary))
+    }
+    if (anchorView != null) {
+        snackbar.anchorView = anchorView
+    }
+    snackbar.show()
 }
 
 fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)

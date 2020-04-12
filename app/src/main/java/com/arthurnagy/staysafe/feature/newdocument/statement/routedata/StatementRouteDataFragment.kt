@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.transition.ChangeBounds
 import androidx.transition.Slide
@@ -17,6 +16,7 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementRouteDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
+import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -26,7 +26,7 @@ import org.koin.core.parameter.parametersOf
 
 class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_data) {
 
-    private val sharedViewModel by navGraphViewModels<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
+    private val sharedViewModel by sharedGraphViewModel<NewDocumentViewModel>(navGraphId = R.id.nav_new_document)
     private val viewModel: StatementRouteDataViewModel by viewModel { parametersOf(sharedViewModel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
