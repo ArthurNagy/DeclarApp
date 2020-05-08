@@ -17,6 +17,7 @@ import com.google.android.material.snackbar.Snackbar
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.temporal.ChronoUnit
 
 private const val M = "M"
 private const val MONTH_FULL = "$M$M$M$M"
@@ -49,6 +50,8 @@ fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOf
 
 fun formatToFormalDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
     .format(DateTimeFormatter.ofPattern("$DAY$DAY.$M$M.$YEAR"))
+
+fun isToday(timestamp: Long): Boolean = Instant.ofEpochMilli(timestamp).truncatedTo(ChronoUnit.DAYS) == Instant.now().truncatedTo(ChronoUnit.DAYS)
 
 fun <T1, T2> mediatorLiveData(
     defaultValue: T1? = null,
