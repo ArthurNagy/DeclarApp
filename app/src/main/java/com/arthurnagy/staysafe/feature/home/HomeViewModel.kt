@@ -17,10 +17,20 @@ class HomeViewModel(private val statementDao: StatementDao) : ViewModel() {
     private val _statementDeletedEvent = MutableLiveData<Event<Statement>>()
     val statementDeletedEvent: LiveData<Event<Statement>> get() = _statementDeletedEvent
 
+    private val _statementDateUpdatedEvent = MutableLiveData<Event<Unit>>()
+    val statementDateUpdatedEvent: LiveData<Event<Unit>> get() = _statementDateUpdatedEvent
+
     val purchaseEvent = MutableLiveData<Event<Unit>>()
 
     val items: LiveData<List<StatementUiModel>> = statementDao.getDistinct().map { statements -> statements.map { StatementUiModel(it) } }.asLiveData()
     val isEmpty: LiveData<Boolean> = items.map { it.isEmpty() }
+
+    fun updateStatementDate(timestamp: Long, statement: Statement) {
+        viewModelScope.launch {
+            statementDao.update(statement.copy(date = timestamp))
+            _statementDateUpdatedEvent.value = Event(Unit)
+        }
+    }
 
     fun deleteStatement(statement: Statement) {
         viewModelScope.launch {

@@ -50,11 +50,6 @@ android {
 }
 
 dependencies {
-    def lifecycle_version = "2.2.0"
-    def koin_version = "2.1.5"
-    def room_version = "2.2.5"
-    def billing = '2.2.0'
-
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation project(":signature-pad")
 
@@ -62,12 +57,12 @@ dependencies {
 
     implementation 'androidx.core:core-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta5'
 
-    implementation 'com.google.android.material:material:1.2.0-alpha05'
+    implementation 'com.google.android.material:material:1.2.0-alpha06'
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
-    implementation "dev.chrisbanes:insetter-dbx:0.2.1"
+    implementation 'dev.chrisbanes:insetter-dbx:0.2.2'
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -90,9 +85,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
 
-    implementation "io.coil-kt:coil:0.9.5"
+    implementation 'io.coil-kt:coil:0.10.1'
 
-    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.3'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
 
     implementation "com.android.billingclient:billing:$billing"
     implementation "com.android.billingclient:billing-ktx:$billing"

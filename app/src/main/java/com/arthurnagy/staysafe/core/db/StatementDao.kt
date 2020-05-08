@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.arthurnagy.staysafe.core.model.Statement
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,6 +29,9 @@ abstract class StatementDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract suspend fun insert(statement: Statement): Long
+
+    @Update
+    abstract suspend fun update(statement: Statement)
 
     @Delete
     abstract suspend fun delete(statement: Statement)

@@ -9,13 +9,22 @@ import com.arthurnagy.staysafe.feature.shared.DataBoundListAdapter
 import com.arthurnagy.staysafe.feature.shared.DataBoundViewHolder
 
 typealias OnStatementSelected = (statement: Statement) -> Unit
+typealias OnStatementDateUpdate = (statemnent: Statement) -> Unit
 
-class DocumentsAdapter(private val onStatementSelected: OnStatementSelected) : DataBoundListAdapter<StatementUiModel, StatementBinding>(diffUtilItemCallback) {
+class DocumentsAdapter(
+    private val onStatementSelected: OnStatementSelected,
+    private val onStatementDateUpdate: OnStatementDateUpdate
+) : DataBoundListAdapter<StatementUiModel, StatementBinding>(diffUtilItemCallback) {
     override fun createBinding(parent: ViewGroup): StatementBinding = StatementBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
     override fun onBindingViewHolderCreated(holder: DataBoundViewHolder<StatementBinding>) {
-        holder.binding.root.setOnClickListener {
-            onStatementSelected(getItem(holder.adapterPosition).statement)
+        with(holder.binding) {
+            root.setOnClickListener {
+                onStatementSelected(getItem(holder.adapterPosition).statement)
+            }
+            updateDate.setOnClickListener {
+                onStatementDateUpdate(getItem(holder.adapterPosition).statement)
+            }
         }
     }
 

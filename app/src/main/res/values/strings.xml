@@ -53,7 +53,7 @@
     <string name="delete_desc">Sigur doriți să ștergeți acest formular?</string>
     <string name="yes">Da</string>
     <string name="cancel">Anulare</string>
-    <string name="onboarding_desc_first">Completează ușor și rapid datele necesare declarației pe proprie răspundere obligatorie conform ordonanței militare nr. 3</string>
+    <string name="onboarding_desc_first">Completează ușor și rapid datele necesare declarației pe proprie răspundere obligatorie conform ordonanțelor militare</string>
     <string name="onboarding_desc_second">Vizualizează, șterge, tipărește sau exportează declarațiile dintr-un singur loc.</string>
     <string name="onboarding_desc_third">Păstrează-ți datele în siguranță tot timpul. Aplicația nu necesită conexiune la internet, toate datele sunt stocate doar pe telefonul tău.</string>
     <string name="start">Începe</string>
@@ -67,5 +67,7 @@
     <string name="in_app_purchase_connection_failed">Nu s-a putut conecta la Google Play, încercați din nou!</string>
     <string name="in_app_purchase_error">Achiziția a eșuat</string>
     <string name="in_app_purchase_pending">Achiziția este în stare suspendat, se aşteaptă aprobarea.</string>
+    <string name="update_date">Actualizează data</string>
+    <string name="statement_date_updated">Dată deplasării a fost actualizată</string>
 
 </resources>

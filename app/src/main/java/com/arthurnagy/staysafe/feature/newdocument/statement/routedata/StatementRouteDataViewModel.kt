@@ -12,6 +12,7 @@ import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.formatToDate
 import com.arthurnagy.staysafe.feature.shared.labelRes
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
@@ -20,7 +21,7 @@ import kotlinx.coroutines.flow.flowOf
 class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentViewModel) : ViewModel() {
     private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
     val route = MutableLiveData<String>()
-    val date: LiveData<Long?> = pendingStatement.map { it.date }
+    val date: LiveData<Long?> = pendingStatement.map { it.date ?: MaterialDatePicker.todayInUtcMilliseconds() }
     val dateFormatted: LiveData<String> = date.map { it?.let { formatToDate(it) } ?: "" }
     val isNextEnabled: LiveData<Boolean> = pendingStatement.map(::areStatementRouteDataValid)
     private val motives: Flow<List<Motive>> = flowOf(Motive.values().toList())

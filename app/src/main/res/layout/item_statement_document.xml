@@ -44,7 +44,7 @@
             android:layout_marginEnd="@dimen/first_keyline"
             android:ellipsize="end"
             android:maxLines="3"
-            app:layout_constraintEnd_toStartOf="@id/date_barrier"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/motive_label"
             app:textResList="@{uiModel.motiveTextResList}"
@@ -57,25 +57,25 @@
             android:layout_marginTop="@dimen/content_margin"
             android:text="@string/date"
             android:textAppearance="?textAppearanceSubtitle2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/date"
-            app:layout_constraintTop_toBottomOf="@id/route" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/motive" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{uiModel.date}"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_label"
             tools:text="March 29, 2020" />
 
-        <androidx.constraintlayout.widget.Barrier
-            android:id="@+id/date_barrier"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:barrierDirection="start"
-            app:constraint_referenced_ids="date, date_label" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/update_date"
+            style="?materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/update_date"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/date_label" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

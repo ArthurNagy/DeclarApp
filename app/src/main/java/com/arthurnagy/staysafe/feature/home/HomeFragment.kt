@@ -22,7 +22,9 @@ import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.setupSwipeToDelete
 import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.showSnackbar
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
+import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -51,11 +53,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@HomeFragment.viewModel
         }
-        val documentsAdapter = DocumentsAdapter {
-            findSafeNavController().navigate(
-                HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(it.id)
-            )
-        }
+        val documentsAdapter = DocumentsAdapter(
+            onStatementSelected = {
+                findSafeNavController().navigate(
+                    HomeFragmentDirections.actionHomeFragmentToDocumentDetailFragment(it.id)
+                )
+            },
+            onStatementDateUpdate = {
+                viewModel.updateStatementDate(MaterialDatePicker.todayInUtcMilliseconds(), it)
+            }
+        )
         with(binding) {
             bar.setOnMenuItemClickListener {
                 consume { findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
@@ -89,6 +96,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         viewModel.undoStatementDeletion(statement)
                     }
                 }
+            }
+            statementDateUpdatedEvent.observe(viewLifecycleOwner) {
+                showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.statement_date_updated)
             }
             purchaseEvent.observe(viewLifecycleOwner) {
                 if (it.consume() != null) {
