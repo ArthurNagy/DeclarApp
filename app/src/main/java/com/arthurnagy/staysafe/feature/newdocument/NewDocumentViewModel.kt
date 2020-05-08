@@ -9,6 +9,7 @@ import com.arthurnagy.staysafe.core.db.StatementDao
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -43,7 +44,8 @@ class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel()
             firstName = statement?.firstName ?: pendingStatement.firstName,
             lastName = statement?.lastName ?: pendingStatement.lastName,
             birthDate = statement?.birthDate ?: pendingStatement.birthDate,
-            address = statement?.address ?: pendingStatement.address
+            address = statement?.address ?: pendingStatement.address,
+            date = MaterialDatePicker.todayInUtcMilliseconds()
         )
 
     data class PendingStatement(
