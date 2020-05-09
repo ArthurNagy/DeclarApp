@@ -7,7 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.arthurnagy.staysafe.R
-import com.arthurnagy.staysafe.core.db.StatementDao
+import com.arthurnagy.staysafe.core.Result
+import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.Event
@@ -22,7 +23,7 @@ import timber.log.Timber
 
 class SignatureViewModel(
     private val newDocumentViewModel: NewDocumentViewModel,
-    private val statementDao: StatementDao,
+    private val statementLocalSource: StatementLocalSource,
     private val fileProvider: FileProvider
 ) : ViewModel() {
 
@@ -79,8 +80,10 @@ class SignatureViewModel(
             _isLoading.value = true
             setFinalSignature(newSignature, signatureColor)
             pendingStatement.value?.let { pendingStatement ->
-                val statementId = createNewStatement(pendingStatement)
-                _events.value = Event(Action.OpenDocument(documentId = statementId))
+                when (val statementIdResult = createNewStatement(pendingStatement)) {
+                    is Result.Success -> _events.value = Event(Action.OpenDocument(documentId = statementIdResult.value))
+                    is Result.Error -> Timber.e(statementIdResult.exception)
+                }
                 _isLoading.value = false
             }
         }
@@ -106,7 +109,7 @@ class SignatureViewModel(
         }
     }
 
-    private suspend fun createNewStatement(pendingStatement: NewDocumentViewModel.PendingStatement): Long {
+    private suspend fun createNewStatement(pendingStatement: NewDocumentViewModel.PendingStatement): Result<Long> {
         val newStatement = Statement(
             firstName = pendingStatement.firstName.orIllegalState(),
             lastName = pendingStatement.lastName.orIllegalState(),
@@ -118,7 +121,7 @@ class SignatureViewModel(
             signaturePath = pendingStatement.signaturePath.orIllegalState(),
             createdAt = System.currentTimeMillis()
         )
-        return statementDao.insert(newStatement)
+        return statementLocalSource.save(newStatement)
     }
 
     private inline fun <reified T> T?.orIllegalState(): T = this ?: throw IllegalStateException("Shouldn't be null at this point!")

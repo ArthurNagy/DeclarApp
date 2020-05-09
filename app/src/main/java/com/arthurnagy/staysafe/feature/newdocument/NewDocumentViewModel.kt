@@ -5,24 +5,23 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.arthurnagy.staysafe.core.db.StatementDao
+import com.arthurnagy.staysafe.core.Result
+import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
-class NewDocumentViewModel(private val statementDao: StatementDao) : ViewModel() {
+class NewDocumentViewModel(private val statementLocalSource: StatementLocalSource) : ViewModel() {
 
-    private val lastSavedStatement: LiveData<Statement?> = liveData {
-        emit(
-            try {
-                statementDao.getLast()
-            } catch (exception: NoSuchElementException) {
-                null
-            }
-        )
+    private val lastSavedStatement: LiveData<Statement?> = liveData<Statement?> {
+        when (val result = statementLocalSource.getLast()) {
+            is Result.Success -> emit(result.value)
+            is Result.Error -> Timber.e(result.exception)
+        }
     }
     val hasExistingSignature: LiveData<Boolean> = lastSavedStatement.map { it?.signaturePath != null }
     val existingSignaturePath: LiveData<String?> = lastSavedStatement.map { it?.signaturePath }

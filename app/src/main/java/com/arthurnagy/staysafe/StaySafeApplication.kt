@@ -3,6 +3,7 @@ package com.arthurnagy.staysafe
 import android.app.Application
 import androidx.room.Room
 import com.arthurnagy.staysafe.core.PreferenceManager
+import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.db.StaySafeDatabase
 import com.arthurnagy.staysafe.feature.documentdetail.DocumentDetailViewModel
 import com.arthurnagy.staysafe.feature.home.HomeViewModel
@@ -48,14 +49,22 @@ class StaySafeApplication : Application() {
         }
         factory { get<StaySafeDatabase>().statementDao() }
 
-        viewModel { HomeViewModel(statementDao = get()) }
+        factory { StatementLocalSource(get()) }
 
-        viewModel { NewDocumentViewModel(statementDao = get()) }
+        viewModel { HomeViewModel(statementLocalSource = get()) }
+
+        viewModel { NewDocumentViewModel(statementLocalSource = get()) }
 
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel) }
-        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> SignatureViewModel(newDocumentViewModel, statementDao = get(), fileProvider = get()) }
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) ->
+            SignatureViewModel(
+                newDocumentViewModel,
+                statementLocalSource = get(),
+                fileProvider = get()
+            )
+        }
 
-        viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementDao = get()) }
+        viewModel { (documentId: Long) -> DocumentDetailViewModel(documentId, statementLocalSource = get()) }
     }
 }
