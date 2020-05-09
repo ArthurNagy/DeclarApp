@@ -68,6 +68,6 @@
     <string name="in_app_purchase_error">Achiziția a eșuat</string>
     <string name="in_app_purchase_pending">Achiziția este în stare suspendat, se aşteaptă aprobarea.</string>
     <string name="update_date">Actualizează data</string>
-    <string name="statement_date_updated">Dată deplasării a fost actualizată</string>
+    <string name="statement_date_updated">Data deplasării a fost actualizată</string>
 
 </resources>

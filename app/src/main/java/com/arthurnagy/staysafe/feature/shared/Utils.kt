@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
+import android.view.InflateException
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
@@ -18,6 +19,7 @@ import org.threeten.bp.Instant
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.temporal.ChronoUnit
+import timber.log.Timber
 
 private const val M = "M"
 private const val MONTH_FULL = "$M$M$M$M"
@@ -33,16 +35,20 @@ inline fun doIfAboveVersion(version: Int, block: () -> Unit) {
 }
 
 fun showSnackbar(view: View, anchorView: View? = null, message: Int, action: Int = 0, func: (() -> Unit)? = null) {
-    val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
-    if (action != 0 && func != null) {
-        snackbar.setAction(action) {
-            func()
-        }.setActionTextColor(view.context.color(R.color.color_secondary))
+    try {
+        val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
+        if (action != 0 && func != null) {
+            snackbar.setAction(action) {
+                func()
+            }.setActionTextColor(view.context.color(R.color.color_secondary))
+        }
+        if (anchorView != null) {
+            snackbar.anchorView = anchorView
+        }
+        snackbar.show()
+    } catch (exception: InflateException) {
+        Timber.e(exception)
     }
-    if (anchorView != null) {
-        snackbar.anchorView = anchorView
-    }
-    snackbar.show()
 }
 
 fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)

@@ -24,7 +24,6 @@ import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.showSnackbar
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
-import org.koin.android.ext.android.bind
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -90,18 +89,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         with(viewModel) {
             items.observe(viewLifecycleOwner, documentsAdapter::submitList)
             statementDeletedEvent.observe(viewLifecycleOwner) {
-                val statement = it.consume()
-                if (statement != null) {
+                it.consume()?.let { statement ->
                     showSnackbar(binding.coordinator, binding.bar, R.string.form_deleted_message, R.string.undo) {
                         viewModel.undoStatementDeletion(statement)
                     }
                 }
             }
             statementDateUpdatedEvent.observe(viewLifecycleOwner) {
-                showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.statement_date_updated)
+                it.consume()?.let {
+                    showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.statement_date_updated)
+                }
             }
             purchaseEvent.observe(viewLifecycleOwner) {
-                if (it.consume() != null) {
+                it.consume()?.let {
                     startPurchaseFlow {
                         Timber.e("startPurchaseFlow: onDisconnected")
                         showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_connection_failed)
