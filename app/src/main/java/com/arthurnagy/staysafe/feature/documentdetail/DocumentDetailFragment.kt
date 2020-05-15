@@ -128,15 +128,16 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             statement.motives.forEach {
                 when (it) {
                     Motive.PROFESSIONAL_INTERESTS -> show("optionOne")
-                    Motive.NECESSITY_PROVISIONING -> show("optionTwo")
-                    Motive.MEDICAL_ASSISTANCE -> show("optionThree")
-                    Motive.JUSTIFIED_HELP -> show("optionFour")
-                    Motive.PHYSICAL_ACTIVITY -> show("optionFive")
-                    Motive.AGRICULTURAL_ACTIVITIES -> show("optionSix")
-                    Motive.BLOOD_DONATION -> show("optionSeven")
-                    Motive.VOLUNTEERING -> show("optionEight")
-                    Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> show("optionNine")
-                    Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> show("optionTen")
+                    Motive.VOLUNTEERING -> show("optionTwo")
+                    Motive.AGRICULTURAL_ACTIVITIES -> show("optionThree")
+                    Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> show("optionFour")
+                    Motive.PROPERTY_OR_DOCUMENT_ADMINISTRATION -> show("optionFive")
+                    Motive.TREATMENT -> show("optionSix")
+                    Motive.MEDICAL_ASSISTANCE -> show("optionSeven")
+                    Motive.PHYSICAL_ACTIVITY -> show("optionEight")
+                    Motive.FAMILY_EVENT -> show("optionNine")
+                    Motive.VEHICLE_SERVICE -> show("optionTen")
+                    Motive.JUSTIFIED_HELP -> show("optionEleven")
                 }
             }
             addContent("routeAddress", statement.route)

@@ -78,15 +78,16 @@ fun Bitmap.tint(@ColorInt tintColor: Int): Bitmap {
 val Motive.labelRes: Int
     get() = when (this) {
         Motive.PROFESSIONAL_INTERESTS -> R.string.motive_professional_interests
-        Motive.NECESSITY_PROVISIONING -> R.string.motive_necessity_provisioning
-        Motive.MEDICAL_ASSISTANCE -> R.string.motive_medical_assistance
-        Motive.JUSTIFIED_HELP -> R.string.motive_justified_help
-        Motive.PHYSICAL_ACTIVITY -> R.string.motive_physical_activity
-        Motive.AGRICULTURAL_ACTIVITIES -> R.string.motive_agricultural_activities
-        Motive.BLOOD_DONATION -> R.string.motive_blood_donation
         Motive.VOLUNTEERING -> R.string.motive_volunteering
+        Motive.AGRICULTURAL_ACTIVITIES -> R.string.motive_agricultural_activities
         Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> R.string.motive_commercialize_agricultural_produces
-        Motive.PROFESSIONAL_ACTIVITY_NECESSITIES -> R.string.motive_professional_activity_necessities
+        Motive.PROPERTY_OR_DOCUMENT_ADMINISTRATION -> R.string.motive_property_administration_or_document
+        Motive.TREATMENT -> R.string.motive_treatment
+        Motive.MEDICAL_ASSISTANCE -> R.string.motive_medical_assistance
+        Motive.PHYSICAL_ACTIVITY -> R.string.motive_physical_activity
+        Motive.FAMILY_EVENT -> R.string.motive_family_event
+        Motive.VEHICLE_SERVICE -> R.string.motive_vehicle_service
+        Motive.JUSTIFIED_HELP -> R.string.motive_justified_help
     }
 
 inline fun <T> LiveData<T>.doOnChanged(crossinline observer: (T) -> Unit) {

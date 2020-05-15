@@ -3,6 +3,7 @@ package com.arthurnagy.staysafe.feature.home
 import android.graphics.drawable.InsetDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
@@ -17,7 +18,6 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.PreferenceManager
 import com.arthurnagy.staysafe.feature.shared.InAppPurchaseHelper
 import com.arthurnagy.staysafe.feature.shared.OnDisconnected
-import com.arthurnagy.staysafe.feature.shared.autoCleared
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.setupSwipeToDelete
 import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
@@ -31,7 +31,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val preferenceManager by inject<PreferenceManager>()
     private val viewModel by sharedGraphViewModel<HomeViewModel>(navGraphId = R.id.nav_main)
-    private var binding by autoCleared<HomeBinding>()
     private val billingClient: BillingClient by lazy {
         BillingClient.newBuilder(requireContext())
             .setListener(createPurchaseListener())
@@ -48,7 +47,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding = HomeBinding.bind(view).apply {
+        val binding = HomeBinding.bind(view).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@HomeFragment.viewModel
         }
@@ -138,23 +137,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         override fun onPurchase(purchases: MutableList<Purchase>) {
             Timber.d("createPurchaseListener: onPurchase: $purchases")
             lifecycleScope.launchWhenResumed {
-                purchases.forEach {
-                    when (InAppPurchaseHelper.consumePurchase(billingClient, it)) {
-                        InAppPurchaseHelper.PurchaseResult.Success -> showSnackbar(
-                            view = binding.coordinator,
-                            anchorView = binding.bar,
-                            message = R.string.in_app_purchase_success
-                        )
-                        InAppPurchaseHelper.PurchaseResult.Pending -> showSnackbar(
-                            view = binding.coordinator,
-                            anchorView = binding.bar,
-                            message = R.string.in_app_purchase_pending
-                        )
-                        InAppPurchaseHelper.PurchaseResult.Error -> showSnackbar(
-                            view = binding.coordinator,
-                            anchorView = binding.bar,
-                            message = R.string.in_app_purchase_error
-                        )
+                view?.let {
+                    (DataBindingUtil.getBinding(it) ?: DataBindingUtil.bind<HomeBinding>(it))?.let { binding ->
+                        purchases.forEach {
+                            when (InAppPurchaseHelper.consumePurchase(billingClient, it)) {
+                                InAppPurchaseHelper.PurchaseResult.Success -> showSnackbar(
+                                    view = binding.coordinator,
+                                    anchorView = binding.bar,
+                                    message = R.string.in_app_purchase_success
+                                )
+                                InAppPurchaseHelper.PurchaseResult.Pending -> showSnackbar(
+                                    view = binding.coordinator,
+                                    anchorView = binding.bar,
+                                    message = R.string.in_app_purchase_pending
+                                )
+                                InAppPurchaseHelper.PurchaseResult.Error -> showSnackbar(
+                                    view = binding.coordinator,
+                                    anchorView = binding.bar,
+                                    message = R.string.in_app_purchase_error
+                                )
+                                InAppPurchaseHelper.PurchaseResult.Ignored -> Unit
+                            }
+                        }
                     }
                 }
             }
@@ -162,7 +166,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         override fun onError(purchaseResult: BillingResult) {
             Timber.e("createPurchaseListener: onError: $purchaseResult")
-            showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_error)
+            view?.let {
+                (DataBindingUtil.getBinding(it) ?: DataBindingUtil.bind<HomeBinding>(it))?.let { binding ->
+                    showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_error)
+                }
+            }
         }
     }
 }
