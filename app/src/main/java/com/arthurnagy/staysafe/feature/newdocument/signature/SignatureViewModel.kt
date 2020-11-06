@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.arthurnagy.staysafe.R
-import com.arthurnagy.staysafe.core.Result
+import com.arthurnagy.staysafe.core.ResultWrapper
 import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
@@ -81,8 +81,8 @@ class SignatureViewModel(
             setFinalSignature(newSignature, signatureColor)
             pendingStatement.value?.let { pendingStatement ->
                 when (val statementIdResult = createNewStatement(pendingStatement)) {
-                    is Result.Success -> _events.value = Event(Action.OpenDocument(documentId = statementIdResult.value))
-                    is Result.Error -> Timber.e(statementIdResult.exception)
+                    is ResultWrapper.Success -> _events.value = Event(Action.OpenDocument(documentId = statementIdResult.value))
+                    is ResultWrapper.Error -> Timber.e(statementIdResult.exception)
                 }
                 _isLoading.value = false
             }
@@ -109,7 +109,7 @@ class SignatureViewModel(
         }
     }
 
-    private suspend fun createNewStatement(pendingStatement: NewDocumentViewModel.PendingStatement): Result<Long> {
+    private suspend fun createNewStatement(pendingStatement: NewDocumentViewModel.PendingStatement): ResultWrapper<Long> {
         val newStatement = Statement(
             firstName = pendingStatement.firstName.orIllegalState(),
             lastName = pendingStatement.lastName.orIllegalState(),

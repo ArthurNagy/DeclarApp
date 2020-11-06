@@ -7,23 +7,23 @@ import kotlinx.coroutines.flow.Flow
 class StatementLocalSource(private val statementDao: StatementDao) {
     fun getStatementsFlow(): Flow<List<Statement>> = statementDao.getDistinct()
 
-    suspend fun getById(statementId: Long): Result<Statement> = Result {
+    suspend fun getById(statementId: Long): ResultWrapper<Statement> = ResultWrapper {
         statementDao.getById(statementId)
     }
 
-    suspend fun getLast(): Result<Statement> = Result {
+    suspend fun getLast(): ResultWrapper<Statement> = ResultWrapper {
         statementDao.getLast()
     }
 
-    suspend fun save(statement: Statement): Result<Long> = Result {
+    suspend fun save(statement: Statement): ResultWrapper<Long> = ResultWrapper {
         statementDao.insert(statement)
     }
 
-    suspend fun update(statement: Statement): Result<Unit> = Result {
+    suspend fun update(statement: Statement): ResultWrapper<Unit> = ResultWrapper {
         statementDao.update(statement)
     }
 
-    suspend fun delete(statement: Statement): Result<Unit> = Result {
+    suspend fun delete(statement: Statement): ResultWrapper<Unit> = ResultWrapper {
         statementDao.delete(statement)
     }
 }

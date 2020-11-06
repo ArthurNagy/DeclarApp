@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.arthurnagy.staysafe.core.Result
+import com.arthurnagy.staysafe.core.ResultWrapper
 import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.shared.Event
@@ -31,8 +31,8 @@ class HomeViewModel(private val statementLocalSource: StatementLocalSource) : Vi
     fun updateStatementDate(timestamp: Long, statement: Statement) {
         viewModelScope.launch {
             when (val result = statementLocalSource.update(statement.copy(date = timestamp))) {
-                is Result.Success -> _statementDateUpdatedEvent.value = Event(Unit)
-                is Result.Error -> Timber.e(result.exception)
+                is ResultWrapper.Success -> _statementDateUpdatedEvent.value = Event(Unit)
+                is ResultWrapper.Error -> Timber.e(result.exception)
             }
         }
     }
@@ -40,8 +40,8 @@ class HomeViewModel(private val statementLocalSource: StatementLocalSource) : Vi
     fun deleteStatement(statement: Statement) {
         viewModelScope.launch {
             when (val result = statementLocalSource.delete(statement)) {
-                is Result.Success -> _statementDeletedEvent.value = Event(statement)
-                is Result.Error -> Timber.e(result.exception)
+                is ResultWrapper.Success -> _statementDeletedEvent.value = Event(statement)
+                is ResultWrapper.Error -> Timber.e(result.exception)
             }
         }
     }

@@ -25,17 +25,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
 import org.koin.android.ext.android.getKoin
-import org.koin.androidx.viewmodel.ViewModelParameter
+import org.koin.androidx.viewmodel.ViewModelOwner
 import org.koin.androidx.viewmodel.koin.getViewModel
+import org.koin.androidx.viewmodel.scope.BundleDefinition
 import org.koin.core.parameter.ParametersDefinition
 import org.koin.core.qualifier.Qualifier
-import timber.log.Timber
 
 @ColorInt
 fun Context.color(@ColorRes colorRes: Int): Int = ContextCompat.getColor(this, colorRes)
@@ -50,12 +49,16 @@ fun Context.dimensionPixel(@DimenRes dimension: Int): Int = resources.getDimensi
 inline fun <reified VM : ViewModel> Fragment.sharedGraphViewModel(
     @IdRes navGraphId: Int,
     qualifier: Qualifier? = null,
+    noinline initialState: BundleDefinition? = null,
     noinline parameters: ParametersDefinition? = null
 ) = lazy {
-    val store = findNavController().getViewModelStoreOwner(navGraphId).viewModelStore
-    getKoin().getViewModel(ViewModelParameter(VM::class, qualifier, parameters, null, store, null)).also {
-        Timber.d("sharedGraphViewModel: $it")
-    }
+    getKoin().getViewModel(
+        qualifier = qualifier,
+        state = initialState,
+        owner = { ViewModelOwner.from(findNavController().getViewModelStoreOwner(navGraphId)) },
+        clazz = VM::class,
+        parameters = parameters
+    )
 }
 
 fun ConstraintLayout.updateConstraintSet(updateConstraints: ConstraintSet.() -> Unit) {

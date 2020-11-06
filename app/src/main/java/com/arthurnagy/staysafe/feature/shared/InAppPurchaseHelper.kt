@@ -12,6 +12,7 @@ import com.android.billingclient.api.PurchasesUpdatedListener
 import com.android.billingclient.api.SkuDetails
 import com.android.billingclient.api.SkuDetailsParams
 import com.android.billingclient.api.querySkuDetails
+import com.arthurnagy.staysafe.feature.shared.InAppPurchaseHelper.isOk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.withContext
@@ -45,7 +46,7 @@ object InAppPurchaseHelper {
     suspend fun consumeAlreadyPurchased(billingClient: BillingClient) {
         val purchasesResult = billingClient.queryPurchases(BillingClient.SkuType.INAPP)
         if (purchasesResult.billingResult.isOk) {
-            val unConsumedPurchases = purchasesResult.purchasesList.filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+            val unConsumedPurchases = purchasesResult.purchasesList?.filter { it.purchaseState == Purchase.PurchaseState.PURCHASED } ?: emptyList()
             unConsumedPurchases.forEach { purchase ->
                 consumePurchase(billingClient, purchase)
             }
@@ -70,7 +71,7 @@ object InAppPurchaseHelper {
                     billingClient.consume(
                         ConsumeParams.newBuilder()
                             .setPurchaseToken(purchase.purchaseToken)
-                            .setDeveloperPayload(purchase.developerPayload)
+                            // .setDeveloperPayload(purchase.developerPayload)
                             .build()
                     )
                 }
@@ -120,19 +121,19 @@ object InAppPurchaseHelper {
         private val onConnected: OnConnected? = null,
         private val onDisconnected: OnDisconnected? = null
     ) : BillingClientStateListener {
+
         override fun onBillingServiceDisconnected() {
             onDisconnected?.invoke()
         }
 
-        override fun onBillingSetupFinished(p0: BillingResult?) {
-            p0?.let { billingResult ->
-                if (billingResult.isOk) {
-                    onConnected?.invoke(billingResult)
-                } else {
-                    onDisconnected?.invoke()
-                }
+        override fun onBillingSetupFinished(billingResult: BillingResult) {
+            if (billingResult.isOk) {
+                onConnected?.invoke(billingResult)
+            } else {
+                onDisconnected?.invoke()
             }
         }
+
     }
 
     abstract class SimplePurchaseListener : PurchasesUpdatedListener {

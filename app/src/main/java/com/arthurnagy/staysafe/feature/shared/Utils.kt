@@ -1,7 +1,12 @@
 package com.arthurnagy.staysafe.feature.shared
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.ACTION_VIEW
+import android.content.Intent.CATEGORY_BROWSABLE
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
@@ -9,6 +14,7 @@ import android.view.InflateException
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -95,7 +101,7 @@ fun openUrl(context: Context, url: String) {
 private fun getCustomTabsPackages(context: Context): List<ResolveInfo> {
     val pm = context.packageManager
     // Get default VIEW intent handler.
-    val activityIntent = Intent(Intent.ACTION_VIEW, Uri.parse("http://www.example.com"))
+    val activityIntent = Intent(ACTION_VIEW, Uri.parse("https://www.example.com"))
     // Get all apps that can handle VIEW intents.
     val resolvedActivityList: List<ResolveInfo> = pm.queryIntentActivities(activityIntent, 0)
     val packagesSupportingCustomTabs = mutableListOf<ResolveInfo>()

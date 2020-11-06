@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
-import com.arthurnagy.staysafe.core.Result
+import com.arthurnagy.staysafe.core.ResultWrapper
 import com.arthurnagy.staysafe.core.StatementLocalSource
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
@@ -19,8 +19,8 @@ class NewDocumentViewModel(private val statementLocalSource: StatementLocalSourc
 
     private val lastSavedStatement: LiveData<Statement?> = liveData<Statement?> {
         when (val result = statementLocalSource.getLast()) {
-            is Result.Success -> emit(result.value)
-            is Result.Error -> Timber.e(result.exception)
+            is ResultWrapper.Success -> emit(result.value)
+            is ResultWrapper.Error -> Timber.e(result.exception)
         }
     }
     val hasExistingSignature: LiveData<Boolean> = lastSavedStatement.map { it?.signaturePath != null }
