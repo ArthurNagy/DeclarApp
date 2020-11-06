@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -32,9 +31,11 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         doIfAboveVersion(Build.VERSION_CODES.LOLLIPOP_MR1) {
-            exitTransition = Slide(Gravity.START)
-            enterTransition = Slide(Gravity.END)
-            sharedElementEnterTransition = ChangeBounds()
+            if (Build.VERSION.SDK_INT != Build.VERSION_CODES.O && Build.VERSION.SDK_INT != Build.VERSION_CODES.O_MR1) {
+                exitTransition = Slide(Gravity.START)
+                enterTransition = Slide(Gravity.END)
+                sharedElementEnterTransition = ChangeBounds()
+            }
         }
     }
 
