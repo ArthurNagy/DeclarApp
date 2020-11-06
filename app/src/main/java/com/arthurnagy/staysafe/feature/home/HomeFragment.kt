@@ -6,7 +6,6 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.observe
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.billingclient.api.BillingClient
@@ -24,6 +23,8 @@ import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.arthurnagy.staysafe.feature.shared.showSnackbar
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.halcyonmobile.android.common.extensions.navigation.findSafeNavController
+import dev.chrisbanes.insetter.Insetter
+import dev.chrisbanes.insetter.Side
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -62,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         )
         with(binding) {
-            bar.setOnMenuItemClickListener {
+            toolbar.setOnMenuItemClickListener {
                 consume { findSafeNavController().navigate(HomeFragmentDirections.actionHomeFragmentToOptionsBottomSheet()) }
             }
             add.setOnClickListener {
@@ -85,25 +86,30 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             })
         }
 
+        Insetter.builder()
+            .applySystemWindowInsetsToMargin(Side.BOTTOM)
+            .consumeSystemWindowInsets(Insetter.CONSUME_AUTO)
+            .applyToView(binding.add)
+
         with(viewModel) {
             items.observe(viewLifecycleOwner, documentsAdapter::submitList)
             statementDeletedEvent.observe(viewLifecycleOwner) {
                 it.consume()?.let { statement ->
-                    showSnackbar(binding.coordinator, binding.bar, R.string.form_deleted_message, R.string.undo) {
+                    showSnackbar(view = binding.coordinator, message =  R.string.form_deleted_message, action =  R.string.undo) {
                         viewModel.undoStatementDeletion(statement)
                     }
                 }
             }
             statementDateUpdatedEvent.observe(viewLifecycleOwner) {
                 it.consume()?.let {
-                    showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.statement_date_updated)
+                    showSnackbar(view = binding.coordinator, message = R.string.statement_date_updated)
                 }
             }
             purchaseEvent.observe(viewLifecycleOwner) {
                 it.consume()?.let {
                     startPurchaseFlow {
                         Timber.e("startPurchaseFlow: onDisconnected")
-                        showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_connection_failed)
+                        showSnackbar(view = binding.coordinator, message = R.string.in_app_purchase_connection_failed)
                     }
                 }
             }
@@ -143,17 +149,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             when (InAppPurchaseHelper.consumePurchase(billingClient, it)) {
                                 InAppPurchaseHelper.PurchaseResult.Success -> showSnackbar(
                                     view = binding.coordinator,
-                                    anchorView = binding.bar,
                                     message = R.string.in_app_purchase_success
                                 )
                                 InAppPurchaseHelper.PurchaseResult.Pending -> showSnackbar(
                                     view = binding.coordinator,
-                                    anchorView = binding.bar,
                                     message = R.string.in_app_purchase_pending
                                 )
                                 InAppPurchaseHelper.PurchaseResult.Error -> showSnackbar(
                                     view = binding.coordinator,
-                                    anchorView = binding.bar,
                                     message = R.string.in_app_purchase_error
                                 )
                                 InAppPurchaseHelper.PurchaseResult.Ignored -> Unit
@@ -168,7 +171,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             Timber.e("createPurchaseListener: onError: $purchaseResult")
             view?.let {
                 (DataBindingUtil.getBinding(it) ?: DataBindingUtil.bind<HomeBinding>(it))?.let { binding ->
-                    showSnackbar(view = binding.coordinator, anchorView = binding.bar, message = R.string.in_app_purchase_error)
+                    showSnackbar(view = binding.coordinator, message = R.string.in_app_purchase_error)
                 }
             }
         }

@@ -24,8 +24,10 @@
             app:paddingTopSystemWindowInsets="@{true}">
 
             <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:menu="@menu/home"
                 app:title="@null">
 
                 <TextView
@@ -43,7 +45,8 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="?attr/actionBarSize"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/third_keyline"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:paddingBottomSystemWindowInsets="@{true}"
             tools:listitem="@layout/item_statement_document" />
@@ -56,13 +59,9 @@
             app:isVisible="@{viewModel.isEmpty}">
 
             <ImageView
-                android:layout_width="196dp"
-                android:layout_height="196dp"
-                android:background="@drawable/shape_oval"
-                android:backgroundTint="@color/color_secondary_variant"
-                android:padding="@dimen/second_keyline"
-                app:srcCompat="@drawable/ic_assignment_24dp"
-                app:tint="?attr/colorOnSecondary" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/img_no_data_placeholder" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,20 +73,14 @@
 
         </LinearLayout>
 
-        <com.google.android.material.bottomappbar.BottomAppBar
-            android:id="@+id/bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:backgroundTint="?colorPrimarySurface"
-            app:menu="@menu/home" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_anchor="@id/bar"
-            app:srcCompat="@drawable/ic_add_24dp" />
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/first_keyline"
+            android:text="@string/new_form"
+            app:icon="@drawable/ic_add_24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
