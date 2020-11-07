@@ -6,80 +6,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <br/>
     <style type="text/css">
-        <!--
-            p {
-                margin: 0;
-                padding: 0;
-            }
-
-            .ft10 {
-                font-size: 12px;
-                font-family: Times;
-                color: #000000;
-            }
-
-            .ft11 {
-                font-size: 16px;
-                font-family: Times;
-                color: #000000;
-            }
-
-            .ft12 {
-                font-size: 16px;
-                font-family: Times;
-                color: #202429;
-            }
-
-            .ft13 {
-                font-size: 16px;
-                font-family: Times;
-                color: #000000;
-            }
-
-            .ft14 {
-                font-size: 16px;
-                font-family: Times;
-                color: #000000;
-            }
-
-            .ft15 {
-                font-size: 18px;
-                font-family: Times;
-                color: #000000;
-            }
-
-            .ft16 {
-                font-size: 24px;
-                font-family: Helvetica;
-                color: #000000;
-            }
-
-            .ft17 {
-                font-size: 26px;
-                font-family: Helvetica;
-                color: #000000;
-            }
-
-            .ft18 {
-                font-size: 20px;
-                font-family: Helvetica;
-                color: #000000;
-            }
-
-            .ft19 {
-                font-size: 16px;
-                line-height: 35px;
-                font-family: Times;
-                color: #000000;
-            }
-            .wrap {
-                white-space: normal !important;
-                width: 80%;
-            }
-        -->
-
-
-
+<!--
+	p {margin: 0; padding: 0;}	.ft10{font-size:19px;font-family:Times;color:#000000;}
+	.ft11{font-size:16px;font-family:Times;color:#000000;}
+	.ft12{font-size:13px;font-family:Times;color:#000000;}
+	.ft13{font-size:16px;font-family:Times;color:#000000;}
+	.ft14{font-size:25px;font-family:Helvetica;color:#000000;}
+	.ft15{font-size:26px;font-family:Helvetica;color:#000000;}
+	.ft16{font-size:40px;font-family:Helvetica;color:#000000;}
+	.ft17{font-size:12px;font-family:Times;color:#000000;}
+	.ft18{font-size:18px;font-family:Helvetica;color:#000000;}
+	.ft19{font-size:19px;font-family:Helvetica;color:#000000;}
+	.ft110{font-size:16px;line-height:35px;font-family:Times;color:#000000;}
+-->
 
 
     </style>
@@ -101,10 +40,10 @@
         }
         function adjustFontSize() {
             observer.disconnect();
-            const routeDiv = document.getElementById('routeAddress');
-            let fontSize = Math.min(20, (740 / routeDiv.getBoundingClientRect().width * 20));
-            const addWrap = fontSize < 10;
-            fontSize = Math.max(10, fontSize);
+            const routeDiv = document.getElementById('workAddress');
+            let fontSize = Math.min(18, (740 / routeDiv.getBoundingClientRect().width * 18));
+            const addWrap = fontSize < 12;
+            fontSize = Math.max(12, fontSize);
             if (addWrap) {
                 routeDiv.classList.add('wrap')
             }
@@ -112,93 +51,291 @@
         }
 
         setTimeout(() => {
-            const targetNode = document.getElementById('routeAddress');
+            const targetNode = document.getElementById('workAddress');
 
             const config = { attributes: true, childList: true, subtree: true };
             observer = new MutationObserver(adjustFontSize);
             observer.observe(targetNode, config);
         }, 0)
-
-
-
-
-
     </script>
 </head>
 <body bgcolor="#A0A0A0" vlink="blue" link="blue">
 <div id="page1-div" style="position:relative;width:918px;height:1188px;">
     <img width="918" height="1188" src="img_declaratie_proprie_raspundere.png" alt="background image"/>
-    <p style="position:absolute;top:313px;left:244px;white-space:nowrap" class="ft10">Se&#160;va&#160;completa&#160;adresa&#160;locuinței&#160;în&#160;care&#160;persoana&#160;locuiește&#160;în&#160;fapt,&#160;indiferent&#160;dacă&#160;este&#160;identică&#160;</p>
-    <p style="position:absolute;top:332px;left:244px;white-space:nowrap" class="ft10">sau&#160;nu&#160;cu&#160;cea&#160;menționată&#160;în&#160;actul&#160;de&#160;identitate.</p>
-    <p style="position:absolute;top:329px;left:525px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:378px;left:85px;white-space:nowrap" class="ft12"><b>Locul/locurile&#160;deplasării:&#160; &#160;</b></p>
-    <p style="position:absolute;top:439px;left:85px;white-space:nowrap" class="ft10">Se&#160;vor&#160;menționa&#160;locurile&#160;în&#160;care&#160;persoana&#160;se&#160;deplasează,&#160;în&#160;ordinea&#160;în&#160;care&#160;aceasta&#160;intenționează&#160;să-și&#160;desfășoare&#160;traseul.</p>
-    <p style="position:absolute;top:435px;left:808px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:489px;left:84px;white-space:nowrap" class="ft13"><b>Motivul deplasării în afara localității / zonei metropolitane:</b></p>
-    <p style="position:absolute;top:518px;left:161px;white-space:nowrap" class="ft11">1.&#160;interes&#160;profesional, inclusiv între&#160;locuință/gospodărie&#160;și&#160;locul/locurile&#160;de&#160;desfășurare&#160;a</p>
-    <p style="position:absolute;top:540px;left:161px;white-space:nowrap" class="ft11">activității&#160;profesionale&#160;și&#160;înapoi;</p>
-    <p style="position:absolute;top:562px;left:161px;white-space:nowrap" class="ft11">2.&#160;în scop umanitar sau de&#160;voluntariat;</p>
-    <p style="position:absolute;top:583px;left:161px;white-space:nowrap" class="ft11">3.&#160;realizarea&#160;de&#160;activități&#160;agricole;</p>
-    <p style="position:absolute;top:605px;left:161px;white-space:nowrap" class="ft11">4.&#160;pentru comercializarea&#160;de&#160;produse&#160;agroalimentare&#160;de&#160;către&#160;producătorii&#160;agricoli;</p>
-    <p style="position:absolute;top:626px;left:161px;white-space:nowrap" class="ft11">5.&#160;îngrijirea&#160;sau administrarea&#160;unei&#160;proprietăți&#160;din&#160;altă&#160;localitate;&#160;eliberarea&#160;de&#160;documente</p>
-    <p style="position:absolute;top:648px;left:161px;white-space:nowrap" class="ft11">necesare&#160;pentru obținerea&#160;unor drepturi;</p>
-    <p style="position:absolute;top:670px;left:161px;white-space:nowrap" class="ft11">6.&#160;participarea&#160;la&#160;programe&#160;sau proceduri&#160;în
-        centrele&#160;de&#160;tratament;</p>
-    <p style="position:absolute;top:691px;left:161px;white-space:nowrap" class="ft11">7.&#160;asistență&#160;medicală&#160;care&#160;nu poate&#160;fi&#160;amânată&#160;și&#160;nici&#160;realizată&#160;de&#160;la&#160;distanță;</p>
-    <p style="position:absolute;top:713px;left:161px;white-space:nowrap" class="ft11">8.&#160;activități&#160;recreativ-sportive&#160;individuale&#160;desfășurate&#160;în
-        aer liber (ciclism, drumeție,</p>
-    <p style="position:absolute;top:734px;left:161px;white-space:nowrap" class="ft11">alergare, canotaj, alpinism, vânătoare, pescuit&#160;și&#160;altele) cu
-        participarea&#160;a&#160;cel&#160;mult&#160;3</p>
-    <p style="position:absolute;top:756px;left:161px;white-space:nowrap" class="ft11">persoane;</p>
-    <p style="position:absolute;top:778px;left:161px;white-space:nowrap" class="ft11">9.&#160;participarea&#160;la&#160;evenimente&#160;familiale, cu&#160;un&#160;număr
-        limitat&#160;de&#160;persoane&#160;și&#160;respectarea</p>
-    <p style="position:absolute;top:799px;left:161px;white-space:nowrap" class="ft11">regulilor de&#160;distanțare&#160;socială;</p>
-    <p style="position:absolute;top:821px;left:161px;white-space:nowrap" class="ft11">10.&#160;pentru achiziția, service-ul, efectuarea&#160;ITP&#160;sau alte&#160;operațiuni&#160;de&#160;întreținere&#160;a</p>
-    <p style="position:absolute;top:842px;left:161px;white-space:nowrap" class="ft11">vehiculelor, activități&#160;care&#160;nu pot&#160;fi&#160;efectuate&#160;în
-        localitatea&#160;de&#160;domiciliu;</p>
+    <p style="position:absolute;top:106px;left:249px;white-space:nowrap" class="ft10"><b>DECLARAȚIE&#160;PE&#160;PROPRIE&#160;RĂSPUNDERE</b></p>
+    <p style="position:absolute;top:109px;left:669px;white-space:nowrap" class="ft11">&#160;</p>
+    <p style="position:absolute;top:365px;left:84px;white-space:nowrap" class="ft11">declar pe proprie răspundere, cunoscând prevederile articolului 326 din
+        Codul Penal privind falsul&#160;</p>
+    <p style="position:absolute;top:385px;left:84px;white-space:nowrap" class="ft11">în declarații, că mă deplasez în afara locuinței, în intervalul orar 23.00
+        – 05.00, din următorul/</p>
+    <p style="position:absolute;top:405px;left:84px;white-space:nowrap" class="ft11">următoarele motive:</p>
+    <p style="position:absolute;top:466px;left:161px;white-space:nowrap" class="ft11">În&#160;interes&#160;profesional. Menționez&#160;că&#160;îmi&#160;desfășor&#160;activitatea&#160;profesională&#160;la&#160;</p>
+    <p style="position:absolute;top:489px;left:161px;white-space:nowrap" class="ft11">instituția/societatea/organizația</p>
+    <p style="position:absolute;top:512px;left:161px;white-space:nowrap" class="ft11">cu sediul&#160;în&#160;</p>
+    <p style="position:absolute;top:535px;left:161px;white-space:nowrap" class="ft11">și cu punct/e de lucru la următoarele adrese:&#160;</p>
+    <p style="position:absolute;top:979px;left:111px;white-space:nowrap" class="ft11">Data&#160;</p>
+    <p style="position:absolute;top:979px;left:486px;white-space:nowrap" class="ft11">Semnătura&#160;&#160;.......................................&#160;</p>
+    <p style="position:absolute;top:1040px;left:112px;white-space:nowrap" class="ft12">*Declarația pe propria răspundere poate fi scrisă de mână, cu condiția
+        preluării tuturor elementelor prezentate mai sus.</p>
+    <p style="position:absolute;top:1056px;left:112px;white-space:nowrap" class="ft12">**Declarația pe propria răspundere poate fi stocată și prezentată pentru
+        control pe dispozitive electronice mobile, cu</p>
+    <p style="position:absolute;top:1073px;left:112px;white-space:nowrap" class="ft12">condiția ca pe documentul prezentat să existe semnătura olografă a
+        persoanei care folosește Declarația și data pentru care</p>
+    <p style="position:absolute;top:1089px;left:112px;white-space:nowrap" class="ft12">este valabilă declarația.</p>
+    <p style="position:absolute;top:164px;left:85px;white-space:nowrap" class="ft13"><b>Subsemnatul/a:&#160;</b></p>
+    <p style="position:absolute;top:205px;left:85px;white-space:nowrap" class="ft11">domiciliat/ă în:</p>
+    <p style="position:absolute;top:247px;left:85px;white-space:nowrap" class="ft110">cu reședința&#160;în&#160;fapt în:<br/>născut/ă în data de:</p>
+    <p style="position:absolute;top:282px;left:463px;white-space:nowrap" class="ft11">în localitatea</p>
+    <p style="position:absolute;top:634px;left:167px;white-space:nowrap" class="ft11">Asistență&#160;medicală&#160;care&#160;nu poate&#160;fi&#160;amânată&#160;și&#160;nici&#160;realizată&#160;de&#160;la&#160;distanță</p>
+    <p style="position:absolute;top:685px;left:167px;white-space:nowrap" class="ft11">Achiziționarea&#160;de&#160;medicamente</p>
+    <p style="position:absolute;top:736px;left:167px;white-space:nowrap" class="ft11">Îngrijirea/însoțirea&#160;copilului&#160;și/sau asistența&#160;persoanelor
+        vârstnice, bolnave&#160;sau cu dizabilități</p>
+    <p style="position:absolute;top:787px;left:167px;white-space:nowrap" class="ft11">Deces&#160;al&#160;unui&#160;membru al&#160;familiei</p>
 
-    <p style="position:absolute;top:864px;left:161px;white-space:nowrap" class="ft11">11.&#160;alte motive justificate (<i>precum</i>:&#160;<i>îngrijirea/însoțirea
-        copiilor/membrilor de&#160;familie;</i></p>
-    <p style="position:absolute;top:886px;left:161px;white-space:nowrap" class="ft14"><i>îngrijirea unei rude/afin sau persoană aflată în întreținere; asistența&#160;persoanelor</i>
-    </p>
-    <p style="position:absolute;top:908px;left:161px;white-space:nowrap" class="ft14"><i>vârstnice, bolnave sau&#160;cu dizabilități; deces al&#160;unui membru
-        de familie,&#160;asigurarea de</i></p>
-    <p style="position:absolute;top:929px;left:161px;white-space:nowrap" class="ft14"><i>bunuri care acoperă necesitățile de bază ale persoanelor și animalelor
-        de</i></p>
-    <p style="position:absolute;top:951px;left:161px;white-space:nowrap" class="ft14"><i>companie/domestice</i>).</p>
+    <p id="fullName" style="position:absolute;top:173px;left:265px;white-space:nowrap" class="ft14"></p>
+    <p id="birthDate" style="position:absolute;top:288px;left:263px;white-space:nowrap" class="ft14"></p>
+    <p id="officialLocation" style="position:absolute;top:211px;left:265px;white-space:nowrap" class="ft15"></p>
+    <p id="currentLocation" style="position:absolute;top:250px;left:265px;white-space:nowrap" class="ft14"></p>
+    <p id="date" style="position:absolute;top:967px;left:167px;white-space:nowrap" class="ft16"></p>
+    <p id="optionOne" style="display:none;position:absolute;top:474px;left:138px;white-space:nowrap" class="ft17">✔</p>
+    <p id="optionTwo" style="display:none;position:absolute;top:640px;left:138px;white-space:nowrap" class="ft17">✔</p>
+    <p id="optionThree" style="display:none;position:absolute;top:691px;left:138px;white-space:nowrap" class="ft17">✔</p>
+    <p id="optionFour" style="display:none;position:absolute;top:740px;left:138px;white-space:nowrap" class="ft17">✔</p>
+    <p id="optionFive" style="display:none;position:absolute;top:792px;left:138px;white-space:nowrap" class="ft17">✔</p>
+    <p id="birthdayLocation" style="position:absolute;top:288px;left:572px;white-space:nowrap" class="ft14"></p>
+    <p id="workLocation" style="position:absolute;top:518px;left:254px;white-space:nowrap" class="ft18"></p>
+    <p id="workAddress" style="position:absolute;top:569px;left:166px;white-space:nowrap" class="ft18"></p>
+<!--    <p id="workAddressTwo" style="position:absolute;top:600px;left:166px;white-space:nowrap" class="ft19"></p>-->
 
-    <p style="position:absolute;top:1053px;left:111px;white-space:nowrap" class="ft11">Data&#160;declarației&#160; &#160;..................................&#160;
-        &#160;&#160;</p>
-    <p style="position:absolute;top:1053px;left:486px;white-space:nowrap" class="ft11">Semnătura&#160;&#160;.......................................&#160;</p>
-    <p style="position:absolute;top:171px;left:85px;white-space:nowrap" class="ft13"><b>Nume, prenume:&#160; &#160; &#160;</b></p>
-    <p style="position:absolute;top:209px;left:85px;white-space:nowrap" class="ft19"><b>Data nașterii:</b>&#160;&#160; &#160; &#160; &#160; &#160;
-        &#160;<br/><b>Adresa&#160;</b>&#160;<b>locuinței:&#160; &#160;&#160;</b></p>
-    <p style="position:absolute;top:93px;left:248px;white-space:nowrap" class="ft15"><b>DECLARAȚIE&#160;PE&#160;PROPRIE&#160;RĂSPUNDERE</b></p>
-    <p style="position:absolute;top:97px;left:673px;white-space:nowrap" class="ft11">&#160;</p>
-    <p style="position:absolute;top:122px;left:400px;white-space:nowrap" class="ft14"><i>-&#160;stare&#160;de&#160;alertă -</i></p>
-
-    <p id="lastName" style="position:absolute;top:171px;left:246px;white-space:nowrap" class="ft16"></p>
-    <p id="firstName" style="position:absolute;top:171px;left:511px;white-space:nowrap" class="ft16"></p>
-    <p id="birthDateDay" style="position:absolute;top:208px;left:244px;white-space:nowrap" class="ft16"></p>
-    <p id="birthDateMonth" style="position:absolute;top:208px;left:308px;white-space:nowrap" class="ft16"></p>
-    <p id="birthDateYear" style="position:absolute;top:208px;left:378px;white-space:nowrap" class="ft16"></p>
-    <p id="locationAddressOne" style="position:absolute;top:246px;left:243px;white-space:nowrap" class="ft16"></p>
-    <p id="locationAddressTwo" style="position:absolute;top:284px;left:242px;white-space:nowrap" class="ft16"></p>
-    <p id="routeAddress" style="position:absolute;top:409px;left:89px;white-space:nowrap" class="ft16"></p>
-    <p id="date" style="position:absolute;top:1046px;left:242px;white-space:nowrap" class="ft18"></p>
-    <p id="optionOne" style="display:none;position:absolute;top:524px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionTwo" style="display:none;position:absolute;top:566px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionThree" style="display:none;position:absolute;top:588px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionFour" style="display:none;position:absolute;top:610px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionFive" style="display:none;position:absolute;top:632px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionSix" style="display:none;position:absolute;top:676px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionSeven" style="display:none;position:absolute;top:698px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionEight" style="display:none;position:absolute;top:720px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionNine" style="display:none;position:absolute;top:784px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionTen" style="display:none;position:absolute;top:826px;left:138px;white-space:nowrap" class="ft10">✔</p>
-    <p id="optionEleven" style="display:none;position:absolute;top:868px;left:139px;white-space:nowrap" class="ft10">✔</p>
     <img id="signature" style="position:absolute;top:1000px;left:576px; width:130px; height:auto;" src="">
 
+    <!--    <p id="lastName" style="position:absolute;top:171px;left:246px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="firstName" style="position:absolute;top:171px;left:511px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="birthDateDay" style="position:absolute;top:208px;left:244px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="birthDateMonth" style="position:absolute;top:208px;left:308px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="birthDateYear" style="position:absolute;top:208px;left:378px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="locationAddressOne" style="position:absolute;top:246px;left:243px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="locationAddressTwo" style="position:absolute;top:284px;left:242px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="routeAddress" style="position:absolute;top:409px;left:89px;white-space:nowrap" class="ft16"></p>-->
+    <!--    <p id="date" style="position:absolute;top:1046px;left:242px;white-space:nowrap" class="ft18"></p>-->
+    <!--    <p id="optionOne" style="display:none;position:absolute;top:524px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionTwo" style="display:none;position:absolute;top:566px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionThree" style="display:none;position:absolute;top:588px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionFour" style="display:none;position:absolute;top:610px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionFive" style="display:none;position:absolute;top:632px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionSix" style="display:none;position:absolute;top:676px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionSeven" style="display:none;position:absolute;top:698px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionEight" style="display:none;position:absolute;top:720px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionNine" style="display:none;position:absolute;top:784px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionTen" style="display:none;position:absolute;top:826px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <p id="optionEleven" style="display:none;position:absolute;top:868px;left:139px;white-space:nowrap" class="ft10">✔</p>-->
+    <!--    <img id="signature" style="position:absolute;top:1000px;left:576px; width:130px; height:auto;" src="">-->
 </div>
 </body>
 </html>
+
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">-->
+<!--<head>-->
+<!--    <title></title>-->
+
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
+<!--    <br/>-->
+<!--    <style type="text/css">-->
+<!--        &lt;!&ndash;-->
+<!--            p {-->
+<!--                margin: 0;-->
+<!--                padding: 0;-->
+<!--            }-->
+
+<!--            .ft10 {-->
+<!--                font-size: 12px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft11 {-->
+<!--                font-size: 16px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft12 {-->
+<!--                font-size: 16px;-->
+<!--                font-family: Times;-->
+<!--                color: #202429;-->
+<!--            }-->
+
+<!--            .ft13 {-->
+<!--                font-size: 16px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft14 {-->
+<!--                font-size: 16px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft15 {-->
+<!--                font-size: 18px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft16 {-->
+<!--                font-size: 24px;-->
+<!--                font-family: Helvetica;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft17 {-->
+<!--                font-size: 26px;-->
+<!--                font-family: Helvetica;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft18 {-->
+<!--                font-size: 20px;-->
+<!--                font-family: Helvetica;-->
+<!--                color: #000000;-->
+<!--            }-->
+
+<!--            .ft19 {-->
+<!--                font-size: 16px;-->
+<!--                line-height: 35px;-->
+<!--                font-family: Times;-->
+<!--                color: #000000;-->
+<!--            }-->
+<!--            .wrap {-->
+<!--                white-space: normal !important;-->
+<!--                width: 80%;-->
+<!--            }-->
+<!--        &ndash;&gt;-->
+
+
+
+
+
+<!--    </style>-->
+<!--    <script type="text/javascript">-->
+<!--        let observer;-->
+<!--        function addContent(id, newContent) {-->
+<!--            document.getElementById(id).innerHTML = newContent;-->
+<!--        }-->
+
+<!--        function show(id) {-->
+<!--            document.getElementById(id).style.display = "block";-->
+<!--        }-->
+<!--        function signature(signaturePath) {-->
+<!--            document.getElementById('signature').src = signaturePath-->
+<!--        }-->
+
+<!--        function fontSize(id, size) {-->
+<!--            document.getElementById(id).style.fontSize = "size";-->
+<!--        }-->
+<!--        function adjustFontSize() {-->
+<!--            observer.disconnect();-->
+<!--            const routeDiv = document.getElementById('routeAddress');-->
+<!--            let fontSize = Math.min(20, (740 / routeDiv.getBoundingClientRect().width * 20));-->
+<!--            const addWrap = fontSize < 10;-->
+<!--            fontSize = Math.max(10, fontSize);-->
+<!--            if (addWrap) {-->
+<!--                routeDiv.classList.add('wrap')-->
+<!--            }-->
+<!--            routeDiv.style.fontSize = `${fontSize}px`-->
+<!--        }-->
+
+<!--        setTimeout(() => {-->
+<!--            const targetNode = document.getElementById('routeAddress');-->
+
+<!--            const config = { attributes: true, childList: true, subtree: true };-->
+<!--            observer = new MutationObserver(adjustFontSize);-->
+<!--            observer.observe(targetNode, config);-->
+<!--        }, 0)-->
+
+
+
+
+
+<!--    </script>-->
+<!--</head>-->
+<!--<body bgcolor="#A0A0A0" vlink="blue" link="blue">-->
+<!--<div id="page1-div" style="position:relative;width:918px;height:1188px;">-->
+<!--    <img width="918" height="1188" src="img_declaratie_proprie_raspundere.png" alt="background image"/>-->
+<!--    <p style="position:absolute;top:313px;left:244px;white-space:nowrap" class="ft10">Se&#160;va&#160;completa&#160;adresa&#160;locuinței&#160;în&#160;care&#160;persoana&#160;locuiește&#160;în&#160;fapt,&#160;indiferent&#160;dacă&#160;este&#160;identică&#160;</p>-->
+<!--    <p style="position:absolute;top:332px;left:244px;white-space:nowrap" class="ft10">sau&#160;nu&#160;cu&#160;cea&#160;menționată&#160;în&#160;actul&#160;de&#160;identitate.</p>-->
+<!--    <p style="position:absolute;top:329px;left:525px;white-space:nowrap" class="ft11">&#160;</p>-->
+<!--    <p style="position:absolute;top:378px;left:85px;white-space:nowrap" class="ft12"><b>Locul/locurile&#160;deplasării:&#160; &#160;</b></p>-->
+<!--    <p style="position:absolute;top:439px;left:85px;white-space:nowrap" class="ft10">Se&#160;vor&#160;menționa&#160;locurile&#160;în&#160;care&#160;persoana&#160;se&#160;deplasează,&#160;în&#160;ordinea&#160;în&#160;care&#160;aceasta&#160;intenționează&#160;să-și&#160;desfășoare&#160;traseul.</p>-->
+<!--    <p style="position:absolute;top:435px;left:808px;white-space:nowrap" class="ft11">&#160;</p>-->
+<!--    <p style="position:absolute;top:489px;left:84px;white-space:nowrap" class="ft13"><b>Motivul deplasării în afara localității / zonei metropolitane:</b></p>-->
+<!--    <p style="position:absolute;top:518px;left:161px;white-space:nowrap" class="ft11">1.&#160;interes&#160;profesional, inclusiv între&#160;locuință/gospodărie&#160;și&#160;locul/locurile&#160;de&#160;desfășurare&#160;a</p>-->
+<!--    <p style="position:absolute;top:540px;left:161px;white-space:nowrap" class="ft11">activității&#160;profesionale&#160;și&#160;înapoi;</p>-->
+<!--    <p style="position:absolute;top:562px;left:161px;white-space:nowrap" class="ft11">2.&#160;în scop umanitar sau de&#160;voluntariat;</p>-->
+<!--    <p style="position:absolute;top:583px;left:161px;white-space:nowrap" class="ft11">3.&#160;realizarea&#160;de&#160;activități&#160;agricole;</p>-->
+<!--    <p style="position:absolute;top:605px;left:161px;white-space:nowrap" class="ft11">4.&#160;pentru comercializarea&#160;de&#160;produse&#160;agroalimentare&#160;de&#160;către&#160;producătorii&#160;agricoli;</p>-->
+<!--    <p style="position:absolute;top:626px;left:161px;white-space:nowrap" class="ft11">5.&#160;îngrijirea&#160;sau administrarea&#160;unei&#160;proprietăți&#160;din&#160;altă&#160;localitate;&#160;eliberarea&#160;de&#160;documente</p>-->
+<!--    <p style="position:absolute;top:648px;left:161px;white-space:nowrap" class="ft11">necesare&#160;pentru obținerea&#160;unor drepturi;</p>-->
+<!--    <p style="position:absolute;top:670px;left:161px;white-space:nowrap" class="ft11">6.&#160;participarea&#160;la&#160;programe&#160;sau proceduri&#160;în-->
+<!--        centrele&#160;de&#160;tratament;</p>-->
+<!--    <p style="position:absolute;top:691px;left:161px;white-space:nowrap" class="ft11">7.&#160;asistență&#160;medicală&#160;care&#160;nu poate&#160;fi&#160;amânată&#160;și&#160;nici&#160;realizată&#160;de&#160;la&#160;distanță;</p>-->
+<!--    <p style="position:absolute;top:713px;left:161px;white-space:nowrap" class="ft11">8.&#160;activități&#160;recreativ-sportive&#160;individuale&#160;desfășurate&#160;în-->
+<!--        aer liber (ciclism, drumeție,</p>-->
+<!--    <p style="position:absolute;top:734px;left:161px;white-space:nowrap" class="ft11">alergare, canotaj, alpinism, vânătoare, pescuit&#160;și&#160;altele) cu-->
+<!--        participarea&#160;a&#160;cel&#160;mult&#160;3</p>-->
+<!--    <p style="position:absolute;top:756px;left:161px;white-space:nowrap" class="ft11">persoane;</p>-->
+<!--    <p style="position:absolute;top:778px;left:161px;white-space:nowrap" class="ft11">9.&#160;participarea&#160;la&#160;evenimente&#160;familiale, cu&#160;un&#160;număr-->
+<!--        limitat&#160;de&#160;persoane&#160;și&#160;respectarea</p>-->
+<!--    <p style="position:absolute;top:799px;left:161px;white-space:nowrap" class="ft11">regulilor de&#160;distanțare&#160;socială;</p>-->
+<!--    <p style="position:absolute;top:821px;left:161px;white-space:nowrap" class="ft11">10.&#160;pentru achiziția, service-ul, efectuarea&#160;ITP&#160;sau alte&#160;operațiuni&#160;de&#160;întreținere&#160;a</p>-->
+<!--    <p style="position:absolute;top:842px;left:161px;white-space:nowrap" class="ft11">vehiculelor, activități&#160;care&#160;nu pot&#160;fi&#160;efectuate&#160;în-->
+<!--        localitatea&#160;de&#160;domiciliu;</p>-->
+
+<!--    <p style="position:absolute;top:864px;left:161px;white-space:nowrap" class="ft11">11.&#160;alte motive justificate (<i>precum</i>:&#160;<i>îngrijirea/însoțirea-->
+<!--        copiilor/membrilor de&#160;familie;</i></p>-->
+<!--    <p style="position:absolute;top:886px;left:161px;white-space:nowrap" class="ft14"><i>îngrijirea unei rude/afin sau persoană aflată în întreținere; asistența&#160;persoanelor</i>-->
+<!--    </p>-->
+<!--    <p style="position:absolute;top:908px;left:161px;white-space:nowrap" class="ft14"><i>vârstnice, bolnave sau&#160;cu dizabilități; deces al&#160;unui membru-->
+<!--        de familie,&#160;asigurarea de</i></p>-->
+<!--    <p style="position:absolute;top:929px;left:161px;white-space:nowrap" class="ft14"><i>bunuri care acoperă necesitățile de bază ale persoanelor și animalelor-->
+<!--        de</i></p>-->
+<!--    <p style="position:absolute;top:951px;left:161px;white-space:nowrap" class="ft14"><i>companie/domestice</i>).</p>-->
+
+<!--    <p style="position:absolute;top:1053px;left:111px;white-space:nowrap" class="ft11">Data&#160;declarației&#160; &#160;..................................&#160;-->
+<!--        &#160;&#160;</p>-->
+<!--    <p style="position:absolute;top:1053px;left:486px;white-space:nowrap" class="ft11">Semnătura&#160;&#160;.......................................&#160;</p>-->
+<!--    <p style="position:absolute;top:171px;left:85px;white-space:nowrap" class="ft13"><b>Nume, prenume:&#160; &#160; &#160;</b></p>-->
+<!--    <p style="position:absolute;top:209px;left:85px;white-space:nowrap" class="ft19"><b>Data nașterii:</b>&#160;&#160; &#160; &#160; &#160; &#160;-->
+<!--        &#160;<br/><b>Adresa&#160;</b>&#160;<b>locuinței:&#160; &#160;&#160;</b></p>-->
+<!--    <p style="position:absolute;top:93px;left:248px;white-space:nowrap" class="ft15"><b>DECLARAȚIE&#160;PE&#160;PROPRIE&#160;RĂSPUNDERE</b></p>-->
+<!--    <p style="position:absolute;top:97px;left:673px;white-space:nowrap" class="ft11">&#160;</p>-->
+<!--    <p style="position:absolute;top:122px;left:400px;white-space:nowrap" class="ft14"><i>-&#160;stare&#160;de&#160;alertă -</i></p>-->
+
+<!--    <p id="lastName" style="position:absolute;top:171px;left:246px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="firstName" style="position:absolute;top:171px;left:511px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="birthDateDay" style="position:absolute;top:208px;left:244px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="birthDateMonth" style="position:absolute;top:208px;left:308px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="birthDateYear" style="position:absolute;top:208px;left:378px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="locationAddressOne" style="position:absolute;top:246px;left:243px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="locationAddressTwo" style="position:absolute;top:284px;left:242px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="routeAddress" style="position:absolute;top:409px;left:89px;white-space:nowrap" class="ft16"></p>-->
+<!--    <p id="date" style="position:absolute;top:1046px;left:242px;white-space:nowrap" class="ft18"></p>-->
+<!--    <p id="optionOne" style="display:none;position:absolute;top:524px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionTwo" style="display:none;position:absolute;top:566px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionThree" style="display:none;position:absolute;top:588px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionFour" style="display:none;position:absolute;top:610px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionFive" style="display:none;position:absolute;top:632px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionSix" style="display:none;position:absolute;top:676px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionSeven" style="display:none;position:absolute;top:698px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionEight" style="display:none;position:absolute;top:720px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionNine" style="display:none;position:absolute;top:784px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionTen" style="display:none;position:absolute;top:826px;left:138px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <p id="optionEleven" style="display:none;position:absolute;top:868px;left:139px;white-space:nowrap" class="ft10">✔</p>-->
+<!--    <img id="signature" style="position:absolute;top:1000px;left:576px; width:130px; height:auto;" src="">-->
+
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
