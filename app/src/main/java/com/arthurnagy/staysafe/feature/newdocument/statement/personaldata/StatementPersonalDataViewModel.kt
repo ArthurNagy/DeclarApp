@@ -24,9 +24,23 @@ class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocume
             currentValue
         }
     }
-    val address = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
-        if (pendingStatement.address != currentValue) {
-            pendingStatement.address
+    val location = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
+        if (pendingStatement.location != currentValue) {
+            pendingStatement.location
+        } else {
+            currentValue
+        }
+    }
+    val currentLocation = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
+        if (pendingStatement.currentLocation != currentValue) {
+            pendingStatement.currentLocation
+        } else {
+            currentValue
+        }
+    }
+    val birthdayLocation = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
+        if (pendingStatement.birthdayLocation != currentValue) {
+            pendingStatement.birthdayLocation
         } else {
             currentValue
         }
@@ -46,16 +60,27 @@ class StatementPersonalDataViewModel(private val newDocumentViewModel: NewDocume
                 newDocumentViewModel.updateStatement { copy(firstName = it) }
             }
         }
-        address.observeForever {
-            if (pendingStatement.value?.address != it) {
-                newDocumentViewModel.updateStatement { copy(address = it) }
+        location.observeForever {
+            if (pendingStatement.value?.location != it) {
+                newDocumentViewModel.updateStatement { copy(location = it) }
+            }
+        }
+        currentLocation.observeForever {
+            if (pendingStatement.value?.currentLocation != it) {
+                newDocumentViewModel.updateStatement { copy(currentLocation = it) }
+            }
+        }
+        birthdayLocation.observeForever {
+            if (pendingStatement.value?.birthdayLocation != it) {
+                newDocumentViewModel.updateStatement { copy(birthdayLocation = it) }
             }
         }
     }
 
     private fun areStatementPersonalDataValid(pendingStatement: NewDocumentViewModel.PendingStatement) =
         !pendingStatement.firstName.isNullOrEmpty() && !pendingStatement.lastName.isNullOrEmpty() &&
-            !pendingStatement.address.isNullOrBlank() && pendingStatement.birthDate != null
+            !pendingStatement.location.isNullOrBlank() && !pendingStatement.currentLocation.isNullOrBlank() &&
+            pendingStatement.birthDate != null && !pendingStatement.birthdayLocation.isNullOrBlank()
 
     fun onBirthDateSelected(timestamp: Long) {
         newDocumentViewModel.updateStatement { copy(birthDate = timestamp) }
