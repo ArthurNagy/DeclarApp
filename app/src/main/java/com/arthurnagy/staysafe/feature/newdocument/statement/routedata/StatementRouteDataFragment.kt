@@ -51,6 +51,7 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
 
             clickableDate.setOnClickListener { openDateSelection() }
             next.setOnClickListener {
+                view.hideKeyboard()
                 findSafeNavController().navigate(
                     StatementRouteDataFragmentDirections.actionStatementRouteDataFragmentToSignatureFragment(),
                     FragmentNavigatorExtras(

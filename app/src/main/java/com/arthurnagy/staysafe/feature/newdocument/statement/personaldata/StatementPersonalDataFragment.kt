@@ -46,6 +46,7 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
             toolbar.setNavigationOnClickListener {navigateBack() }
             clickableBirthDate.setOnClickListener { openBirthDateSelection() }
             next.setOnClickListener {
+                view.hideKeyboard()
                 findSafeNavController().navigate(
                     StatementPersonalDataFragmentDirections.actionStatementPersonalDataFragmentToStatementRouteDataFragment(),
                     FragmentNavigatorExtras(
