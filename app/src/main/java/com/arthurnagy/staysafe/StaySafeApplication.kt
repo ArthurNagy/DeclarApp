@@ -45,6 +45,7 @@ class StaySafeApplication : Application() {
         single {
             Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db")
                 .addMigrations(StaySafeDatabase.MIGRATION_3_4)
+                .addMigrations(StaySafeDatabase.MIGRATION_4_5)
                 .build()
         }
         factory { get<StaySafeDatabase>().statementDao() }

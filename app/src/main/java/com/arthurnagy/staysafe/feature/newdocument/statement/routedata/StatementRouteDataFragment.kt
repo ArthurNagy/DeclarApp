@@ -1,20 +1,20 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
-import android.graphics.drawable.InsetDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.transition.ChangeBounds
 import androidx.transition.Slide
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementRouteDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
+import com.arthurnagy.staysafe.feature.shared.hideKeyboard
 import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -44,23 +44,11 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
             lifecycleOwner = viewLifecycleOwner
             viewModel = this@StatementRouteDataFragment.viewModel
         }
-        val motiveAdapter = MotiveAdapter {
-            viewModel.onMotiveSelected(it)
-        }
+
         with(binding) {
-            toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
-            }
-            recycler.apply {
-                adapter = motiveAdapter
-                val itemDecoration = DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
-                val firstKeyline = resources.getDimensionPixelSize(R.dimen.first_keyline)
-                itemDecoration.setDrawable(InsetDrawable(itemDecoration.drawable?.mutate(), firstKeyline, 0, firstKeyline, 0))
-                addItemDecoration(itemDecoration)
-            }
-            clickableDate.setOnClickListener {
-                openDateSelection()
-            }
+            toolbar.setNavigationOnClickListener { navigateBack() }
+
+            clickableDate.setOnClickListener { openDateSelection() }
             next.setOnClickListener {
                 findSafeNavController().navigate(
                     StatementRouteDataFragmentDirections.actionStatementRouteDataFragmentToSignatureFragment(),
@@ -71,7 +59,12 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
                 )
             }
         }
-        viewModel.motiveItems.observe(viewLifecycleOwner, motiveAdapter::submitList)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { navigateBack() }
+    }
+
+    private fun navigateBack(){
+        findNavController().navigateUp()
+        view?.hideKeyboard()
     }
 
     private fun openDateSelection() {

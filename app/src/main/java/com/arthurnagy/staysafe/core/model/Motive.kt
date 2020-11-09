@@ -13,7 +13,7 @@ enum class Motive {
 class MotivesConverter {
 
     @TypeConverter
-    fun from(motives: String?): List<Motive>? = motives?.split(',')?.mapNotNull { motiveString ->
+    fun from(motives: String?): List<Motive>? = motives?.split(',')?.filter { it.isNotEmpty() }?.mapNotNull { motiveString ->
         Motive.values().find { it.ordinal == motiveString.trim().toInt() }
     }
 

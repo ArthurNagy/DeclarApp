@@ -16,26 +16,14 @@
         android:background="?attr/selectableItemBackground"
         android:padding="@dimen/first_keyline">
 
-        <TextView
-            android:id="@+id/route"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="@{uiModel.statement.route}"
-            android:textAppearance="?attr/textAppearanceBody1"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Valami kurva hosszu szoveg ami lenne a szaros destination traseu etc." />
-
-        <TextView
-            android:id="@+id/motive_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_margin"
-            android:text="@string/motive"
-            android:textAppearance="?textAppearanceSubtitle2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/route" />
+<!--        <TextView-->
+<!--            android:id="@+id/motive_label"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="@string/motive"-->
+<!--            android:textAppearance="?textAppearanceSubtitle2"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
 
         <TextView
             android:id="@+id/motive"
@@ -46,7 +34,7 @@
             android:maxLines="3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/motive_label"
+            app:layout_constraintTop_toTopOf="parent"
             app:textResList="@{uiModel.motiveTextResList}"
             tools:text="Interes profesional" />
 
@@ -54,7 +42,7 @@
             android:id="@+id/date_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_margin"
+            android:layout_marginTop="@dimen/first_keyline"
             android:text="@string/date"
             android:textAppearance="?textAppearanceSubtitle2"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,17 +52,20 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/small_margin"
             android:text="@{uiModel.date}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date_label"
             tools:text="March 29, 2020" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/update_date"
             style="?materialButtonOutlinedStyle"
+            isVisible="@{uiModel.isUpdateVisible}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_date"
-            isVisible="@{uiModel.isUpdateVisible}"
+            app:layout_constraintBottom_toBottomOf="@id/date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/date_label" />
 

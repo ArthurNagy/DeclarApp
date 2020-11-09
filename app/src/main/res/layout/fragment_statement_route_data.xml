@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data class=".StatementRouteDataBinding">
 
@@ -10,10 +9,9 @@
             type="com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:paddingBottomSystemWindowInsets="@{true}"
         app:paddingTopSystemWindowInsets="@{true}">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -35,20 +33,21 @@
                 android:textAppearance="?attr/textAppearanceHeadline6" />
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <androidx.core.widget.NestedScrollView
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
             android:background="?attr/colorSurface"
-            android:clipChildren="false"
             android:clipToPadding="false"
             android:fillViewport="true"
             android:paddingTop="@dimen/first_keyline"
-            android:paddingBottom="@dimen/third_keyline"
-            app:layout_constraintTop_toBottomOf="@id/toolbar">
+            android:paddingBottom="@dimen/third_keyline">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                app:paddingBottomSystemWindowInsets="@{true}">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guide_start"
@@ -56,6 +55,13 @@
                     android:layout_height="0dp"
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="@dimen/first_keyline" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide_start_checkbox"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="10dp" />
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guide_end"
@@ -74,37 +80,132 @@
                     app:layout_constraintStart_toStartOf="@id/guide_start"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/route"
+                <TextView
+                    android:id="@+id/motive_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/first_keyline"
+                    android:text="@string/motive_label"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/step_label" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/motive_professional_interests"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/second_keyline"
-                    android:hint="@string/route"
-                    app:counterEnabled="true"
-                    app:counterMaxLength="140"
-                    app:helperText="@string/route_helper"
-                    app:helperTextEnabled="true"
+                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onMotiveSelected(isChecked, 0)}"
+                    android:text="@string/motive_professional_interests"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/motive_label"
+                    app:motiveChecked="@{viewModel.motiveItems[0]}" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_location"
+                    isVisible="@{viewModel.displayWorkData}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/company_location"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/step_label">
+                    app:layout_constraintTop_toBottomOf="@id/motive_professional_interests">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textMultiLine|textPostalAddress"
-                        android:text="@={viewModel.route}" />
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.workLocation}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_addresses"
+                    isVisible="@{viewModel.displayWorkData}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin"
+                    android:hint="@string/company_addresses"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="140"
+                    app:helperText="@string/company_addresses_helper"
+                    app:helperTextEnabled="true"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/company_location">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine|textPostalAddress|textCapWords"
+                        android:text="@={viewModel.workAddresses}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/motive_medical_assistance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onMotiveSelected(isChecked, 1)}"
+                    android:text="@string/motive_medical_assistance"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/company_addresses"
+                    app:motiveChecked="@{viewModel.motiveItems[1]}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/motive_purchase_of_medication"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onMotiveSelected(isChecked, 2)}"
+                    android:text="@string/motive_purchase_of_medication"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/motive_medical_assistance"
+                    app:motiveChecked="@{viewModel.motiveItems[2]}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/motive_help"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onMotiveSelected(isChecked, 3)}"
+                    android:text="@string/motive_help"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/motive_purchase_of_medication"
+                    app:motiveChecked="@{viewModel.motiveItems[3]}" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:id="@+id/motive_family_decease"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:onCheckedChanged="@{(_, isChecked) -> viewModel.onMotiveSelected(isChecked, 4)}"
+                    android:text="@string/motive_family_decease"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start_checkbox"
+                    app:layout_constraintTop_toBottomOf="@id/motive_help"
+                    app:motiveChecked="@{viewModel.motiveItems[4]}" />
+
+                <View
+                    android:id="@+id/motive_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="@dimen/content_margin"
+                    android:background="?attr/dividerHorizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/motive_family_decease" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/first_keyline"
+                    android:layout_marginTop="@dimen/content_margin"
                     android:hint="@string/date"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/route">
+                    app:layout_constraintTop_toBottomOf="@id/motive_divider">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -123,45 +224,20 @@
                     app:layout_constraintStart_toStartOf="@id/date"
                     app:layout_constraintTop_toTopOf="@id/date" />
 
-                <TextView
-                    android:id="@+id/motive_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/colorSecondary"
-                    android:textAppearance="?attr/textAppearanceSubtitle2"
-                    app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/clickable_date"
-                    android:layout_marginTop="@dimen/first_keyline"
-                    android:text="@string/motive_label" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:clipToPadding="false"
-                    android:paddingBottom="56dp"
-                    android:layout_marginTop="@dimen/content_margin"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/motive_label"
-                    tools:listitem="@layout/item_motive" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/first_keyline"
             android:enabled="@{viewModel.isNextEnabled}"
             android:text="@string/next"
             android:transitionName="@string/transition_action"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_marginBottomSystemWindowInsets="@{true}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

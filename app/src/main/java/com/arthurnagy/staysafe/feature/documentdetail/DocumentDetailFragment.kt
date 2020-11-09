@@ -112,34 +112,29 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
     private fun addStatementData(webView: WebView, statement: Statement) {
         with(webView) {
-            addContent("lastName", statement.lastName)
-            addContent("firstName", statement.firstName)
+            addContent("fullName", "${statement.lastName} ${statement.firstName}")
+
             val localDate = Instant.ofEpochMilli(statement.birthDate).atOffset(ZoneOffset.UTC).toLocalDate()
-            addContent("birthDateDay", "${localDate.dayOfMonth}.")
-            addContent("birthDateMonth", "${localDate.month.value}.")
-            addContent("birthDateYear", "${localDate.year}")
-            if (statement.address.length > SINGLE_LINE_ADDRESS_LIMIT) {
-                addContent("locationAddressOne", statement.address.substring(0, SINGLE_LINE_ADDRESS_LIMIT))
-                addContent("locationAddressTwo", statement.address.substring(SINGLE_LINE_ADDRESS_LIMIT))
-            } else {
-                addContent("locationAddressOne", statement.address)
-            }
-            statement.motives.forEach {
-                when (it) {
-                    Motive.PROFESSIONAL_INTERESTS -> show("optionOne")
-                    Motive.VOLUNTEERING -> show("optionTwo")
-                    Motive.AGRICULTURAL_ACTIVITIES -> show("optionThree")
-                    Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> show("optionFour")
-                    Motive.PROPERTY_OR_DOCUMENT_ADMINISTRATION -> show("optionFive")
-                    Motive.TREATMENT -> show("optionSix")
-                    Motive.MEDICAL_ASSISTANCE -> show("optionSeven")
-                    Motive.PHYSICAL_ACTIVITY -> show("optionEight")
-                    Motive.FAMILY_EVENT -> show("optionNine")
-                    Motive.VEHICLE_SERVICE -> show("optionTen")
-                    Motive.JUSTIFIED_HELP -> show("optionEleven")
+            addContent("birthDate", "${localDate.dayOfMonth}.${localDate.month.value}.${localDate.year}")
+            addContent("birthdayLocation", statement.birthdayLocation)
+
+            addContent("officialLocation", statement.location)
+            addContent("currentLocation", statement.currentLocation)
+
+            statement.motives.forEach { motive ->
+                when (motive) {
+                    Motive.PROFESSIONAL_INTERESTS -> {
+                        show("optionOne")
+                        statement.workLocation?.let { addContent("workLocation", it) }
+                        statement.workAddresses?.let { addContent("workAddress", it) }
+                    }
+                    Motive.MEDICAL_ASSISTANCE -> show("optionTwo")
+                    Motive.PURCHASE_OF_MEDICATION -> show("optionThree")
+                    Motive.MOTIVE_HELP -> show("optionFour")
+                    Motive.MOTIVE_FAMILY_DECEASE -> show("optionFive")
                 }
             }
-            addContent("routeAddress", statement.route)
+
             addContent("date", formatToFormalDate(statement.date))
             signature("$HTML_FILES${statement.signaturePath.substringAfterLast("/")}")
         }

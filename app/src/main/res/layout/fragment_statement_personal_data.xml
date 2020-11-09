@@ -10,9 +10,10 @@
             type="com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context="com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataFragment"
         app:paddingTopSystemWindowInsets="@{true}">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -21,7 +22,6 @@
             android:layout_height="wrap_content"
             android:transitionGroup="true"
             android:transitionName="@string/transition_toolbar"
-            app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_back_24dp"
             app:title="@null">
 
@@ -38,18 +38,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/colorSurface"
-            android:clipToPadding="false"
             android:fillViewport="true"
+            android:clipToPadding="false"
             android:paddingTop="@dimen/first_keyline"
             android:paddingBottom="@dimen/third_keyline"
             android:transitionGroup="true"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:paddingBottomSystemWindowInsets="@{true}">
+            android:layout_marginTop="?attr/actionBarSize">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context="com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataFragment">
+                app:paddingBottomSystemWindowInsets="@{true}">
 
                 <androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guide_start"
@@ -169,11 +168,11 @@
                     app:layout_constraintTop_toBottomOf="@id/current_location" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/birth_date"
+                    android:id="@+id/birthday_location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/content_margin"
-                    android:hint="@string/birth_date"
+                    android:hint="@string/birthday_location"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"
                     app:layout_constraintTop_toBottomOf="@id/location_divider">
@@ -181,7 +180,27 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:text="@={viewModel.birthdayLocation}" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/birth_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/content_margin"
+                    android:hint="@string/birth_date"
+                    android:focusable="false"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/birthday_location">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:inputType="none"
+                        android:focusable="false"
                         android:text="@{viewModel.birthDateFormatted}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -195,24 +214,6 @@
                     app:layout_constraintStart_toStartOf="@id/birth_date"
                     app:layout_constraintTop_toTopOf="@id/birth_date" />
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/birthday_location"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/content_margin"
-                    android:hint="@string/birthday_location"
-                    app:layout_constraintEnd_toEndOf="@id/guide_end"
-                    app:layout_constraintStart_toStartOf="@id/guide_start"
-                    app:layout_constraintTop_toBottomOf="@id/clickable_birth_date">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textCapWords"
-                        android:text="@={viewModel.birthdayLocation}" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
@@ -220,14 +221,13 @@
             android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
             android:layout_marginBottom="@dimen/first_keyline"
             android:enabled="@{viewModel.isNextEnabled}"
             android:text="@string/next"
             android:transitionName="@string/transition_action"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_marginBottomSystemWindowInsets="@{true}" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

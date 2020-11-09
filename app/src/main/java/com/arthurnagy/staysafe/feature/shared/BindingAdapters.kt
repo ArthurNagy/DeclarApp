@@ -2,15 +2,19 @@ package com.arthurnagy.staysafe.feature.shared
 
 import android.content.res.ColorStateList
 import android.view.View
+import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updateMargins
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import coil.load
+import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
 import java.io.File
 
 @BindingAdapter("textRes")
@@ -45,4 +49,22 @@ fun View.isInvisible(invisible: Boolean) {
 @BindingAdapter("image")
 fun ImageView.loadImage(path: String?) {
     path?.let { load(File(it)) }
+}
+
+@BindingAdapter("motiveChecked")
+fun CheckBox.setMotiveChecked(motive: StatementRouteDataViewModel.MotiveUiModel) {
+    isChecked = motive.selected
+}
+
+@BindingAdapter("marginStart", "marginTop", "marginEnd", "marginBottom", requireAll = false)
+fun View.updateMargins(marginStart: Float? = null, marginTop: Float? = null, marginEnd: Float? = null, marginBottom: Float? = null) {
+    val layoutParams: ViewGroup.MarginLayoutParams? = layoutParams as? ViewGroup.MarginLayoutParams
+    layoutParams?.apply {
+        updateMargins(
+            left = marginStart?.toInt() ?: leftMargin,
+            top = marginTop?.toInt() ?: topMargin,
+            right = marginEnd?.toInt() ?: rightMargin,
+            bottom = marginBottom?.toInt() ?: bottomMargin
+        )
+    }
 }

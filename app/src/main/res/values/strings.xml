@@ -69,5 +69,8 @@
     <string name="in_app_purchase_pending">Achiziția este în stare suspendat, se aşteaptă aprobarea.</string>
     <string name="update_date">Actualizează data</string>
     <string name="statement_date_updated">Data deplasării a fost actualizată</string>
+    <string name="company_location">Localitatea sediului</string>
+    <string name="company_addresses">Adresa punctului de lucru</string>
+    <string name="company_addresses_helper">Se pot menționa multiple adrese</string>
 
 </resources>

@@ -1,49 +1,75 @@
 package com.arthurnagy.staysafe.feature.newdocument.statement.routedata
 
-import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.map
-import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.formatToDate
-import com.arthurnagy.staysafe.feature.shared.labelRes
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.arthurnagy.staysafe.feature.shared.mediatorLiveData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOf
 
 class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentViewModel) : ViewModel() {
-    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> get() = newDocumentViewModel.pendingStatement
-    val route = MutableLiveData<String>()
+    private val pendingStatement: LiveData<NewDocumentViewModel.PendingStatement> = newDocumentViewModel.pendingStatement
+
     val date: LiveData<Long?> = pendingStatement.map { it.date }
     val dateFormatted: LiveData<String> = date.map { it?.let { formatToDate(it) } ?: "" }
+
     val isNextEnabled: LiveData<Boolean> = pendingStatement.map(::areStatementRouteDataValid)
+
     private val motives: Flow<List<Motive>> = flowOf(Motive.values().toList())
     private val selectedMotives: LiveData<List<Motive>?> = pendingStatement.map { it.motives }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     val motiveItems: LiveData<List<MotiveUiModel>> = motives.combine(selectedMotives.asFlow()) { motives, selectedMotives ->
         motives.map {
             MotiveUiModel(motive = it, selected = selectedMotives?.contains(it) == true)
         }
     }.asLiveData()
 
+    val displayWorkData: LiveData<Boolean> = motiveItems.map { motives ->
+        motives.find { it.motive === Motive.PROFESSIONAL_INTERESTS }?.selected == true
+    }
+
+    val workLocation = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
+        if (pendingStatement.workLocation != currentValue) {
+            pendingStatement.workLocation
+        } else {
+            currentValue
+        }
+    }
+    val workAddresses = mediatorLiveData("", pendingStatement) { currentValue, pendingStatement ->
+        if (pendingStatement.workAddresses != currentValue) {
+            pendingStatement.workAddresses
+        } else {
+            currentValue
+        }
+    }
+
     init {
-        route.observeForever {
-            if (pendingStatement.value?.route != it) {
-                newDocumentViewModel.updateStatement { copy(route = it) }
+        workLocation.observeForever {
+            if (pendingStatement.value?.workLocation != it) {
+                newDocumentViewModel.updateStatement { copy(workLocation = it) }
+            }
+        }
+        workAddresses.observeForever {
+            if (pendingStatement.value?.workAddresses != it) {
+                newDocumentViewModel.updateStatement { copy(workAddresses = it) }
             }
         }
     }
 
     private fun areStatementRouteDataValid(pendingStatement: NewDocumentViewModel.PendingStatement) =
-        !pendingStatement.route.isNullOrEmpty() && !pendingStatement.motives.isNullOrEmpty() &&
-            pendingStatement.date != null
+        !pendingStatement.motives.isNullOrEmpty() && isProfessionalInterestValid(pendingStatement) && pendingStatement.date != null
+
+    private fun isProfessionalInterestValid(pendingStatement: NewDocumentViewModel.PendingStatement): Boolean = pendingStatement.motives?.let { motives ->
+        motives.find { it === Motive.PROFESSIONAL_INTERESTS }?.let {
+            !pendingStatement.workLocation.isNullOrBlank() && !pendingStatement.workAddresses.isNullOrBlank()
+        } ?: true
+    } ?: false
 
     fun onDateSelected(date: Long) {
         if (pendingStatement.value?.date != date) {
@@ -51,24 +77,24 @@ class StatementRouteDataViewModel(private val newDocumentViewModel: NewDocumentV
         }
     }
 
-    fun onMotiveSelected(motiveMotiveUiModel: MotiveUiModel) {
-        // If it is currently selected we need to remove it from the selected list, if not we need to add it
-        newDocumentViewModel.updateStatement {
-            val newSelectedMotives = this.motives.orEmpty().toMutableList().apply {
-                if (motiveMotiveUiModel.selected) {
-                    remove(motiveMotiveUiModel.motive)
-                } else {
-                    add(motiveMotiveUiModel.motive)
+    fun onMotiveSelected(isSelected: Boolean, motiveIndex: Int) {
+        motiveItems.value?.get(motiveIndex)?.let { motiveUiModel ->
+            if (isSelected != motiveUiModel.selected) {
+                val currentlySelectedMotive = motiveUiModel.copy(selected = isSelected)
+                // If it is currently selected we need to remove it from the selected list, if not we need to add it
+                newDocumentViewModel.updateStatement {
+                    val newSelectedMotives = this.motives.orEmpty().toMutableList().apply {
+                        if (currentlySelectedMotive.selected) {
+                            add(currentlySelectedMotive.motive)
+                        } else {
+                            remove(currentlySelectedMotive.motive)
+                        }
+                    }
+                    copy(motives = newSelectedMotives)
                 }
             }
-            copy(motives = newSelectedMotives)
         }
     }
 
-    data class MotiveUiModel(val motive: Motive, val selected: Boolean) {
-        @get:StringRes
-        val motiveLabel: Int
-            get() = motive.labelRes
-        val checkTint get() = if (selected) R.color.color_secondary_variant else R.color.transparent
-    }
+    data class MotiveUiModel(val motive: Motive, val selected: Boolean)
 }
