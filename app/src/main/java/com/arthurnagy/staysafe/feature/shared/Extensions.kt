@@ -1,6 +1,8 @@
 package com.arthurnagy.staysafe.feature.shared
 
+import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
@@ -9,6 +11,8 @@ import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
@@ -18,6 +22,7 @@ import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -29,6 +34,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ViewModelOwner
 import org.koin.androidx.viewmodel.koin.getViewModel
@@ -81,16 +88,10 @@ fun Bitmap.tint(@ColorInt tintColor: Int): Bitmap {
 val Motive.labelRes: Int
     get() = when (this) {
         Motive.PROFESSIONAL_INTERESTS -> R.string.motive_professional_interests
-        Motive.VOLUNTEERING -> R.string.motive_volunteering
-        Motive.AGRICULTURAL_ACTIVITIES -> R.string.motive_agricultural_activities
-        Motive.COMMERCIALIZE_AGRICULTURAL_PRODUCES -> R.string.motive_commercialize_agricultural_produces
-        Motive.PROPERTY_OR_DOCUMENT_ADMINISTRATION -> R.string.motive_property_administration_or_document
-        Motive.TREATMENT -> R.string.motive_treatment
         Motive.MEDICAL_ASSISTANCE -> R.string.motive_medical_assistance
-        Motive.PHYSICAL_ACTIVITY -> R.string.motive_physical_activity
-        Motive.FAMILY_EVENT -> R.string.motive_family_event
-        Motive.VEHICLE_SERVICE -> R.string.motive_vehicle_service
-        Motive.JUSTIFIED_HELP -> R.string.motive_justified_help
+        Motive.PURCHASE_OF_MEDICATION -> R.string.motive_purchase_of_medication
+        Motive.MOTIVE_HELP -> R.string.motive_help
+        Motive.MOTIVE_FAMILY_DECEASE -> R.string.motive_family_decease
     }
 
 inline fun <T> LiveData<T>.doOnChanged(crossinline observer: (T) -> Unit) {
@@ -182,3 +183,35 @@ fun Shader.setTranslation(x: Float = 0f, y: Float = 0f) {
 private val matrix: Matrix by lazy(LazyThreadSafetyMode.NONE) {
     Matrix()
 }
+
+fun View.hideKeyboard() {
+    val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun ExtendedFloatingActionButton.tintExtendedFloatingActionButton() {
+    val colorOnSurface = MaterialColors.getColor(this, R.attr.colorOnSurface)
+    val colorSurface = MaterialColors.getColor(this, R.attr.colorSurface)
+    val colorSecondary = MaterialColors.getColor(this, R.attr.colorSecondary)
+
+    val backgroundColorStateList: ColorStateList by lazy {
+        val backgroundColors = IntArray(buttonBackgroundStates.size)
+        backgroundColors[0] = colorSecondary
+        backgroundColors[1] =
+            MaterialColors.layer(colorSurface, MaterialColors.compositeARGBWithAlpha(colorOnSurface, MaterialColors.ALPHA_DISABLED_LOW.toAlphaInt()))
+
+        ColorStateList(buttonBackgroundStates, backgroundColors)
+    }
+
+
+    ViewCompat.setBackgroundTintList(this, backgroundColorStateList)
+}
+
+private const val MAX_ALPHA = 255
+
+fun Float.toAlphaInt(): Int = (this * MAX_ALPHA).toInt()
+
+val buttonBackgroundStates = arrayOf(
+    intArrayOf(android.R.attr.state_enabled),
+    intArrayOf()
+)

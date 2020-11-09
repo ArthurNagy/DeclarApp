@@ -9,7 +9,7 @@ import com.arthurnagy.staysafe.core.model.MotiveConverter
 import com.arthurnagy.staysafe.core.model.MotivesConverter
 import com.arthurnagy.staysafe.core.model.Statement
 
-@Database(entities = [Statement::class], version = 4, exportSchema = true)
+@Database(entities = [Statement::class], version = 5, exportSchema = true)
 @TypeConverters(MotivesConverter::class, MotiveConverter::class)
 abstract class StaySafeDatabase : RoomDatabase() {
     abstract fun statementDao(): StatementDao
@@ -39,6 +39,43 @@ abstract class StaySafeDatabase : RoomDatabase() {
                     """
                     INSERT INTO statement_new (id, first_name, last_name, birth_date, address, route, motives, date, signature, created_at)
                     SELECT id, first_name, last_name, birth_date, address, route, motive, date, signature, created_at
+                    FROM statement
+                    """.trimIndent()
+                )
+                // Remove the old table
+                database.execSQL("DROP TABLE statement")
+                // Change the table name to the correct one
+                database.execSQL("ALTER TABLE statement_new RENAME TO statement")
+            }
+        }
+
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(database: SupportSQLiteDatabase) {
+                // Create the new table
+                database.execSQL(
+                    """
+                    CREATE TABLE statement_new (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, 
+                        first_name TEXT NOT NULL, 
+                        last_name TEXT NOT NULL, 
+                        birth_date INTEGER NOT NULL, 
+                        location TEXT NOT NULL DEFAULT '',
+                        current_location TEXT NOT NULL DEFAULT '',
+                        birthday_location TEXT NOT NULL DEFAULT '', 
+                        work_location TEXT DEFAULT '', 
+                        work_addresses TEXT DEFAULT '', 
+                        motives TEXT NOT NULL DEFAULT '', 
+                        date INTEGER NOT NULL, 
+                        signature TEXT NOT NULL, 
+                        created_at INTEGER NOT NULL
+                    )
+                    """.trimIndent()
+                )
+                // Copy the data
+                database.execSQL(
+                    """
+                    INSERT INTO statement_new (id, first_name, last_name, birth_date, date, signature, created_at)
+                    SELECT id, first_name, last_name, birth_date, date, signature, created_at
                     FROM statement
                     """.trimIndent()
                 )

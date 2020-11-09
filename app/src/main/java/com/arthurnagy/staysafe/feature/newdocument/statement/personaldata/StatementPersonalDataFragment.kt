@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
@@ -12,7 +13,9 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.StatementPersonalDataBinding
 import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
+import com.arthurnagy.staysafe.feature.shared.hideKeyboard
 import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
+import com.arthurnagy.staysafe.feature.shared.tintExtendedFloatingActionButton
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointBackward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -40,13 +43,10 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
             viewModel = this@StatementPersonalDataFragment.viewModel
         }
         with(binding) {
-            toolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
-            }
-            clickableBirthDate.setOnClickListener {
-                openBirthDateSelection()
-            }
+            toolbar.setNavigationOnClickListener {navigateBack() }
+            clickableBirthDate.setOnClickListener { openBirthDateSelection() }
             next.setOnClickListener {
+                view.hideKeyboard()
                 findSafeNavController().navigate(
                     StatementPersonalDataFragmentDirections.actionStatementPersonalDataFragmentToStatementRouteDataFragment(),
                     FragmentNavigatorExtras(
@@ -55,7 +55,14 @@ class StatementPersonalDataFragment : Fragment(R.layout.fragment_statement_perso
                     )
                 )
             }
+            next.tintExtendedFloatingActionButton()
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { navigateBack() }
+    }
+
+    private fun navigateBack(){
+        findNavController().navigateUp()
+        view?.hideKeyboard()
     }
 
     private fun openBirthDateSelection() {

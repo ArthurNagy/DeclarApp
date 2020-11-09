@@ -1,12 +1,8 @@
 package com.arthurnagy.staysafe.feature.shared
 
-import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.ACTION_VIEW
-import android.content.Intent.CATEGORY_BROWSABLE
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER
 import android.content.pm.ResolveInfo
 import android.net.Uri
 import android.os.Build
@@ -14,12 +10,13 @@ import android.view.InflateException
 import android.view.View
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.browser.customtabs.CustomTabsService.ACTION_CUSTOM_TABS_CONNECTION
-import androidx.core.content.ContextCompat.startActivity
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.arthurnagy.staysafe.R
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import org.threeten.bp.Instant
 import org.threeten.bp.ZoneOffset
@@ -40,7 +37,7 @@ inline fun doIfAboveVersion(version: Int, block: () -> Unit) {
     }
 }
 
-fun showSnackbar(view: View, anchorView: View? = null, message: Int, action: Int = 0, func: (() -> Unit)? = null) {
+fun showSnackbar(view: View, anchorView: View? = null, message: Int, action: Int = 0, func: (() -> Unit)? = null, onDismissed: (() -> Unit)? = null) {
     try {
         val snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG)
         if (action != 0 && func != null) {
@@ -50,6 +47,15 @@ fun showSnackbar(view: View, anchorView: View? = null, message: Int, action: Int
         }
         if (anchorView != null) {
             snackbar.anchorView = anchorView
+        }
+        onDismissed?.let {
+            snackbar.addCallback(
+                object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, @DismissEvent event: Int) {
+                        onDismissed()
+                    }
+                }
+            )
         }
         snackbar.show()
     } catch (exception: InflateException) {
@@ -63,7 +69,9 @@ fun formatToDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOf
 fun formatToFormalDate(timestamp: Long): String = Instant.ofEpochMilli(timestamp).atOffset(ZoneOffset.UTC)
     .format(DateTimeFormatter.ofPattern("$DAY$DAY.$M$M.$YEAR"))
 
-fun isToday(timestamp: Long): Boolean = Instant.ofEpochMilli(timestamp).truncatedTo(ChronoUnit.DAYS) == Instant.now().truncatedTo(ChronoUnit.DAYS)
+fun isToday(timestamp: Long): Boolean =
+    Instant.ofEpochMilli(timestamp).truncatedTo(ChronoUnit.DAYS) == Instant.ofEpochMilli(MaterialDatePicker.todayInUtcMilliseconds())
+        .truncatedTo(ChronoUnit.DAYS)
 
 fun <T1, T2> mediatorLiveData(
     defaultValue: T1? = null,

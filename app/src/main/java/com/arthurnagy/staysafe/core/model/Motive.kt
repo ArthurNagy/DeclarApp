@@ -4,22 +4,16 @@ import androidx.room.TypeConverter
 
 enum class Motive {
     PROFESSIONAL_INTERESTS,
-    VOLUNTEERING,
-    AGRICULTURAL_ACTIVITIES,
-    COMMERCIALIZE_AGRICULTURAL_PRODUCES,
-    PROPERTY_OR_DOCUMENT_ADMINISTRATION,
-    TREATMENT,
     MEDICAL_ASSISTANCE,
-    PHYSICAL_ACTIVITY,
-    FAMILY_EVENT,
-    VEHICLE_SERVICE,
-    JUSTIFIED_HELP
+    PURCHASE_OF_MEDICATION,
+    MOTIVE_HELP,
+    MOTIVE_FAMILY_DECEASE
 }
 
 class MotivesConverter {
 
     @TypeConverter
-    fun from(motives: String?): List<Motive>? = motives?.split(',')?.mapNotNull { motiveString ->
+    fun from(motives: String?): List<Motive>? = motives?.split(',')?.filter { it.isNotEmpty() }?.mapNotNull { motiveString ->
         Motive.values().find { it.ordinal == motiveString.trim().toInt() }
     }
 

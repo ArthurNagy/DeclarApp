@@ -43,7 +43,11 @@ class NewDocumentViewModel(private val statementLocalSource: StatementLocalSourc
             firstName = statement?.firstName ?: pendingStatement.firstName,
             lastName = statement?.lastName ?: pendingStatement.lastName,
             birthDate = statement?.birthDate ?: pendingStatement.birthDate,
-            address = statement?.address ?: pendingStatement.address,
+            location = statement?.location ?: pendingStatement.location,
+            currentLocation = statement?.currentLocation ?: pendingStatement.currentLocation,
+            birthdayLocation = statement?.birthdayLocation ?: pendingStatement.birthdayLocation,
+            workLocation = statement?.workLocation ?: pendingStatement.workLocation,
+            workAddresses = statement?.workAddresses ?: pendingStatement.workAddresses,
             date = MaterialDatePicker.todayInUtcMilliseconds()
         )
 
@@ -51,8 +55,11 @@ class NewDocumentViewModel(private val statementLocalSource: StatementLocalSourc
         val firstName: String? = null,
         val lastName: String? = null,
         val birthDate: Long? = null,
-        val address: String? = null,
-        val route: String? = null,
+        val location: String? = null,
+        val currentLocation: String? = null,
+        val birthdayLocation: String? = null,
+        val workLocation: String? = null,
+        val workAddresses: String? = null,
         val motives: List<Motive>? = null,
         val date: Long? = null,
         val signaturePath: String? = null

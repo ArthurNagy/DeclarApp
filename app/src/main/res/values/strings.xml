@@ -30,34 +30,20 @@
     <string name="first_name">Prenume</string>
     <string name="address">Adresa actuală</string>
     <string name="birth_date">Data nașterii</string>
+    <string name="location">Domiciliul</string>
+    <string name="current_location">Reședința în fapt</string>
+    <string name="birthday_location">Localitatea nașterii</string>
 
     <string name="statement_route_data_label">2. Datele deplasării:</string>
     <string name="route">Traseul deplasării</string>
     <string name="route_helper">Locurile în care te deplasezi</string>
     <string name="motive">Motivul</string>
 
-    <!--1-->
     <string name="motive_professional_interests">Interes profesional</string>
-    <!--2-->
-    <string name="motive_volunteering">Voluntariat sau scopuri umanitare</string>
-    <!--3-->
-    <string name="motive_agricultural_activities">Realizarea de activități agricole</string>
-    <!--4-->
-    <string name="motive_commercialize_agricultural_produces">Comercializarea de produse agroalimentare</string>
-    <!--5-->
-    <string name="motive_property_administration_or_document">Administrarea unei proprietăți sau eliberarea de documente necesare</string>
-    <!--6-->
-    <string name="motive_treatment">Participarea la programe sau proceduri în centrele de tratament</string>
-    <!--7-->
-    <string name="motive_medical_assistance">Asistență medicală care nu poate fi amânată</string>
-    <!--8-->
-    <string name="motive_physical_activity">Activități recreativ-sportive individuale desfășurate în aer liber</string>
-    <!--9-->
-    <string name="motive_family_event">Participarea la evenimente familiale</string>
-    <!--10-->
-    <string name="motive_vehicle_service">Achiziția, service-ul sau alte operațiuni de întreținere a vehiculelor</string>
-    <!--11-->
-    <string name="motive_justified_help">Alte motive justificate (îngrijirea/însoțirea membrilor de familie, asistența persoanelor vârstnice, bolnave sau cu dizabilități)</string>
+    <string name="motive_medical_assistance">Asistență medicală care nu poate fi amânată și nici realizată de la distanță</string>
+    <string name="motive_purchase_of_medication">Achiziționarea de medicamente</string>
+    <string name="motive_help">Îngrijirea/însoțirea copilului și/sau asistența persoanelor vârstnice, bolnave sau cu dizabilități</string>
+    <string name="motive_family_decease">Deces al unui membru al familiei</string>
 
     <string name="date">Data deplasării</string>
     <string name="signature_label">3. Semnătura</string>
@@ -83,5 +69,8 @@
     <string name="in_app_purchase_pending">Achiziția este în stare suspendat, se aşteaptă aprobarea.</string>
     <string name="update_date">Actualizează data</string>
     <string name="statement_date_updated">Data deplasării a fost actualizată</string>
+    <string name="company_location">Localitatea sediului</string>
+    <string name="company_addresses">Adresa punctului de lucru</string>
+    <string name="company_addresses_helper">Se pot menționa multiple adrese</string>
 
 </resources>
