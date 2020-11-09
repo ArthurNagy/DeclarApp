@@ -8,13 +8,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
+import androidx.core.view.ViewCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updateMargins
 import androidx.core.widget.TextViewCompat
 import androidx.databinding.BindingAdapter
 import coil.load
+import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import java.io.File
 
 @BindingAdapter("textRes")

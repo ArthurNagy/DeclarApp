@@ -16,6 +16,7 @@ import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.shared.doIfAboveVersion
 import com.arthurnagy.staysafe.feature.shared.hideKeyboard
 import com.arthurnagy.staysafe.feature.shared.sharedGraphViewModel
+import com.arthurnagy.staysafe.feature.shared.tintExtendedFloatingActionButton
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -58,6 +59,7 @@ class StatementRouteDataFragment : Fragment(R.layout.fragment_statement_route_da
                     )
                 )
             }
+            next.tintExtendedFloatingActionButton()
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) { navigateBack() }
     }

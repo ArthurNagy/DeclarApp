@@ -2,6 +2,7 @@ package com.arthurnagy.staysafe.feature.shared
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Matrix
@@ -21,6 +22,7 @@ import androidx.annotation.Px
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -32,6 +34,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import org.koin.android.ext.android.getKoin
 import org.koin.androidx.viewmodel.ViewModelOwner
 import org.koin.androidx.viewmodel.koin.getViewModel
@@ -184,3 +188,30 @@ fun View.hideKeyboard() {
     val imm = context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
     imm.hideSoftInputFromWindow(windowToken, 0)
 }
+
+fun ExtendedFloatingActionButton.tintExtendedFloatingActionButton() {
+    val colorOnSurface = MaterialColors.getColor(this, R.attr.colorOnSurface)
+    val colorSurface = MaterialColors.getColor(this, R.attr.colorSurface)
+    val colorSecondary = MaterialColors.getColor(this, R.attr.colorSecondary)
+
+    val backgroundColorStateList: ColorStateList by lazy {
+        val backgroundColors = IntArray(buttonBackgroundStates.size)
+        backgroundColors[0] = colorSecondary
+        backgroundColors[1] =
+            MaterialColors.layer(colorSurface, MaterialColors.compositeARGBWithAlpha(colorOnSurface, MaterialColors.ALPHA_DISABLED_LOW.toAlphaInt()))
+
+        ColorStateList(buttonBackgroundStates, backgroundColors)
+    }
+
+
+    ViewCompat.setBackgroundTintList(this, backgroundColorStateList)
+}
+
+private const val MAX_ALPHA = 255
+
+fun Float.toAlphaInt(): Int = (this * MAX_ALPHA).toInt()
+
+val buttonBackgroundStates = arrayOf(
+    intArrayOf(android.R.attr.state_enabled),
+    intArrayOf()
+)
