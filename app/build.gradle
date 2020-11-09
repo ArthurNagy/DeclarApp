@@ -4,6 +4,10 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+def adMobPropertiesFile = rootProject.file("ad-mob.properties")
+def adMobProperties = new Properties()
+adMobProperties.load(new FileInputStream(adMobPropertiesFile))
+
 android {
     compileSdkVersion 30
 
@@ -18,6 +22,9 @@ android {
 
         vectorDrawables.useSupportLibrary = true
 
+        buildConfigField("String", "AD_MOB_APP_ID", "\"${adMobProperties['appId']}\"")
+        manifestPlaceholders = [adMobAppId: "${adMobProperties['appId']}"]
+
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
@@ -30,7 +37,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "AD_MOB_BANNER_UNIT_ID", "\"ca-app-pub-3940256099942544/6300978111\"")
+        }
         release {
+            buildConfigField("String", "AD_MOB_BANNER_UNIT_ID", "\"${adMobProperties['bannerUnitId']}\"")
+
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -91,6 +103,8 @@ dependencies {
 
     implementation "com.android.billingclient:billing:$billing"
     implementation "com.android.billingclient:billing-ktx:$billing"
+
+    implementation 'com.google.android.gms:play-services-ads:19.5.0'
 
     implementation 'com.jakewharton.timber:timber:4.7.1'
 

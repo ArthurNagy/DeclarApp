@@ -14,6 +14,7 @@ import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.Statement
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.arthurnagy.staysafe.feature.shared.provider.FileProvider
 import com.arthurnagy.staysafe.feature.shared.provider.StringProvider
+import com.google.android.gms.ads.MobileAds
 import com.jakewharton.threetenabp.AndroidThreeTen
 import org.koin.android.ext.android.inject
 import org.koin.android.ext.koin.androidContext
@@ -35,6 +36,7 @@ class StaySafeApplication : Application() {
             modules(appModule)
         }
         preferenceManager.theme?.let { ThemeHelper.applyTheme(it) }
+        MobileAds.initialize(applicationContext)
     }
 
     private val appModule = module {

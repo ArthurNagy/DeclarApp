@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/transparent"
+                app:title="@string/statement_short_title"
                 app:menu="@menu/document_detail"
                 app:navigationIcon="@drawable/ic_back_24dp" />
         </com.google.android.material.appbar.AppBarLayout>
@@ -35,6 +36,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/ad_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/content_margin"
+            app:layout_marginBottomSystemWindowInsets="@{true}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

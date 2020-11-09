@@ -14,12 +14,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.webkit.WebViewAssetLoader
 import androidx.webkit.WebViewClientCompat
+import com.arthurnagy.staysafe.BuildConfig
 import com.arthurnagy.staysafe.DocumentDetailBinding
 import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.shared.consume
 import com.arthurnagy.staysafe.feature.shared.formatToFormalDate
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
@@ -77,6 +81,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
                 allowFileAccess = true
                 javaScriptEnabled = true
             }
+            initializeAd(adView)
         }
         with(viewModel) {
             statement.observe(viewLifecycleOwner) {
@@ -85,6 +90,14 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
             navigateBackEvent.observe(viewLifecycleOwner) {
                 if (it.consume() != null) findNavController().navigateUp()
             }
+        }
+    }
+
+    private fun initializeAd(adView: AdView) {
+        adView.apply {
+            adSize = AdSize.BANNER
+            adUnitId = BuildConfig.AD_MOB_BANNER_UNIT_ID
+            loadAd(AdRequest.Builder().build())
         }
     }
 
