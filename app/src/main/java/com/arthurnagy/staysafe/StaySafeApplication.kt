@@ -36,7 +36,7 @@ class StaySafeApplication : Application() {
             modules(appModule)
         }
         preferenceManager.theme?.let { ThemeHelper.applyTheme(it) }
-        MobileAds.initialize(applicationContext)
+        MobileAds.initialize(applicationContext) {}
     }
 
     private val appModule = module {

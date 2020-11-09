@@ -10,6 +10,8 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.webkit.WebViewAssetLoader
@@ -81,7 +83,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
                 allowFileAccess = true
                 javaScriptEnabled = true
             }
-            initializeAd(adView)
+            initializeAd(adView, viewLifecycleOwner)
         }
         with(viewModel) {
             statement.observe(viewLifecycleOwner) {
@@ -93,12 +95,27 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
         }
     }
 
-    private fun initializeAd(adView: AdView) {
+    private fun initializeAd(adView: AdView, lifecycleOwner: LifecycleOwner) {
         adView.apply {
-            adSize = AdSize.BANNER
+            adSize = AdSize.SMART_BANNER
             adUnitId = BuildConfig.AD_MOB_BANNER_UNIT_ID
             loadAd(AdRequest.Builder().build())
         }
+        lifecycleOwner.lifecycle.addObserver(
+            object : DefaultLifecycleObserver {
+                override fun onPause(owner: LifecycleOwner) {
+                    adView.pause()
+                }
+
+                override fun onResume(owner: LifecycleOwner) {
+                    adView.resume()
+                }
+
+                override fun onDestroy(owner: LifecycleOwner) {
+                    adView.destroy()
+                }
+            }
+        )
     }
 
     private fun createWebPrintJob(webView: WebView) {
