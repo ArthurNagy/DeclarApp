@@ -5,10 +5,12 @@ import android.content.Context
 import android.os.Bundle
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.view.Gravity
 import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -22,11 +24,14 @@ import com.arthurnagy.staysafe.R
 import com.arthurnagy.staysafe.core.model.Motive
 import com.arthurnagy.staysafe.core.model.Statement
 import com.arthurnagy.staysafe.feature.shared.consume
+import com.arthurnagy.staysafe.feature.shared.dimensionPixel
 import com.arthurnagy.staysafe.feature.shared.formatToFormalDate
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import dev.chrisbanes.insetter.Insetter
+import dev.chrisbanes.insetter.Side
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import org.threeten.bp.Instant
@@ -83,7 +88,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
                 allowFileAccess = true
                 javaScriptEnabled = true
             }
-            initializeAd(adView, viewLifecycleOwner)
+            initializeAd(binding.root as CoordinatorLayout, viewLifecycleOwner)
         }
         with(viewModel) {
             statement.observe(viewLifecycleOwner) {
@@ -95,12 +100,23 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
         }
     }
 
-    private fun initializeAd(adView: AdView, lifecycleOwner: LifecycleOwner) {
-        adView.apply {
+    private fun initializeAd(coordinatorLayout: CoordinatorLayout, lifecycleOwner: LifecycleOwner) {
+        val adView = AdView(requireContext()).apply {
             adSize = AdSize.SMART_BANNER
             adUnitId = BuildConfig.AD_MOB_BANNER_UNIT_ID
             loadAd(AdRequest.Builder().build())
         }
+        val params = CoordinatorLayout.LayoutParams(CoordinatorLayout.LayoutParams.WRAP_CONTENT, CoordinatorLayout.LayoutParams.WRAP_CONTENT).apply {
+            gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+            setMargins(0, 0, 0, requireContext().dimensionPixel(R.dimen.content_margin))
+        }
+        coordinatorLayout.addView(adView, params)
+
+        Insetter.builder()
+            .applySystemWindowInsetsToMargin(Side.BOTTOM)
+            .consumeSystemWindowInsets(Insetter.CONSUME_AUTO)
+            .applyToView(adView)
+
         lifecycleOwner.lifecycle.addObserver(
             object : DefaultLifecycleObserver {
                 override fun onPause(owner: LifecycleOwner) {
