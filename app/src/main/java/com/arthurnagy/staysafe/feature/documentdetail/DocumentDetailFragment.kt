@@ -100,6 +100,7 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun initializeAd(coordinatorLayout: CoordinatorLayout, lifecycleOwner: LifecycleOwner) {
         val adView = AdView(requireContext()).apply {
             adSize = AdSize.SMART_BANNER
