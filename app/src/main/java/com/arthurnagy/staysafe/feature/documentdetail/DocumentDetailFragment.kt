@@ -159,6 +159,8 @@ class DocumentDetailFragment : Fragment(R.layout.fragment_document_detail) {
 
     private fun addStatementData(webView: WebView, statement: Statement) {
         with(webView) {
+            addContent("statementIntervalText", getString(R.string.statement_interval_text, statement.restrictionStartHour))
+
             addContent("fullName", "${statement.lastName} ${statement.firstName}")
 
             val localDate = Instant.ofEpochMilli(statement.birthDate).atOffset(ZoneOffset.UTC).toLocalDate()

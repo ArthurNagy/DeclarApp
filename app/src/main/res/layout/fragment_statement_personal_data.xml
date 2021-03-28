@@ -68,7 +68,7 @@
                     android:id="@+id/step_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/statement_personal_data_first_step_label"
+                    android:text="@string/statement_personal_data_step_label"
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     app:layout_constraintEnd_toEndOf="@id/guide_end"
                     app:layout_constraintStart_toStartOf="@id/guide_start"

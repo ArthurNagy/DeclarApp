@@ -62,6 +62,7 @@ class NewDocumentViewModel(private val statementLocalSource: StatementLocalSourc
         val workAddresses: String? = null,
         val motives: List<Motive>? = null,
         val date: Long? = null,
-        val signaturePath: String? = null
+        val signaturePath: String? = null,
+        val restrictionStartHour: Int? = null
     )
 }

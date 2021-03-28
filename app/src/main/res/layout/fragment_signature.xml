@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/first_keyline"
-                android:text="@string/signature_label"
+                android:text="@string/signature_step_label"
                 android:textAppearance="?attr/textAppearanceSubtitle1"
                 app:layout_constraintStart_toStartOf="@id/guide_start"
                 app:layout_constraintTop_toTopOf="parent" />

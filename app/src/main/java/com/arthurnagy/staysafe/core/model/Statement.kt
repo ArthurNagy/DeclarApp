@@ -18,5 +18,6 @@ data class Statement(
     @ColumnInfo(name = "motives") val motives: List<Motive>,
     @ColumnInfo(name = "date") val date: Long,
     @ColumnInfo(name = "signature") val signaturePath: String,
+    @ColumnInfo(name = "restriction_start_hour") val restrictionStartHour: Int,
     @ColumnInfo(name = "created_at") val createdAt: Long
 )

@@ -54,7 +54,18 @@
 
     <navigation
         android:id="@+id/nav_new_document"
-        app:startDestination="@id/statementPersonalDataFragment">
+        app:startDestination="@id/statementTypeFragment">
+
+        <fragment
+            android:id="@+id/statementTypeFragment"
+            android:name="com.arthurnagy.staysafe.feature.newdocument.statement.type.StatementTypeFragment"
+            android:label="StatementTypeFragment"
+            tools:layout="@layout/fragment_statement_type">
+            <action
+                android:id="@+id/action_statementTypeFragment_to_statementPersonalDataFragment"
+                app:destination="@id/statementPersonalDataFragment" />
+        </fragment>
+
         <fragment
             android:id="@+id/statementPersonalDataFragment"
             android:name="com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataFragment"
@@ -86,7 +97,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
-            app:popUpTo="@id/statementPersonalDataFragment"
+            app:popUpTo="@id/statementTypeFragment"
             app:popUpToInclusive="true" />
 
     </navigation>

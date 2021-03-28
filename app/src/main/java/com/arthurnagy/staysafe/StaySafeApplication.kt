@@ -11,6 +11,7 @@ import com.arthurnagy.staysafe.feature.newdocument.NewDocumentViewModel
 import com.arthurnagy.staysafe.feature.newdocument.signature.SignatureViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.personaldata.StatementPersonalDataViewModel
 import com.arthurnagy.staysafe.feature.newdocument.statement.routedata.StatementRouteDataViewModel
+import com.arthurnagy.staysafe.feature.newdocument.statement.type.StatementTypeViewModel
 import com.arthurnagy.staysafe.feature.shared.ThemeHelper
 import com.arthurnagy.staysafe.feature.shared.provider.FileProvider
 import com.arthurnagy.staysafe.feature.shared.provider.StringProvider
@@ -48,6 +49,7 @@ class StaySafeApplication : Application() {
             Room.databaseBuilder(androidContext(), StaySafeDatabase::class.java, "stay-safe-db")
                 .addMigrations(StaySafeDatabase.MIGRATION_3_4)
                 .addMigrations(StaySafeDatabase.MIGRATION_4_5)
+                .addMigrations(StaySafeDatabase.MIGRATION_5_6)
                 .build()
         }
         factory { get<StaySafeDatabase>().statementDao() }
@@ -58,6 +60,7 @@ class StaySafeApplication : Application() {
 
         viewModel { NewDocumentViewModel(statementLocalSource = get()) }
 
+        viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementTypeViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementPersonalDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) -> StatementRouteDataViewModel(newDocumentViewModel) }
         viewModel { (newDocumentViewModel: NewDocumentViewModel) ->

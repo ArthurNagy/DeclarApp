@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".StatementTypeBinding">
+
+        <variable
+            name="viewModel"
+            type="com.arthurnagy.staysafe.feature.newdocument.statement.type.StatementTypeViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:paddingTopSystemWindowInsets="@{true}"
+        tools:context="com.arthurnagy.staysafe.feature.newdocument.statement.type.StatementTypeFragment">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionGroup="true"
+            android:transitionName="@string/transition_toolbar"
+            app:navigationIcon="@drawable/ic_back_24dp"
+            app:title="@null">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/new_form"
+                android:textAppearance="?attr/textAppearanceHeadline6" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="?attr/colorSurface"
+            android:clipToPadding="false"
+            android:fillViewport="true"
+            android:paddingTop="@dimen/first_keyline"
+            android:paddingBottom="@dimen/third_keyline"
+            android:transitionGroup="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:paddingBottomSystemWindowInsets="@{true}">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide_start"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="@dimen/first_keyline" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guide_end"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="@dimen/first_keyline" />
+
+                <TextView
+                    android:id="@+id/step_label"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/statement_type_step_label"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/statement_type_night_time_movement_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/first_keyline"
+                    android:text="@string/statement_type_night_time_movement"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/step_label" />
+
+                <include
+                    android:id="@+id/statement_type_one"
+                    layout="@layout/item_statement_type"
+                    android:layout_marginTop="@dimen/content_margin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:desc="@{@string/night_time_statement_one_desc}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statement_type_night_time_movement_label"
+                    app:title="@{@string/night_time_statement_one_interval}" />
+
+                <View
+                    android:id="@+id/statement_type_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="?attr/dividerHorizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/statement_type_one" />
+
+                <include
+                    android:id="@+id/statement_type_two"
+                    layout="@layout/item_statement_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:desc="@{@string/night_time_statement_two_desc}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/statement_type_divider"
+                    app:title="@{@string/night_time_statement_two_interval}" />
+
+                <TextView
+                    android:id="@+id/statement_type_quarantined_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/second_keyline"
+                    android:text="@string/statement_type_quarantined"
+                    android:textAppearance="?attr/textAppearanceSubtitle2"
+                    android:textColor="?attr/colorSecondary"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/statement_type_two" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/coming_soon"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/first_keyline"
+                    app:layout_constraintEnd_toEndOf="@id/guide_end"
+                    app:layout_constraintStart_toStartOf="@id/guide_start"
+                    app:layout_constraintTop_toBottomOf="@id/statement_type_quarantined_label"
+                    app:strokeColor="?attr/colorControlHighlight"
+                    app:strokeWidth="1dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/content_margin"
+                        android:drawablePadding="@dimen/content_margin"
+                        android:gravity="center_vertical"
+                        android:text="@string/feature_coming_soon"
+                        android:textStyle="italic"
+                        app:drawableStartCompat="@drawable/ic_info_24dp" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>

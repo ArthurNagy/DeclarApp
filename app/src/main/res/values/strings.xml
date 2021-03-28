@@ -26,7 +26,10 @@
 
     <string name="choose_theme">Alege tema</string>
     <string name="print">Tipărește</string>
-    <string name="statement_personal_data_first_step_label">1. Datele tale</string>
+
+    <string name="statement_type_step_label">1. Tipul declarației</string>
+
+    <string name="statement_personal_data_step_label">2. Datele tale</string>
     <string name="last_name">Nume</string>
     <string name="first_name">Prenume</string>
     <string name="address">Adresa actuală</string>
@@ -35,7 +38,7 @@
     <string name="current_location">Reședința în fapt</string>
     <string name="birthday_location">Localitatea nașterii</string>
 
-    <string name="statement_route_data_label">2. Datele deplasării:</string>
+    <string name="statement_route_data_step_label">3. Datele deplasării:</string>
     <string name="route">Traseul deplasării</string>
     <string name="route_helper">Locurile în care te deplasezi</string>
     <string name="motive">Motivul</string>
@@ -47,7 +50,7 @@
     <string name="motive_family_decease">Deces al unui membru al familiei</string>
 
     <string name="date">Data deplasării</string>
-    <string name="signature_label">3. Semnătura</string>
+    <string name="signature_step_label">4. Semnătura</string>
     <string name="delete">Șterge</string>
     <string name="no_documents_desc">Nu există formulare salvate!\nCreează unul nou.</string>
     <string name="delete_title">Ștergere formular</string>
@@ -73,5 +76,15 @@
     <string name="company_location">Localitatea sediului</string>
     <string name="company_addresses">Adresa punctului de lucru</string>
     <string name="company_addresses_helper">Se pot menționa multiple adrese</string>
+
+    <string name="statement_interval_text">în declarații, că mă deplasez în afara locuinței, în intervalul orar %d.00 – 05.00, din următorul/</string>
+    <string name="statement_type_night_time_movement">Deplasare în intervalele orare restricţionate</string>
+    <string name="statement_type_quarantined">Deplasare în zonă carantinată</string>
+    <string name="night_time_statement_one_desc">pentru localitățile care depășesc rata de incidență de 4‰ (necesar pentru zilele de vineri, sâmbătă și duminică), respectiv 7,5‰ (necesar în toate zilele săptămânii)</string>
+    <string name="night_time_statement_one_interval">Interval orar 20:00 – 05:00</string>
+
+    <string name="night_time_statement_two_desc">pentru toate localitățile, indiferent de rata de incidență (nivelul de răspândire a virusului)</string>
+    <string name="night_time_statement_two_interval">Interval orar 22:00 – 05:00</string>
+    <string name="feature_coming_soon">Disponibil în curând! Suportă dezvoltarea aplicației.</string>
 
 </resources>

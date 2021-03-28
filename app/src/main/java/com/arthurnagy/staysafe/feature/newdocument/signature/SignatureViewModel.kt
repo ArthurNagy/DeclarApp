@@ -122,6 +122,7 @@ class SignatureViewModel(
             workAddresses = pendingStatement.workAddresses,
             date = pendingStatement.date.orIllegalState(),
             signaturePath = pendingStatement.signaturePath.orIllegalState(),
+            restrictionStartHour = pendingStatement.restrictionStartHour.orIllegalState(),
             createdAt = System.currentTimeMillis()
         )
         return statementLocalSource.save(newStatement)

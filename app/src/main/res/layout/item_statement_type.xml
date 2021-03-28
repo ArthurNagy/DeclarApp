@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class=".StatementTypeItemBinding">
+        <variable
+            name="title"
+            type="String" />
+        <variable
+            name="desc"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/first_keyline"
+        android:paddingTop="@dimen/content_margin"
+        android:paddingEnd="@dimen/first_keyline"
+        android:background="?attr/selectableItemBackground"
+        android:paddingBottom="@dimen/content_margin">
+
+        <TextView
+            android:id="@+id/night_time_statement_one_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="@string/night_time_statement_one_interval"
+            android:text="@{title}"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/night_time_statement_one_desc"
+            android:layout_marginTop="@dimen/small_margin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            tools:text="@string/night_time_statement_one_desc"
+            android:text="@{desc}"
+            android:textAppearance="?textAppearanceCaption"
+            app:layout_constraintEnd_toStartOf="@id/night_time_statement_one_chevron"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/night_time_statement_one_label" />
+
+        <ImageView
+            android:id="@+id/night_time_statement_one_chevron"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/night_time_statement_one_desc"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/night_time_statement_one_label"
+            app:srcCompat="@drawable/ic_chevron_right_24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
